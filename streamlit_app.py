@@ -9,7 +9,7 @@ import time
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 # Run a query
-st.title('Alliance Attack Information')
+st.title('Alliance Military Information')
 
 
 
