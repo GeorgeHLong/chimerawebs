@@ -1,7 +1,7 @@
 import streamlit as st
 
 home = st.Page("home.py", title="Home Page")
-citycalc = st.Page("City_Calculator.py", title="City Calculator")
+citycalc = st.Page("pages/City_Calculator.py", title="City Calculator")
 
 
 pg = st.navigation([home, citycalc])
