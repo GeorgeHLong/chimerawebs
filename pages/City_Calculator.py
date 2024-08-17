@@ -15,6 +15,7 @@ with left_column:
 with center:
    infra = st.text_input('Infrastructure','')
 with right_column:
+    st.write("Projects")
     armstockpile = st.checkbox("Arms Stockpile")
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
