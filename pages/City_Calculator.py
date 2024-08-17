@@ -22,6 +22,14 @@ with right_column:
     ironworks = st.checkbox("Ironworks")
     uraniumenrich= st.checkbox("Uranium Enrichment Program")
     clinicalresearch = st.checkbox("Clinical Research Center")
+    greentech = st.checkbox("Green Technologies")
+    governmentsupport = st.checkbox("Government Support Agency")
+    itc = st.checkbox("International Trade Center")
+    massirrigation = st.checkbox("Mass Irrigation")
+    recycling = st.checkbox("Recycling Initiative")
+    policeprogram = st.checkbox("Specialized Police Training Program")
+    telesat = st.checkbox("Telecom Satellite")
+    openmarkets = st.checkbox("Open Markets")
     
     
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
