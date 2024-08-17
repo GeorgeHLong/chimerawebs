@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import pandas as pd 
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
@@ -16,7 +17,11 @@ st.title('Welcome to Chimera City Calculator')
 
 left_column, right_column = st.columns(2)
 data = st.text_input('City Build', '')
-
+st.write("Here's our first attempt at using data to create a table:")
+st.write(pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+}))
 with left_column:
     cityage = st.text_input('Age','')
     land = st.text_input('Land','')
