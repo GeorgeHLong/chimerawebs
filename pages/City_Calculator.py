@@ -5,7 +5,7 @@ conn = st.connection("postgresql", type="sql")
 
 st.markdown("# City Calculator")
 
-with st.form("My Form")
+with st.form("My Form"):
     left_column, center,right_column = st.columns(3)
     data = st.text_input('City Build', '')
 
