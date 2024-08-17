@@ -6,18 +6,31 @@ conn = st.connection("postgresql", type="sql")
 st.markdown("# City Calculator")
 def run_script(uraniumenrich,massirrigation, land,imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
-    return land
+    bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
+    coalproduced =((imp_coalmine*3)*(1+(0.5/9)*(imp_coalmine-1)))
+    ironproduced =((imp_ironmine*3)*(1+(0.5/9)*(imp_ironmine-1)))   
+    leadproduced =((imp_leadmine*3)*(1+(0.5/9)*(imp_leadmine-1)))
+    oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
+    if uraniumenrich:
+        uraniumproduced = (imp_uramine*3*(1+(0.5/4)*(imp_uramine-1))*2)
+    else:
+        uraniumproduced = (imp_uramine*3)*(1+(0.5/4)*(imp_uramine-1))
+    if massirrigation:
+        foodproduced = (imp_farm*(land/400))*12
+    else:
+        foodproduced = (imp_farm*(land/500))*12
+    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,land
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
     data = st.text_input('Paste City Build Template from Politics and War', '')
 
     with left_column:
-        cityage = st.text_input('Age','')
+        cityage = st.number_input('Age','')
     with center:
-        land = st.text_input('Land','')
+        land = st.number_input('Land','')
     with right_column:
-        infra = st.text_input('Infrastructure','')
+        infra = st.number_input('Infrastructure','')
     st.write("Projects")
     pleft_column, pright_column = st.columns(2)
 
