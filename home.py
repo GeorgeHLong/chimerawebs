@@ -20,49 +20,7 @@ def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpow
     oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
     
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
-def ma_inf(allianceids):
-    # Define SQL query
-    query = f"""
-    SELECT 
-        tn.id AS "Nation ID",
-        tn.nation_name AS "Nation Name",
-        tn.discord AS "Discord Name",
-        tn.num_cities AS "City Count",
-        tn.score AS "Score",
-        tn.score * 1.25 AS "Upper Target Value",
-        tn.score * 0.75 AS "Lower Target Score",
-        tn.soldiers AS Soldiers,
-        tn.tanks AS Tanks,
-        tn.aircraft AS Aircraft,
-        tn.ships AS Ships,
-        tn.missiles AS Missiles,
-        tn.nukes AS Nukes,
-        tn.spies AS Spies,
-        n.vital_defense_system AS VDS,
-        n.nuclear_research_facility AS NRF
-    FROM tiny_nations tn
-    JOIN nationprojects n ON tn.id = n.nation_id
-    WHERE alliance_id IN ({allianceids})
-    AND applicant = false
-    AND tn.vacation_mode_turns = 0
-    ORDER BY tn.num_cities DESC;
-    """
 
-    # Execute query and fetch results into DataFrame
-    df = conn.query(query)
-
-
-    # Display DataFrame with Streamlit
-    st.write(df)
-
-        # Run script when the button is clicked
-allianceids = None
-with st.form("my_form"):
-    allianceids= st.text_input("Alliance IDs (separated by commas)")
-    submit = st.form_submit_button("Get MA Information")
-if submit:
-    result = ma_inf(allianceids)
-    st.write(result)
 
 
 
