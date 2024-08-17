@@ -64,9 +64,9 @@ with st.form("my_form"):
 if submit:
     if allianceids== None:
         st.write("Please insert valid alliance IDs")
-
-    result = ma_inf(allianceids)
-    st.write(result)
+    else:
+        result = ma_inf(allianceids)
+        st.write(result)
 
 
 
