@@ -25,11 +25,8 @@ with left_column:
 with right_column:
     infra = st.text_input('Infrastructure','')
 
-map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
-
-st.map(map_data)
+x = st.slider('x')  # 👈 this is a widget
+st.write(x, 'squared is', x * x)
 
 # Process input only if data is provided
 if data:
