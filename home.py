@@ -1,6 +1,6 @@
 import streamlit as st
 
-home = st.Page("home.py", title="Home Page")
+home = st.Page("pages/home.py", title="Home Page")
 citycalc = st.Page("pages/City_Calculator.py", title="City Calculator")
 
 
