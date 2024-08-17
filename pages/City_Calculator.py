@@ -23,6 +23,12 @@ def run_script(ironworks,uraniumenrich,massirrigation, land,imp_total, imp_coalp
         steelproduced = (imp_steelmill*12.24)*(1+0.125*(imp_steelmill-1))
     else:
         steelproduced = (imp_steelmill*9)*(1+0.125*(imp_steelmill-1))
+    if emergencygas:
+        gasproduced = (imp_gasrefinery*12)*(1+0.125*(imp_gasrefinery-1))
+    else:
+        gasproduced = (imp_gasrefinery*9)*(1+0.125*(imp_gasrefinery-1))
+    if bauxiteworks:
+        aluminumproduced = (imp_aluminumrefinery*12.24)*(1+0.125*(imp_aluminumrefinery-1))
         
     return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced
 
