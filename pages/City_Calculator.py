@@ -37,15 +37,18 @@ with st.form("My Form"):
     st.form_submit_button('Submit')
 
     
-def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
+def run_script(infra_needed, uraniumenrich, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
     bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
     coalproduced =((imp_coalmine*3)*(1+(0.5/9)*(imp_coalmine-1)))
     ironproduced =((imp_ironmine*3)*(1+(0.5/9)*(imp_ironmine-1)))   
     leadproduced =((imp_leadmine*3)*(1+(0.5/9)*(imp_leadmine-1)))
     oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
-    
-    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced
+    if uraniumenrich:
+        uraniumproduced = (imp_uramine*3*(1+(0.5/4)*(imp_uramine-1))*2)
+    else:
+        uraniumproduced = (imp_uramine*3)*(1+(0.5/4)*(imp_uramine-1))
+    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced
 
 
 if data:
@@ -80,7 +83,7 @@ if data:
         imp_factory = parsed_data.get("imp_factory", 0)
         imp_hangars = parsed_data.get("imp_hangars", 0)
         imp_drydock = parsed_data.get("imp_drydock", 0)
-        result = run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock)
+        result = run_script(infra_needed,uraniumenrich, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock)
         st.write(result)
     except json.JSONDecodeError as e:
         st.error(f"JSON decode error: {e}")
