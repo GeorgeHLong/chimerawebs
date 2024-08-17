@@ -26,11 +26,11 @@ with st.form("citycalc"):
     data = st.text_input('Paste City Build Template from Politics and War', '')
 
     with left_column:
-        cityage = st.number_input("Age")
+        cityage = st.number_input("Age",step=50)
     with center:
-        land = st.number_input("Land")
+        land = st.number_input("Land",step=500)
     with right_column:
-        infra = st.number_input("Infrastructure")
+        infra = st.number_input("Infrastructure",step=50)
     st.write("Projects")
     pleft_column, pright_column = st.columns(2)
 
