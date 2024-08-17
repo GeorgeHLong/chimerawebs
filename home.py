@@ -6,8 +6,6 @@ import numpy as np
 import time
 
 
-
-
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 # Run a query
