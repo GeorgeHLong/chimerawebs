@@ -29,7 +29,7 @@ def ma_inf():
         tn.nation_name AS "Nation Name",
         tn.discord AS "Discord Name",
         tn.num_cities AS "City Count",
-        tn.score AS Score,
+        tn.score AS "Score",
         tn.score * 1.25 AS "Upper Target Value",
         tn.score * 0.75 AS "Lower Target Score",
         tn.soldiers AS Soldiers,
