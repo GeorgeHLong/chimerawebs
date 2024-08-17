@@ -6,7 +6,7 @@ import numpy as np
 import time
 
 st.image("images/banner.png")
-st.logo("images/logo.png")
+st.logo("images/chimera.png")
 conn = st.connection("postgresql", type="sql")
 # Run a query
 df = conn.query("select * from tradeprices t order by trade_timestamp desc limit 1")
