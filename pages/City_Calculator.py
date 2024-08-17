@@ -14,9 +14,9 @@ with left_column:
     land = st.text_input('Land','')
 with center:
    infra = st.text_input('Infrastructure','')
+st.write("Projects")
 pleft_column, pright_column = st.columns(2)
 
-st.write("Projects")
 with pleft_column:
     armstockpile = st.checkbox("Arms Stockpile")
     bauxiteworks = st.checkbox("Bauxite Works")
