@@ -59,7 +59,7 @@ def ma_inf(allianceids):
 
         # Run script when the button is clicked
 with st.form("my_form"):
-    allianceids= st.write("Alliance IDs (separated by commas)")
+    allianceids= st.text_input("Alliance IDs (separated by commas)")
     submit = st.form_submit_button("Get MA Information")
 if submit:
     result = ma_inf(allianceids)
