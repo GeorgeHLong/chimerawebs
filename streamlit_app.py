@@ -11,7 +11,10 @@ st.title('Welcome to Chimera City Designer')
 
 # Input text box
 data = st.text_input('City Build', '')
-cityage = st.text_input('age','')
+cityage = st.text_input('Age','')
+land = st.text_input('Land','')
+infra = st.text_input('Infrastructure','')
+
 
 # Process input only if data is provided
 if data:
