@@ -8,18 +8,20 @@ def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpow
     ironproduced =((imp_ironmine*3)*(1+(0.5/9)*(imp_ironmine-1)))   
     leadproduced =((imp_leadmine*3)*(1+(0.5/9)*(imp_leadmine-1)))
     oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
-    uraniumproduced=(if(E22=true, ((D9*3)*(1+(0.5/4)*(D9-1))*2),(D9*3)*(1+(0.5/4)*(D9-1))))
     
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
 
 # Streamlit app layout
 st.title('Welcome to Chimera City Calculator')
 
-# Input text box
+left_column, right_column = st.columns(2)
 data = st.text_input('City Build', '')
-cityage = st.text_input('Age','')
-land = st.text_input('Land','')
-infra = st.text_input('Infrastructure','')
+
+with left_column:
+    cityage = st.text_input('Age','')
+    land = st.text_input('Land','')
+with right_column:
+    infra = st.text_input('Infrastructure','')
 
 
 # Process input only if data is provided
