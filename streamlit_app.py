@@ -3,51 +3,56 @@ import json
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
-    return f"Hello, {infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock}! Your script ran successfully."
+    return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
 
 # Streamlit app layout
 st.title('Welcome to Chimera City Designer')
 
 # Input text box
-data = st.text_input('City Build')
+data = st.text_input('City Build', '')
 
+# Process input only if data is provided
+if data:
+    try:
+        # Parse the JSON string into a Python dictionary
+        parsed_data = json.loads(data)
 
-parsed_data = json.loads(data)
+        # Assign each value to a separate variable
+        infra_needed = parsed_data.get("infra_needed", 0)
+        imp_total = parsed_data.get("imp_total", 0)
+        imp_coalpower = parsed_data.get("imp_coalpower", 0)
+        imp_oilpower = parsed_data.get("imp_oilpower", 0)
+        imp_windpower = parsed_data.get("imp_windpower", 0)
+        imp_nuclearpower = parsed_data.get("imp_nuclearpower", 0)
+        imp_coalmine = parsed_data.get("imp_coalmine", 0)
+        imp_oilwell = parsed_data.get("imp_oilwell", 0)
+        imp_uramine = parsed_data.get("imp_uramine", 0)
+        imp_leadmine = parsed_data.get("imp_leadmine", 0)
+        imp_ironmine = parsed_data.get("imp_ironmine", 0)
+        imp_bauxitemine = parsed_data.get("imp_bauxitemine", 0)
+        imp_farm = parsed_data.get("imp_farm", 0)
+        imp_gasrefinery = parsed_data.get("imp_gasrefinery", 0)
+        imp_aluminumrefinery = parsed_data.get("imp_aluminumrefinery", 0)
+        imp_munitionsfactory = parsed_data.get("imp_munitionsfactory", 0)
+        imp_steelmill = parsed_data.get("imp_steelmill", 0)
+        imp_policestation = parsed_data.get("imp_policestation", 0)
+        imp_hospital = parsed_data.get("imp_hospital", 0)
+        imp_recyclingcenter = parsed_data.get("imp_recyclingcenter", 0)
+        imp_subway = parsed_data.get("imp_subway", 0)
+        imp_supermarket = parsed_data.get("imp_supermarket", 0)
+        imp_bank = parsed_data.get("imp_bank", 0)
+        imp_mall = parsed_data.get("imp_mall", 0)
+        imp_stadium = parsed_data.get("imp_stadium", 0)
+        imp_barracks = parsed_data.get("imp_barracks", 0)
+        imp_factory = parsed_data.get("imp_factory", 0)
+        imp_hangars = parsed_data.get("imp_hangars", 0)
+        imp_drydock = parsed_data.get("imp_drydock", 0)
 
-# Assign each value to a separate variable
-infra_needed = parsed_data["infra_needed"]
-imp_total = parsed_data["imp_total"]
-imp_coalpower = parsed_data["imp_coalpower"]
-imp_oilpower = parsed_data["imp_oilpower"]
-imp_windpower = parsed_data["imp_windpower"]
-imp_nuclearpower = parsed_data["imp_nuclearpower"]
-imp_coalmine = parsed_data["imp_coalmine"]
-imp_oilwell = parsed_data["imp_oilwell"]
-imp_uramine = parsed_data["imp_uramine"]
-imp_leadmine = parsed_data["imp_leadmine"]
-imp_ironmine = parsed_data["imp_ironmine"]
-imp_bauxitemine = parsed_data["imp_bauxitemine"]
-imp_farm = parsed_data["imp_farm"]
-imp_gasrefinery = parsed_data["imp_gasrefinery"]
-imp_aluminumrefinery = parsed_data["imp_aluminumrefinery"]
-imp_munitionsfactory = parsed_data["imp_munitionsfactory"]
-imp_steelmill = parsed_data["imp_steelmill"]
-imp_policestation = parsed_data["imp_policestation"]
-imp_hospital = parsed_data["imp_hospital"]
-imp_recyclingcenter = parsed_data["imp_recyclingcenter"]
-imp_subway = parsed_data["imp_subway"]
-imp_supermarket = parsed_data["imp_supermarket"]
-imp_bank = parsed_data["imp_bank"]
-imp_mall = parsed_data["imp_mall"]
-imp_stadium = parsed_data["imp_stadium"]
-imp_barracks = parsed_data["imp_barracks"]
-imp_factory = parsed_data["imp_factory"]
-imp_hangars = parsed_data["imp_hangars"]
-imp_drydock = parsed_data["imp_drydock"]
-
-
-
-# Run script when the button is clicked
-if st.button('Run Script'):
-    result = run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock)
-    st.write(result)
+        # Run script when the button is clicked
+        if st.button('Run Script'):
+            result = run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock)
+            st.write(result)
+    except json.JSONDecodeError as e:
+        st.error(f"JSON decode error: {e}")
+else:
+    st.warning("Please provide valid JSON data.")
