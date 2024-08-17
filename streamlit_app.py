@@ -11,7 +11,7 @@ conn = st.connection("postgresql", type="sql")
 # Run a query
 df = conn.query("select * from tradeprices t order by trade_timestamp desc limit 1")
 Date,Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel = df
-st.write(Date,Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel)
+st.write(Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel)
 
 
 
