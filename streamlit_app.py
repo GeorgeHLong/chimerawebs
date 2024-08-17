@@ -12,9 +12,6 @@ conn = st.connection("postgresql", type="sql")
 st.title('Resource Prices')
 
 
-
-
-
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
     bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
@@ -53,10 +50,8 @@ ORDER BY tn.num_cities DESC;
 """
 
 # Execute query and fetch results into DataFrame
-df = pd.read_sql_query(query, conn)
+df = conn.query(query)
 
-# Close connection
-conn.close()
 
 # Display DataFrame with Streamlit
 st.write(df)
