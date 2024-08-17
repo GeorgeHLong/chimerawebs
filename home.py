@@ -6,6 +6,6 @@ citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", ic
 
 nationtiering = st.Page("pages/Nation_Tiering_System.py", title="Nation Tiering Data", icon=":material/data_table:")
 
-pg = st.navigation([create_page, delete_page,nationtiering,citycalc])
+pg = st.navigation([create_page, delete_page,citycalc])
 st.set_page_config(page_title="Chimera Corp", page_icon="/images/chimera.png")
 pg.run()
