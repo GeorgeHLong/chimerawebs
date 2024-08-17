@@ -9,8 +9,11 @@ conn = st.connection("postgresql", type="sql")
 # Run a query
 df = conn.query("select * from tradeprices t order by trade_timestamp desc")
 
+chart_data = pd.DataFrame(
+     df,
+     columns=["Date","Food","Coal","Oil","Uranium","Bauxite","Lead","Gasoline","Munitions","Aluminum","Steel"])
 # Display the dataframe in Streamlit
-st.line_chart(df)
+st.line_chart(chart_data)
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
