@@ -61,6 +61,8 @@ def ma_inf(allianceids):
 with st.form("my_form"):
     allianceids= st.text_input("Alliance IDs (separated by commas)")
     submit = st.form_submit_button("Get MA Information")
+if submit and allianceids == None:
+    st.write("Please enter a valid alliance ID")
 if submit:
     result = ma_inf(allianceids)
     st.write(result)
