@@ -11,8 +11,9 @@ data = st.text_input('City Build', '')
 
 with left_column:
     cityage = st.text_input('Age','')
-    land = st.text_input('Land','')
 with center:
+    land = st.text_input('Land','')
+with right_column:
    infra = st.text_input('Infrastructure','')
 st.write("Projects")
 pleft_column, pright_column = st.columns(2)
