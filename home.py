@@ -5,13 +5,7 @@ import pandas as pd
 import numpy as np
 import time
 
-def page2():
-    st.title("Second page")
 
-pg = st.navigation([
-    st.Page("home.py", title="Home",),
-    st.Page("pages/page2.py", title="Alliance Tiering Data"),
-])
 
 
 st.image("images/banner.png")
