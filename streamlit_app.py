@@ -6,7 +6,6 @@ def run_script(coalpower,oilpower,nuclearpower,windpower,bauxite,coal,iron,lead,
 
 # Streamlit app layout
 st.title('Welcome to Chimera City Designer')
-st.subtitle("Designed by George Long")
 
 # Input text box
 coalpower = st.text_input('Coal Power Plant')
