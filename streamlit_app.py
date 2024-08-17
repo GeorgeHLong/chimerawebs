@@ -18,8 +18,7 @@ st.title('Welcome to Chimera City Calculator')
 
 left_column, right_column = st.columns(2)
 data = st.text_input('City Build', '')
-dataframe = np.random.randn(10, 20)
-st.dataframe(dataframe)
+
 with left_column:
     cityage = st.text_input('Age','')
     land = st.text_input('Land','')
