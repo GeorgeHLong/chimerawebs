@@ -3,6 +3,12 @@ import json
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
+    bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
+    coalproduced =((imp_coalmine*3)*(1+(0.5/9)*(imp_coalmine-1)))
+    ironproduced =((imp_ironmine*3)*(1+(0.5/9)*(imp_ironmine-1)))   
+    leadproduced =((imp_leadmine*3)*(1+(0.5/9)*(imp_leadmine-1)))
+    oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
+    uraniumproduced=(if(E22=true, ((D9*3)*(1+(0.5/4)*(D9-1))*2),(D9*3)*(1+(0.5/4)*(D9-1))))
     
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
 
@@ -21,7 +27,6 @@ if data:
     try:
         # Parse the JSON string into a Python dictionary
         parsed_data = json.loads(data)
-
         # Assign each value to a separate variable
         infra_needed = parsed_data.get("infra_needed", 0)
         imp_total = parsed_data.get("imp_total", 0)
@@ -52,6 +57,7 @@ if data:
         imp_factory = parsed_data.get("imp_factory", 0)
         imp_hangars = parsed_data.get("imp_hangars", 0)
         imp_drydock = parsed_data.get("imp_drydock", 0)
+        
 
         # Run script when the button is clicked
         if st.button('Run Script'):
