@@ -31,9 +31,15 @@ def run_script(ironworks,uraniumenrich,massirrigation, land,imp_total, imp_coalp
         aluminumproduced = (imp_aluminumrefinery*12.24)*(1+0.125*(imp_aluminumrefinery-1))
     else:
         aluminumproduced = (imp_aluminumrefinery*9)*(1+0.125*(imp_aluminumrefinery-1))
+    if armstockpile:
+        munitionsproduced = (imp_munitionsfactory*12.24)*(1+0.125*(imp_munitionsfactory-1))
+    else:
+        munitionsproduced = (imp_munitionsfactory*9)*(1+0.125*(imp_munitionsfactory-1))
         
         
-    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced
+        
+        
+    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
