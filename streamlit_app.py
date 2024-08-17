@@ -25,12 +25,16 @@ with left_column:
 with right_column:
     infra = st.text_input('Infrastructure','')
 
-if st.checkbox('Show dataframe'):
-    chart_data = pd.DataFrame(
-       np.random.randn(20, 3),
-       columns=['a', 'b', 'c'])
+df = pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+    })
 
-    chart_data
+option = st.selectbox(
+    'Which number do you like best?',
+     df['first column'])
+
+'You selected: ', option
 
 # Process input only if data is provided
 if data:
