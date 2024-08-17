@@ -2,7 +2,8 @@ import streamlit as st
 
 create_page = st.Page("pages/Home.py", title="Home", icon=":material/home:")
 delete_page = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/table:")
+nationtiering = st.Page("pages/Nation_Tiering_System.py", title="Nation Tiering Data", icon=":material/table:")
 
-pg = st.navigation([create_page, delete_page])
+pg = st.navigation([create_page, delete_page,nationtiering])
 st.set_page_config(page_title="Chimera Corp", page_icon="/images/chimera.png")
 pg.run()
