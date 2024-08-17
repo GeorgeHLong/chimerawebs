@@ -5,22 +5,7 @@ import numpy as np
 import time
 
 
-# Retrieve database credentials from Streamlit secrets
-DB_USER = st.secrets["db_username"]
-DB_PASSWORD = st.secrets["db_password"]
-DB_HOST = st.secrets["host"]
-DB_PORT = st.secrets["port"]
-DB_NAME = st.secrets["database"]
-
-# Construct the database URL
-db_url = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-# Initialize the SQL connection
-conn = st.connections.SQLConnection("local_db", url=db_url)
-
-# Connect to the database
-conn.connect()
-
+conn = st.connection("postgresql", type="sql")
 # Run a query
 df = conn.query("SELECT * FROM registeredalliances")
 
