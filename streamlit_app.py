@@ -12,6 +12,7 @@ conn = st.connection("postgresql", type="sql")
 st.title('MA Information')
 
 
+
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
     bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
@@ -21,9 +22,9 @@ def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpow
     oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
     
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
-def ma_inf():
+def ma_inf(allianceids):
     # Define SQL query
-    query = """
+    query = f"""
     SELECT 
         tn.id AS "Nation ID",
         tn.nation_name AS "Nation Name",
@@ -43,7 +44,7 @@ def ma_inf():
         n.nuclear_research_facility AS NRF
     FROM tiny_nations tn
     JOIN nationprojects n ON tn.id = n.nation_id
-    WHERE alliance_id IN (12544, 4567, 10497, 12453, 12581, 10498)
+    WHERE alliance_id IN ({allianceids})
     AND applicant = false
     AND tn.vacation_mode_turns = 0
     ORDER BY tn.num_cities DESC;
@@ -57,8 +58,11 @@ def ma_inf():
     st.write(df)
 
         # Run script when the button is clicked
-if st.button('Update Military Information'):
-    result = ma_inf()
+with st.form("my_form"):
+    allianceids= st.write("Alliance IDs (separated by commas)")
+    submit = st.form_submit_button("Get MA Information")
+if submit:
+    result = ma_inf(allianceids)
     st.write(result)
 
 
