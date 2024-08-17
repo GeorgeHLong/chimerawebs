@@ -3,7 +3,6 @@ import json
 import pandas as pd 
 import numpy as np
 import time
-import psycopg2
 
 
 DB_USER = st.secrets["db_username"]
@@ -11,7 +10,7 @@ DB_PASSWORD =  st.secrets["db_password"]
 DB_HOST = st.secrets["host"]
 DB_PORT = st.secrets["port"]
 DB_NAME = st.secrets["database"]
-conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+conn = st.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD,host=DB_HOST, port=DB_PORT)
 cursor = conn.cursor()
 
 df = conn.query("select * from registeredalliances")
