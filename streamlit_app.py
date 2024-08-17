@@ -7,7 +7,7 @@ import time
 
 conn = st.connection("postgresql", type="sql")
 # Run a query
-df = conn.query("SELECT * FROM registeredalliances")
+df = conn.query("select * from tradeprices t order by trade_timestamp desc limit 1")
 
 # Display the dataframe in Streamlit
 st.dataframe(df)
