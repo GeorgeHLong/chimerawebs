@@ -52,7 +52,7 @@ def run_script(infra_needed, uraniumenrich,massirrigation, imp_total, imp_coalpo
         foodproduced = (imp_farm*(land/400))*12
     else:
         foodproduced = (imp_farm*(land/500))*12
-    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced
+    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced
 
 
 if data:
