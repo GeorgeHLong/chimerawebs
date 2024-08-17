@@ -10,7 +10,7 @@ DB_PASSWORD =  st.secrets["db_password"]
 DB_HOST = st.secrets["host"]
 DB_PORT = st.secrets["port"]
 DB_NAME = st.secrets["database"]
-conn = st.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD,host=DB_HOST, port=DB_PORT)
+conn = st.connection(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD,host=DB_HOST, port=DB_PORT)
 cursor = conn.cursor()
 
 df = conn.query("select * from registeredalliances")
