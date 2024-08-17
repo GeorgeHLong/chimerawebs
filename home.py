@@ -12,7 +12,7 @@ pg = st.navigation([
     st.Page("home.py", title="Home",),
     st.Page("pages/page2.py", title="Alliance Tiering Data"),
 ])
-pg.run()
+
 
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
