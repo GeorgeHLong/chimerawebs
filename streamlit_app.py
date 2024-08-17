@@ -3,11 +3,19 @@ import json
 import pandas as pd 
 import numpy as np
 import time
+import psycopg2
 
 
+DB_USER = st.secrets["db_username"]
+DB_PASSWORD =  st.secrets["db_password"]
+DB_HOST = st.secrets["host"]
+DB_PORT = st.secrets["port"]
+DB_NAME = st.secrets["database"]
+conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+cursor = conn.cursor()
 
-st.write("DB username:", st.secrets["db_username"])
-st.write("DB password:", st.secrets["db_password"])
+df = conn.query("select * from registeredalliances")
+st.dataframe(df)
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
