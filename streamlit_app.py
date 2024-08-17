@@ -25,29 +25,29 @@ def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpow
     
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
 
-df = conn.query("""SELECT tn.id AS "Nation ID",
-       tn.nation_name AS "Nation Name",
-       tn.discord AS "Discord Name",
-       tn.num_cities AS "City Count",
-       tn.score AS Score,
-       tn.score * 1.25 AS "Upper Target Value",
-       tn.score * 0.75 AS "Lower Target Score",
-       tn.soldiers AS Soldiers,
-       tn.tanks AS Tanks,
-       tn.aircraft AS Aircraft,
-       tn.ships AS Ships,
-       tn.missiles as Missiles,
-       tn.nukes as Nukes,       
-       tn.spies AS Spies,
-       n.vital_defense_system as VDS,
-       n.nuclear_research_facility as NRF
-FROM tiny_nations tn 
-join nationprojects n 
-on tn.id = n.nation_id 
-WHERE alliance_id IN (12544, 4567, 10497, 12453, 12581, 10498) 
-  AND applicant = false 
-  and tn.vacation_mode_turns = 0
-ORDER BY tn.num_cities DESC""")
+df = conn.query("SELECT tn.id AS 'Nation ID',\
+       tn.nation_name AS 'Nation Name',\
+       tn.discord AS 'Discord Name',\
+       tn.num_cities AS 'City Count',\
+       tn.score AS Score,\
+       tn.score * 1.25 AS 'Upper Target Value',\
+       tn.score * 0.75 AS 'Lower Target Score',\
+       tn.soldiers AS Soldiers,\
+       tn.tanks AS Tanks,\
+       tn.aircraft AS Aircraft,\
+       tn.ships AS Ships,\
+       tn.missiles as Missiles,\
+       tn.nukes as Nukes,       \
+       tn.spies AS Spies,\
+       n.vital_defense_system as VDS,\
+       n.nuclear_research_facility as NRF\
+        FROM tiny_nations tn \
+        join nationprojects n \
+        on tn.id = n.nation_id \
+        WHERE alliance_id IN (12544, 4567, 10497, 12453, 12581, 10498) \
+        AND applicant = false \
+        and tn.vacation_mode_turns = 0\
+        ORDER BY tn.num_cities DESC")
 
 st.write(df)
 
