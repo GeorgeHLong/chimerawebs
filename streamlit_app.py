@@ -25,8 +25,12 @@ with left_column:
 with right_column:
     infra = st.text_input('Infrastructure','')
 
-x = st.slider('x')  # 👈 this is a widget
-st.write(x, 'squared is', x * x)
+if st.checkbox('Show dataframe'):
+    chart_data = pd.DataFrame(
+       np.random.randn(20, 3),
+       columns=['a', 'b', 'c'])
+
+    chart_data
 
 # Process input only if data is provided
 if data:
