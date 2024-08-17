@@ -11,7 +11,7 @@ conn = st.connection("postgresql", type="sql")
 df = conn.query("select * from tradeprices t order by trade_timestamp desc limit 1")
 
 
-st.html(df, height=100, scrolling=True)
+st.html(df, scrolling=True)
 
 
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
