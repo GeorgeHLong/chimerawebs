@@ -28,7 +28,7 @@ def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpow
     return f"Hello, {infra_needed}, {imp_total}, {imp_coalpower}, {imp_oilpower}, {imp_windpower}, {imp_nuclearpower}, {imp_coalmine}, {imp_oilwell}, {imp_uramine}, {imp_leadmine}, {imp_ironmine}, {imp_bauxitemine}, {imp_farm}, {imp_gasrefinery}, {imp_aluminumrefinery}, {imp_munitionsfactory}, {imp_steelmill}, {imp_policestation}, {imp_hospital}, {imp_recyclingcenter}, {imp_subway}, {imp_supermarket}, {imp_bank}, {imp_mall}, {imp_stadium}, {imp_barracks}, {imp_factory}, {imp_hangars}, {imp_drydock}! Your script ran successfully."
 
 # Streamlit app layout
-st.title('Welcome to Chimera City Calculator')
+st.title('City Calculator')
 
 left_column, right_column = st.columns(2)
 data = st.text_input('City Build', '')
