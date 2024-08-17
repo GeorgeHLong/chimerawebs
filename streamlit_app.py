@@ -57,7 +57,7 @@ def ma_inf():
     st.write(df)
 
         # Run script when the button is clicked
-if st.button('Get MA Information'):
+if st.button('Update Military Information'):
     result = ma_inf()
     st.write(result)
 
