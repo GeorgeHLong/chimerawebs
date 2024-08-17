@@ -9,8 +9,9 @@ import time
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 # Run a query
+st.title('Resource Prices')
+
 df = conn.query("select Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel from tradeprices t order by trade_timestamp desc limit 1")
-Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel = df
 st.write(df)
 
 
