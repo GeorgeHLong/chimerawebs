@@ -17,6 +17,13 @@ st.write("Welcome to Chimera Corp, your trusted partner in data analysis and str
 st.markdown("## Empowering Orbis with Quality Effectively")
 st.write("Chimera Corp is dedicated to revolutionizing the gaming industry through cutting-edge technology. With our state-of-the-art Discord Bots, Alliance Consultancy Services, and Data Analysis tools, we provide gamers with the tools they need to excel for whatever they need. Join us and unlock a new level of gaming expertise.")
 
+st.markdown("## AI-Driven Technology")
+st.write("Enhance your gameplay with AI-powered bots that streamline communication and coordination")
+
+st.markdown("## Cutting-Edge Data Analysis")
+st.write("Unlock the power of data with AI-driven algorithms for game trends and player behavior insights")
+
+
 def run_script(infra_needed, imp_total, imp_coalpower, imp_oilpower, imp_windpower, imp_nuclearpower, imp_coalmine, imp_oilwell, imp_uramine, imp_leadmine, imp_ironmine, imp_bauxitemine, imp_farm, imp_gasrefinery, imp_aluminumrefinery, imp_munitionsfactory, imp_steelmill, imp_policestation, imp_hospital, imp_recyclingcenter, imp_subway, imp_supermarket, imp_bank, imp_mall, imp_stadium, imp_barracks, imp_factory, imp_hangars, imp_drydock):
     # Replace this with your actual Python script logic
     bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
