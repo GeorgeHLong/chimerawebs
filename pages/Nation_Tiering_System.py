@@ -9,7 +9,7 @@ def ma_inf(allianceids,days):
     query = f"""
     SELECT capture_date, alliance_id, (totalgdp / totalcities / 365.25) AS avg_daily_income
     FROM alliance_city_distribution
-    WHERE alliance_id IN {allianceids} AND capture_date BETWEEN CURRENT_DATE - INTERVAL '{days} days' AND CURRENT_DATE
+    WHERE alliance_id IN ({allianceids}) AND capture_date BETWEEN CURRENT_DATE - INTERVAL '{days} days' AND CURRENT_DATE
     ORDER BY capture_date;
     """
 
@@ -24,7 +24,7 @@ def ma_inf(allianceids,days):
 allianceids = None
 with st.form("my_form"):
     allianceids= st.text_input("Alliance IDs (separated by commas)")
-    days = st.number_input("Days",min_value = 1)
+    days = st.text_input("Days")
     submit = st.form_submit_button("Get MA Information")
 if submit:
     result = ma_inf(allianceids,days)
