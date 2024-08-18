@@ -116,12 +116,14 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         munitions_price = row['munitions']
         aluminum_price = row['aluminum']
         steel_price = row['steel']
+        iron_price = row['iron']
         rss_prices = [int(item) if isinstance(item, np.integer) else float(item) for item in row]
         food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price = rss_prices
         rssrevenue = (
             ((foodproduced - cfood) * food_price) +
             ((coalproduced - ccoal) * coal_price) +
             ((oilproduced - coil) * oil_price) +
+            ((ironproduced - ciron) * iron_price) +
             ((uraniumproduced - curanium) * uranium_price) +
             ((bauxiteproduced - cbaux) * bauxite_price) +
             ((leadproduced - clead) * lead_price) +
