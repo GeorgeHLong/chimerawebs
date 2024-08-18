@@ -97,9 +97,13 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         result = total
     commercerev = (((result/50)*0.725)+0.725)*basepopulation
     commercerev= round(commercerev,2)
-       
-        
-        
+    query = f"""
+    SELECT select Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel from tradeprices t order by trade_timestamp desc limit 1
+    """
+
+    # Execute query and fetch results into DataFrame
+    df = conn.query(query)        
+    st.write(df)
     return commercerev,result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
