@@ -112,6 +112,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         aluminum_price = row['aluminum']
         steel_price = row['steel']
         converted_list = [int(item) if isinstance(item, np.integer) else float(item) for item in row]
+        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price = converted_list
 
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
@@ -119,7 +120,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     
     # Return results
     return (
-        converted_list,commercerev, disease, 
+        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
         foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
     )
