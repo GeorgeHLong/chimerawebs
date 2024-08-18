@@ -78,7 +78,6 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
     commerce_bonus = 2 if telesat and itc else 0
     commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
-    
     #consumption
     cbauxx = 4.08 if bauxiteworks else 3
     cbaux = (imp_aluminumrefinery* cbauxx)*(1+0.125*(imp_aluminumrefinery-1))
@@ -159,7 +158,8 @@ if submit:
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             with st.container():
                 food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
-                st.markdown(food_price)
+                commerce = "$"+commercerev
+                st.markdown(commercerev)
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
