@@ -187,7 +187,7 @@ if submit:
                 st.markdown("## Estimated Revenue")
                 left_column,right_column = st.columns(2)
                 with left_column:
-                    st.write("Raw Resources:")
+                    st.markdown("### Raw Resources:")
                     st.write(f"Coal: {netcoal:,.2f}")
                     st.write(f"Oil: {netoil:,.2f}")
                     st.write(f"Uranium: {neturanium:,.2f}")
@@ -196,7 +196,7 @@ if submit:
                     st.write(f"Bauxite: {netbauxite:,.2f}")
                     st.write(f"Food: {foodproduced:,.2f}")
                 with right_column:
-                    st.write("Manufactured Resources:")
+                    st.markdown("### Manufactured Resources:")
                     st.write(f"Gasoline: {gasproduced:,.2f}")
                     st.write(f"Munitions: {munitionsproduced:,.2f}")
                     st.write(f"Steel: {steelproduced:,.2f}")
