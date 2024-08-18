@@ -212,7 +212,6 @@ if submit:
                     yaxis_tickformat=","
                 )
                 # Streamlit app
-                st.title('Resource Revenue Distribution')
                 st.plotly_chart(fig, use_container_width=True)        
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
