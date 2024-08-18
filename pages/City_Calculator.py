@@ -64,11 +64,25 @@ def run_script(parsed_data):
         munitionsproduced = (imp_munitionsfactory*12.24)*(1+0.125*(imp_munitionsfactory-1))
     else:
         munitionsproduced = (imp_munitionsfactory*9)*(1+0.125*(imp_munitionsfactory-1))
+    result = (
+        imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine* 12 + imp_coalmine * 12 + imp_ironmine * 12 + imp_leadmine * 12 + imp_oilwell * 12 + imp_uramine * 20 +
+        (imp_farm * 1 if greentech else imp_farm * 2) +
+        (imp_gasrefinery * 24 if greentech else imp_gasrefinery * 32) +
+        (imp_aluminumrefinery* 30 if greentech else imp_aluminumrefinery * 40) +
+        (imp_steelmill * 30 if greentech else imp_steelmill * 40) +
+        (imp_munitionsfactory * 24 if greentech else imp_munitionsfactory * 32) +
+        imp_policestation * 1 + imp_hospital * 4 +
+        (imp_recyclingcenter * -75 if recycling else imp_recyclingcenter * -70) +
+        (imp_subway * -70 if greentech else imp_subway * -45) +
+        imp_mall * 2 + imp_stadium * 5
+    )
+    if result >= 0:
+        result = 0
+      
         
         
         
-        
-    return bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
+    return result,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
