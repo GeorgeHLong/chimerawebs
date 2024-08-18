@@ -21,6 +21,8 @@ st.image("images/homepage2.jpeg",)
 st.markdown("## Empowering Orbis with Quality Effectively")
 st.write("Chimera Corp is dedicated to revolutionizing the gaming industry through cutting-edge technology. With our state-of-the-art Discord Bots, Alliance Consultancy Services, and Data Analysis tools, we provide gamers with the tools they need to excel for whatever they need. Join us and unlock a new level of gaming expertise.")
 
+st.image("images/ai.jpeg",)
+
 st.markdown("## AI-Driven Technology")
 st.write("Enhance your gameplay with AI-powered bots that streamline communication and coordination")
 
