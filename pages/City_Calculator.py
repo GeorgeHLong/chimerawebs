@@ -97,7 +97,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     
     # Database query
     query = """
-    SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel
+    SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel, Iron
     FROM tradeprices
     ORDER BY trade_timestamp DESC
     LIMIT 1
