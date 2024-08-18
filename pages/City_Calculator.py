@@ -174,7 +174,6 @@ if submit:
             with st.container():
                 cfood, ccoal, coil, curanium, cbaux, clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
                 st.markdown("## Estimated Revenue")
-                
                 st.divider()               
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
@@ -198,7 +197,7 @@ if submit:
                 values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev]
 
                 # Create a pie chart
-                fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3)])
+                fig = go.Figure(data=[go.Bar(labels=labels, values=values, hole=0.3)])
 
                 # Streamlit app
                 st.title('Resource Revenue Distribution')
