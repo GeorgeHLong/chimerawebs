@@ -171,6 +171,7 @@ if submit:
             with st.container():
                 rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
                 st.markdown("## Estimated Revenue")
+                st.divider()               
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
                 totalrevenue = commercerev + rssrevenue
