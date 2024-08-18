@@ -35,77 +35,73 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     imp_hangars = parsed_data.get("imp_hangars", 0)
     imp_drydock = parsed_data.get("imp_drydock", 0)    
     # Replace this with your actual Python script logic
-    bauxiteproduced = ((imp_bauxitemine*3)*(1+(0.5/9)*(imp_bauxitemine-1)))
-    coalproduced =((imp_coalmine*3)*(1+(0.5/9)*(imp_coalmine-1)))
-    ironproduced =((imp_ironmine*3)*(1+(0.5/9)*(imp_ironmine-1)))   
-    leadproduced =((imp_leadmine*3)*(1+(0.5/9)*(imp_leadmine-1)))
-    oilproduced = ((imp_oilwell*3)*(1+(0.5/9)*(imp_oilwell-1)))
-    if uraniumenrich:
-        uraniumproduced = (imp_uramine*3*(1+(0.5/4)*(imp_uramine-1))*2)
-    else:
-        uraniumproduced = (imp_uramine*3)*(1+(0.5/4)*(imp_uramine-1))
-    if massirrigation:
-        foodproduced = (imp_farm*(land/400))*12
-    else:
-        foodproduced = (imp_farm*(land/500))*12
-    if ironworks:
-        steelproduced = (imp_steelmill*12.24)*(1+0.125*(imp_steelmill-1))
-    else:
-        steelproduced = (imp_steelmill*9)*(1+0.125*(imp_steelmill-1))
-    if emergencygas:
-        gasproduced = (imp_gasrefinery*12)*(1+0.125*(imp_gasrefinery-1))
-    else:
-        gasproduced = (imp_gasrefinery*9)*(1+0.125*(imp_gasrefinery-1))
-    if bauxiteworks:
-        aluminumproduced = (imp_aluminumrefinery*12.24)*(1+0.125*(imp_aluminumrefinery-1))
-    else:
-        aluminumproduced = (imp_aluminumrefinery*9)*(1+0.125*(imp_aluminumrefinery-1))
-    aluminumproduced= round(aluminumproduced,2)
-    if armstockpile:
-        munitionsproduced = (imp_munitionsfactory*24.12)*(1+0.125*(imp_munitionsfactory-1))
-    else:
-        munitionsproduced = (imp_munitionsfactory*18)*(1+0.125*(imp_munitionsfactory-1))
+    # Production calculations
+    bauxiteproduced = ((imp_bauxitemine * 3) * (1 + (0.5 / 9) * (imp_bauxitemine - 1)))
+    coalproduced = ((imp_coalmine * 3) * (1 + (0.5 / 9) * (imp_coalmine - 1)))
+    ironproduced = ((imp_ironmine * 3) * (1 + (0.5 / 9) * (imp_ironmine - 1)))
+    leadproduced = ((imp_leadmine * 3) * (1 + (0.5 / 9) * (imp_leadmine - 1)))
+    oilproduced = ((imp_oilwell * 3) * (1 + (0.5 / 9) * (imp_oilwell - 1)))
+    
+    uraniumproduced = (imp_uramine * 3 * (1 + (0.5 / 4) * (imp_uramine - 1))) * (2 if uraniumenrich else 1)
+
+    foodproduced = (imp_farm * (land / (400 if massirrigation else 500))) * 12
+    
+    steelmultiplier = 12.24 if ironworks else 9
+    steelproduced = (imp_steelmill * steelmultiplier) * (1 + 0.125 * (imp_steelmill - 1))
+
+    gasmultiplier = 12 if emergencygas else 9
+    gasproduced = (imp_gasrefinery * gasmultiplier) * (1 + 0.125 * (imp_gasrefinery - 1))
+    
+    aluminummultiplier = 12.24 if bauxiteworks else 9
+    aluminumproduced = round((imp_aluminumrefinery * aluminummultiplier) * (1 + 0.125 * (imp_aluminumrefinery - 1)), 2)
+    
+    munitionsmultiplier = 24.12 if armstockpile else 18
+    munitionsproduced = (imp_munitionsfactory * munitionsmultiplier) * (1 + 0.125 * (imp_munitionsfactory - 1))
+    
+    # Pollution index calculation
     pollutionidx = (
-        imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine* 12 + imp_coalmine * 12 + imp_ironmine * 12 + imp_leadmine * 12 + imp_oilwell * 12 + imp_uramine * 20 +
-        (imp_farm * 1 if greentech else imp_farm * 2) +
-        (imp_gasrefinery * 24 if greentech else imp_gasrefinery * 32) +
-        (imp_aluminumrefinery* 30 if greentech else imp_aluminumrefinery * 40) +
-        (imp_steelmill * 30 if greentech else imp_steelmill * 40) +
-        (imp_munitionsfactory * 24 if greentech else imp_munitionsfactory * 32) +
-        imp_policestation * 1 + imp_hospital * 4 +
-        (imp_recyclingcenter * -75 if recycling else imp_recyclingcenter * -70) +
-        (imp_subway * -70 if greentech else imp_subway * -45) +
-        imp_mall * 2 + imp_stadium * 5
+        imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine * 12 + imp_coalmine * 12 + imp_ironmine * 12 + 
+        imp_leadmine * 12 + imp_oilwell * 12 + imp_uramine * 20 + (imp_farm * (1 if greentech else 2)) + 
+        (imp_gasrefinery * (24 if greentech else 32)) + (imp_aluminumrefinery * (30 if greentech else 40)) + 
+        (imp_steelmill * (30 if greentech else 40)) + (imp_munitionsfactory * (24 if greentech else 32)) + 
+        imp_policestation * 1 + imp_hospital * 4 + (imp_recyclingcenter * (-75 if recycling else -70)) + 
+        (imp_subway * (-70 if greentech else -45)) + imp_mall * 2 + imp_stadium * 5
     )
-    if pollutionidx <= 0:
-        pollutionidx = 0
+    pollutionidx = max(pollutionidx, 0)
+    
+    # Disease calculation
     basepopulation = infra * 100
-    popdensity = basepopulation/land
-    if clinicalresearch:
-        disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 3.5)        
-    else:
-        disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 2.5)
-    disease= round(disease,2)    
+    popdensity = basepopulation / land
+    diseasemultiplier = 3.5 if clinicalresearch else 2.5
+    disease = round(
+        ((((popdensity**2) * 0.01) - 25) / 100) + (basepopulation / 100000) + (pollutionidx * 0.05) - 
+        imp_hospital * diseasemultiplier, 2
+    )
+    
+    # Commerce revenue calculation
     if telesat and not itc:
         st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
-        return None  # Exit the function if the condition is not met
-    total = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
-
-    if telesat and itc:
-        result = min(total + 2, 125)
-    else:
-        result = total
-    commercerev = (((result/50)*0.725)+0.725)*basepopulation
-    commercerev= round(commercerev,2)
-    query = f"""
-    SELECT select Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel from tradeprices t order by trade_timestamp desc limit 1
+        return None
+    
+    total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
+    commerce_bonus = 2 if telesat and itc else 0
+    commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
+    
+    # Database query
+    query = """
+    SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel
+    FROM tradeprices
+    ORDER BY trade_timestamp DESC
+    LIMIT 1
     """
-
-    # Execute query and fetch results into DataFrame
-    Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel = conn.query(query)        
-
-    return Food,Coal,Oil,Uranium,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel,result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
-
+    Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel = conn.query(query)
+    
+    # Return results
+    return (
+        Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel, commercerev, disease, 
+        pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
+        foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
+    )
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
     data = st.text_input('Paste City Build Template from Politics and War', '')
