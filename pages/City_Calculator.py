@@ -94,11 +94,29 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     ORDER BY trade_timestamp DESC
     LIMIT 1
     """
-    Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel = conn.query(query)
+    df = conn.query(query)
+# Assuming df has only one row (due to LIMIT 1 in the query)
+    if not df.empty:
+        # Extract the first row as a series
+        row = df.iloc[0]
+        # Assign variables from the row
+        food_price = row['Food']
+        coal_price = row['Coal']
+        oil_price = row['Oil']
+        uranium_price = row['Uranium']
+        bauxite_price = row['Bauxite']
+        lead_price = row['Lead']
+        gasoline_price = row['Gasoline']
+        munitions_price = row['Munitions']
+        aluminum_price = row['Aluminum']
+        steel_price = row['Steel']
+    else:
+        food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
+
     
     # Return results
     return (
-        Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel, commercerev, disease, 
+        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
         foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
     )
