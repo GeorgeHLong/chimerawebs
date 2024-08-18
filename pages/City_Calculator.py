@@ -76,7 +76,7 @@ def run_script(parsed_data):
         (imp_subway * -70 if greentech else imp_subway * -45) +
         imp_mall * 2 + imp_stadium * 5
     )
-    if result >= 0:
+    if result <= 0:
         result = 0
       
         
