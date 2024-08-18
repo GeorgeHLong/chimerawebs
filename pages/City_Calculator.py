@@ -95,11 +95,11 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         result = min(total + 2, 125)
     else:
         result = total
-        
+    commercerev = (((result/50)*0.725)+0.725)*basepopulation
        
         
         
-    return result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
+    return commercerev,result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
