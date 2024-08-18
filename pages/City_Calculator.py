@@ -198,16 +198,19 @@ if submit:
                 # Data for the pie chart
                 labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel']
                 values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev]
+
                 # Create DataFrame
                 df = pd.DataFrame({
                     'Resource': labels,
                     'Revenue': values
                 })
+
                 # Create a pie chart
                 fig = px.pie(df, values='Revenue', names='Resource', title='Income by Revenue Source')
+
                 # Streamlit app
                 st.title('Resource Revenue Distribution')
-                st.plotly_chart(fig,use_container_width=True)                
+                st.plotly_chart(fig, use_container_width=True)        
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
