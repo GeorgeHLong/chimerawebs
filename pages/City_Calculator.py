@@ -100,16 +100,16 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         # Extract the first row as a series
         row = df.iloc[0]
         # Assign variables from the row
-        food_price = row['Food']
-        coal_price = row['Coal']
-        oil_price = row['Oil']
-        uranium_price = row['Uranium']
-        bauxite_price = row['Bauxite']
-        lead_price = row['Lead']
-        gasoline_price = row['Gasoline']
-        munitions_price = row['Munitions']
-        aluminum_price = row['Aluminum']
-        steel_price = row['Steel']
+        food_price = row['food']
+        coal_price = row['coal']
+        oil_price = row['oil']
+        uranium_price = row['uranium']
+        bauxite_price = row['bauxite']
+        lead_price = row['lead']
+        gasoline_price = row['gasoline']
+        munitions_price = row['munitions']
+        aluminum_price = row['aluminum']
+        steel_price = row['steel']
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
 
