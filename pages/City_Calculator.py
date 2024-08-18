@@ -207,7 +207,10 @@ if submit:
 
                 # Create a pie chart
                 fig = px.bar(df, x='Resource', y='Revenue', title='Income by Revenue Source')
-
+                fig.update_layout(
+                    yaxis_tickprefix="$",
+                    yaxis_tickformat=","
+                )
                 # Streamlit app
                 st.title('Resource Revenue Distribution')
                 st.plotly_chart(fig, use_container_width=True)        
