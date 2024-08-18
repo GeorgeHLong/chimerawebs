@@ -42,23 +42,16 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     ironproduced = ((imp_ironmine * 3) * (1 + (0.5 / 9) * (imp_ironmine - 1)))
     leadproduced = ((imp_leadmine * 3) * (1 + (0.5 / 9) * (imp_leadmine - 1)))
     oilproduced = ((imp_oilwell * 3) * (1 + (0.5 / 9) * (imp_oilwell - 1)))
-    
     uraniumproduced = (imp_uramine * 3 * (1 + (0.5 / 4) * (imp_uramine - 1))) * (2 if uraniumenrich else 1)
-
     foodproduced = (imp_farm * (land / (400 if massirrigation else 500))) * 12
-    
     steelmultiplier = 12.24 if ironworks else 9
     steelproduced = (imp_steelmill * steelmultiplier) * (1 + 0.125 * (imp_steelmill - 1))
-
     gasmultiplier = 12 if emergencygas else 9
     gasproduced = (imp_gasrefinery * gasmultiplier) * (1 + 0.125 * (imp_gasrefinery - 1))
-    
     aluminummultiplier = 12.24 if bauxiteworks else 9
     aluminumproduced = round((imp_aluminumrefinery * aluminummultiplier) * (1 + 0.125 * (imp_aluminumrefinery - 1)), 2)
-    
     munitionsmultiplier = 24.12 if armstockpile else 18
     munitionsproduced = (imp_munitionsfactory * munitionsmultiplier) * (1 + 0.125 * (imp_munitionsfactory - 1))
-    
     # Pollution index calculation
     pollutionidx = (
         imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine * 12 + imp_coalmine * 12 + imp_ironmine * 12 + 
@@ -69,7 +62,6 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         (imp_subway * (-70 if greentech else -45)) + imp_mall * 2 + imp_stadium * 5
     )
     pollutionidx = max(pollutionidx, 0)
-    
     # Disease calculation
     basepopulation = infra * 100
     popdensity = basepopulation / land
@@ -78,16 +70,13 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         ((((popdensity**2) * 0.01) - 25) / 100) + (basepopulation / 100000) + (pollutionidx * 0.05) - 
         imp_hospital * diseasemultiplier, 2
     )
-    
     # Commerce revenue calculation
     if telesat and not itc:
         st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
         return None
-    
     total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
     commerce_bonus = 2 if telesat and itc else 0
     commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
-    
     # Database query
     query = """
     SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel
@@ -98,9 +87,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     df = conn.query(query)
 # Assuming df has only one row (due to LIMIT 1 in the query)
     if not df.empty:
-        # Extract the first row as a series
         row = df.iloc[0]
-        # Assign variables from the row
         food_price = row['food']
         coal_price = row['coal']
         oil_price = row['oil']
@@ -113,12 +100,8 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         steel_price = row['steel']
         converted_list = [int(item) if isinstance(item, np.integer) else float(item) for item in row]
         food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price = converted_list
-
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
-
-    
-    # Return results
     return (
         food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
@@ -127,7 +110,6 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
     data = st.text_input('Paste City Build Template from Politics and War', '')
-
     with left_column:
         cityage = st.number_input("Age",step=50)
     with center:
@@ -136,7 +118,6 @@ with st.form("citycalc"):
         infra = st.number_input("Infrastructure",step=50,value=1500)
     st.write("Projects")
     pleft_column, pright_column = st.columns(2)
-
     with pleft_column:
         armstockpile = st.checkbox("Arms Stockpile")
         bauxiteworks = st.checkbox("Bauxite Works")
