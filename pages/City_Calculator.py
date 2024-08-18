@@ -136,7 +136,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
             ((aluminumproduced ) * aluminum_price) +
             ((steelproduced ) * steel_price)
         )
-        netfood = foodproduced-cfood
+        netfood = cfood
         netcoal = coalproduced-ccoal
         netoil = oilproduced - coil
         netiron = ironproduced- ciron
