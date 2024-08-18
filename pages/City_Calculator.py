@@ -89,10 +89,17 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     if telesat and not itc:
         st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
         return None  # Exit the function if the condition is not met
+    total = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
+
+    if telesat and itc:
+        result = min(total + 2, 125)
+    else:
+        result = total
+        
        
         
         
-    return disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
+    return result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
