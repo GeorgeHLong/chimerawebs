@@ -80,7 +80,9 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         return None
     total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
     commerce_bonus = 2 if telesat and itc else 0
+    
     commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
+    commercerev = commercerev * 1.015 if openmarkets and governmentsupport else commercerev * 1.01 if openmarkets else commercerev
     #consumption
     cbauxx = 4.08 if bauxiteworks else 3
     cbaux = (imp_aluminumrefinery* cbauxx)*(1+0.125*(imp_aluminumrefinery-1))
