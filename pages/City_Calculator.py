@@ -86,9 +86,9 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     else:
         disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 2.5)
     disease= round(disease,2)    
-    
-    
-        
+    if telesat and not itc:
+        return st.warning("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
+       
         
         
     return disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
