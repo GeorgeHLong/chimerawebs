@@ -1,7 +1,8 @@
 import streamlit as st
 import json
 import numpy as np
-import plotly.graph_objects as go
+import pandas as pd
+import plotly.express as px
 
 import math
 st.image("images/banner.png")
@@ -197,13 +198,16 @@ if submit:
                 # Data for the pie chart
                 labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel']
                 values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev]
-
+                # Create DataFrame
+                df = pd.DataFrame({
+                    'Resource': labels,
+                    'Revenue': values
+                })
                 # Create a pie chart
-                fig = go.Figure(data=[go.Bar(labels=labels, values=values, hole=0.3)])
-
+                fig = px.pie(df, values='Revenue', names='Resource', title='Income by Revenue Source')
                 # Streamlit app
                 st.title('Resource Revenue Distribution')
-                st.plotly_chart(fig)                
+                st.plotly_chart(fig,use_container_width=True)                
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
