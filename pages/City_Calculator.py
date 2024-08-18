@@ -136,7 +136,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
             ((aluminumproduced ) * aluminum_price) +
             ((steelproduced ) * steel_price)
         )
-        netfood = cfood
+        netfood = foodproduced-cfood
         netcoal = coalproduced-ccoal
         netoil = oilproduced - coil
         netiron = ironproduced- ciron
@@ -197,7 +197,7 @@ if submit:
                     st.write(f"Lead: {netlead:,.2f}")
                     st.write(f"Iron: {netiron:,.2f}")
                     st.write(f"Bauxite: {netbauxite:,.2f}")
-                    st.write(f"Food: {foodproduced:,.2f}")
+                    st.write(f"Food: {netfood:,.2f}")
                 with right_column:
                     st.markdown("### Manufactured Resources:")
                     st.write(f"Gasoline: {gasproduced:,.2f}")
