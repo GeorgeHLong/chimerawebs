@@ -206,7 +206,7 @@ if submit:
                 })
 
                 # Create a pie chart
-                fig = px.bar(df, values='Revenue', names='Resource', title='Income by Revenue Source')
+                fig = px.bar(df, x='Resource', y='Revenue', title='Income by Revenue Source')
 
                 # Streamlit app
                 st.title('Resource Revenue Distribution')
