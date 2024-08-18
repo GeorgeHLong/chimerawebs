@@ -60,6 +60,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         aluminumproduced = (imp_aluminumrefinery*12.24)*(1+0.125*(imp_aluminumrefinery-1))
     else:
         aluminumproduced = (imp_aluminumrefinery*9)*(1+0.125*(imp_aluminumrefinery-1))
+    aluminumproduced= round(aluminumproduced,2)
     if armstockpile:
         munitionsproduced = (imp_munitionsfactory*24.12)*(1+0.125*(imp_munitionsfactory-1))
     else:
