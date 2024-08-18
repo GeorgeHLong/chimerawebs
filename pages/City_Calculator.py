@@ -194,10 +194,10 @@ if submit:
                 munitionsrev = ((munitionsproduced) * munitions_price) 
                 aluminumrev = ((aluminumproduced) * aluminum_price) 
                 steelrev = ((steelproduced) * steel_price)
-
+                netrev = foodrev+ coalrev+ oilrev+ uraniumrev+ bauxiterev+ leadrev+ gasrev+ munitionsrev+ aluminumrev+ steelrev+commercerev
                 # Data for the pie chart
-                labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel','Commerce']
-                values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev,commercerev]
+                labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel','Commerce','Net Revenue']
+                values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev,commercerev,netrev]
 
                 # Create DataFrame
                 df = pd.DataFrame({
