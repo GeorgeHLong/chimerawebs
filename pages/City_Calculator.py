@@ -155,9 +155,9 @@ with st.form("citycalc"):
     with left_column:
         cityage = st.number_input("Age",min_value=1,step=50)
     with center:
-        land = st.number_input("Land",step=500,value=1500,min_value = 0.00001)
+        land = st.number_input("Land",step=500,value=1500,min_value=1)
     with right_column:
-        infra = st.number_input("Infrastructure",step=50,value=1500,min_value = 0.00001)
+        infra = st.number_input("Infrastructure",step=50,value=1500,min_value=1)
     st.write("Projects")
     pleft_column, pright_column = st.columns(2)
     with pleft_column:
