@@ -194,10 +194,13 @@ if submit:
                     st.write(f"Lead: {netlead:,.2f}")
                     st.write(f"Iron: {netiron:,.2f}")
                     st.write(f"Bauxite: {netbauxite:,.2f}")
+                    st.write(f"Food: {foodproduced:,.2f}")
                 with right_column:
                     st.write("Manufactured Resources:")
                     st.write(f"Gasoline: {gasproduced:,.2f}")
                     st.write(f"Munitions: {munitionsproduced:,.2f}")
+                    st.write(f"Steel: {steelproduced:,.2f}")
+                    st.write(f"Aluminum: {aluminumproduced:,.2f}")
                 st.divider()               
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
