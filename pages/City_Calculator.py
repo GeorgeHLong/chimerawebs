@@ -96,8 +96,6 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     coil = ((((coilx * imp_gasrefinery) * (1 + 0.125 * (imp_gasrefinery - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_oilpower > 0 else 0))
     curanium = (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_nuclearpower > 0 else 0)
     cfood = (((basepopulation**2) / 125000000) + ((basepopulation * (1 + max(math.log(cityage)/15, 0)) - basepopulation) / 850))
-    
-    
     # Database query
     query = """
     SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel, Iron
@@ -135,11 +133,19 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
             ((aluminumproduced ) * aluminum_price) +
             ((steelproduced ) * steel_price)
         )
+        netfood = foodproduced-cfood
+        netcoal = coalproduced-ccoal
+        netoil = oilproduced - coil
+        netiron = ironproduced- ciron
+        neturanium = uraniumproduced - curanium
+        netbauxite = bauxiteproduced - cbaux
+        netlead = leadproduced- clead
         
+                
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
     return (
-            cfood,ccoal,coil,curanium,cbaux,clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
+            netfood,netcoal,netoil,netiron,neturanium,netbauxite,netlead,cfood,ccoal,coil,curanium,cbaux,clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
         foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
     )
@@ -177,8 +183,17 @@ if submit:
             parsed_data = json.loads(data)
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             with st.container():
-                cfood, ccoal, coil, curanium, cbaux, clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
+                netfood,netcoal,netoil,netiron,neturanium,netbauxite,netlead,cfood, ccoal, coil, curanium, cbaux, clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
                 st.markdown("## Estimated Revenue")
+                left_column,right_column = st.columns(3)
+                with left_column:
+                    st.write("Raw Resources:")
+                    st.write(f"Coal:{netcoal}")
+                    st.write(f"Oil: {netoil}")
+                with right_column:
+                    st.write("Manufactured Resources:")
+                    st.write(f"Gasoline: {gasproduced}")
+                    st.write(f"Munitions: {munitionsproduced}")
                 st.divider()               
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
@@ -208,7 +223,6 @@ if submit:
                     'Resource': labels,
                     'Revenue': values
                 })
-
                 # Create a pie chart
                 fig = px.bar(df, x='Resource', y='Revenue', title='Income by Revenue Source')
                 fig.update_layout(
