@@ -61,9 +61,9 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     else:
         aluminumproduced = (imp_aluminumrefinery*9)*(1+0.125*(imp_aluminumrefinery-1))
     if armstockpile:
-        munitionsproduced = (imp_munitionsfactory*12.24)*(1+0.125*(imp_munitionsfactory-1))
+        munitionsproduced = (imp_munitionsfactory*24.12)*(1+0.125*(imp_munitionsfactory-1))
     else:
-        munitionsproduced = (imp_munitionsfactory*9)*(1+0.125*(imp_munitionsfactory-1))
+        munitionsproduced = (imp_munitionsfactory*18)*(1+0.125*(imp_munitionsfactory-1))
     pollutionidx = (
         imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine* 12 + imp_coalmine * 12 + imp_ironmine * 12 + imp_leadmine * 12 + imp_oilwell * 12 + imp_uramine * 20 +
         (imp_farm * 1 if greentech else imp_farm * 2) +
