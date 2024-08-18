@@ -4,7 +4,7 @@ st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 
 st.markdown("# City Calculator")
-def run_script(parsed_data):
+def run_script(parsed_data,infra,land):
     infra_needed = parsed_data.get("infra_needed", 0)
     imp_total = parsed_data.get("imp_total", 0)
     imp_coalpower = parsed_data.get("imp_coalpower", 0)
@@ -64,7 +64,7 @@ def run_script(parsed_data):
         munitionsproduced = (imp_munitionsfactory*12.24)*(1+0.125*(imp_munitionsfactory-1))
     else:
         munitionsproduced = (imp_munitionsfactory*9)*(1+0.125*(imp_munitionsfactory-1))
-    result = (
+    pollutionidx = (
         imp_coalpower * 8 + imp_oilpower * 6 + imp_bauxitemine* 12 + imp_coalmine * 12 + imp_ironmine * 12 + imp_leadmine * 12 + imp_oilwell * 12 + imp_uramine * 20 +
         (imp_farm * 1 if greentech else imp_farm * 2) +
         (imp_gasrefinery * 24 if greentech else imp_gasrefinery * 32) +
@@ -76,13 +76,15 @@ def run_script(parsed_data):
         (imp_subway * -70 if greentech else imp_subway * -45) +
         imp_mall * 2 + imp_stadium * 5
     )
-    if result <= 0:
-        result = 0
-      
+    if pollutionidx <= 0:
+        pollutionidx = 0
+    basepopulation = infra * 100
+    disease = (((((basepopulation^2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital *3.5 if clinicalresearch else imp_hospital * 2.5)
+    
         
         
         
-    return result,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
+    return disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
@@ -118,7 +120,7 @@ if submit:
     if data:
         try:
             parsed_data = json.loads(data)
-            result = run_script(parsed_data)
+            result = run_script(parsed_data,infra,land)
             st.write(result)
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
