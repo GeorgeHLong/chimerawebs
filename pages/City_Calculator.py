@@ -158,8 +158,8 @@ if submit:
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             with st.container():
                 food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
-                commerce = f"Est. Commerce Revenue: ${commercerev:,.2f}"
-                st.markdown(commerce)
+                commerce = st.text_area(f"Est. Commerce Revenue: ${commercerev:,.2f}")
+                st.write(commerce)
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
