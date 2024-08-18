@@ -195,6 +195,7 @@ if submit:
                 aluminumrev = ((aluminumproduced) * aluminum_price) 
                 steelrev = ((steelproduced) * steel_price)
                 netrev = foodrev+ coalrev+ oilrev+ uraniumrev+ bauxiterev+ leadrev+ gasrev+ munitionsrev+ aluminumrev+ steelrev+commercerev
+                netrev = round(netrev,2)
                 # Data for the pie chart
                 labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel','Commerce','Net Revenue']
                 values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev,commercerev,netrev]
