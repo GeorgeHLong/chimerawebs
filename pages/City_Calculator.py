@@ -103,8 +103,8 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
 
     # Execute query and fetch results into DataFrame
     df = conn.query(query)        
-    st.write(df)
-    return commercerev,result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
+
+    return df,result,disease,pollutionidx,bauxiteproduced, ironproduced, leadproduced,oilproduced, coalproduced,uraniumproduced,foodproduced,steelproduced,gasproduced,aluminumproduced,munitionsproduced
 
 with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
