@@ -4,7 +4,7 @@ st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 
 st.markdown("# City Calculator")
-def run_script(parsed_data,infra,land):
+def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets):
     infra_needed = parsed_data.get("infra_needed", 0)
     imp_total = parsed_data.get("imp_total", 0)
     imp_coalpower = parsed_data.get("imp_coalpower", 0)
@@ -121,7 +121,7 @@ if submit:
     if data:
         try:
             parsed_data = json.loads(data)
-            result = run_script(parsed_data,infra,land)
+            result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             st.write(result)
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
