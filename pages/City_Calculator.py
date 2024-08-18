@@ -133,6 +133,6 @@ if submit:
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
-        st.warning("Please provide valid city build data.")
+        st.error("Please provide valid city build data.")
 
 
