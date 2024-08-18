@@ -85,6 +85,8 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 3.5)        
     else:
         disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 2.5)
+    round(disease,2)    
+    
     
         
         
