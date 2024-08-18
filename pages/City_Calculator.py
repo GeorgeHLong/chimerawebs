@@ -94,7 +94,10 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     clead = (imp_munitionsfactory* cleadx)*(1+0.125*(imp_munitionsfactory-1))    
     coilx = 6 if ironworks else 3
     coil = ((((coilx * imp_gasrefinery) * (1 + 0.125 * (imp_gasrefinery - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_oilpower > 0 else 0))
-    curanium = (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_nuclearpower > 0 else 0)
+    if imp_nuclearpower > 0:
+        curanium = -(-infra // 1000)*2.4
+    else:
+        curanium = 0
     cfood = (((basepopulation**2) / 125000000) + ((basepopulation * (1 + max(math.log(cityage)/15, 0)) - basepopulation) / 850))
     # Database query
     query = """
