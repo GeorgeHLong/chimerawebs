@@ -88,7 +88,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     cleadx = 8.04 if armstockpile else 6
     clead = (imp_munitionsfactory* cleadx)*(1+0.125*(imp_munitionsfactory-1))    
     coilx = 6 if ironworks else 3
-    ccoal = ((((coilx * imp_gasrefinery) * (1 + 0.125 * (imp_gasrefinery - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_oilpower > 0 else 0))
+    coil = ((((coilx * imp_gasrefinery) * (1 + 0.125 * (imp_gasrefinery - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_oilpower > 0 else 0))
     curanium = (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_nuclearpower > 0 else 0)
     cfood = (((basepopulation**2) / 125000000) + ((basepopulation * (1 + max(math.log(cityage)/15, 0)) - basepopulation) / 850))
     
@@ -114,12 +114,24 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         munitions_price = row['munitions']
         aluminum_price = row['aluminum']
         steel_price = row['steel']
-        converted_list = [int(item) if isinstance(item, np.integer) else float(item) for item in row]
-        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price = converted_list
+        rss_prices = [int(item) if isinstance(item, np.integer) else float(item) for item in row]
+        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price = rss_prices
+        rssrevenue = (
+            ((foodproduced - cfood) * food_price) +
+            ((coalproduced - ccoal) * coal_price) +
+            ((oilproduced - coil) * oil_price) +
+            ((uraniumproduced - curanium) * uranium_price) +
+            ((bauxiteproduced - cbaux) * bauxite_price) +
+            ((leadproduced - clead) * lead_price) +
+            ((gasproduced ) * gasoline_price) +
+            ((munitionsproduced) * munitions_price) +
+            ((aluminumproduced ) * aluminum_price) +
+            ((steelproduced ) * steel_price)
+        )
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
     return (
-        food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
+        rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
         foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
     )
@@ -157,9 +169,13 @@ if submit:
             parsed_data = json.loads(data)
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             with st.container():
-                food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
+                rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
                 st.markdown("## Estimated Revenue")
-                commerce = st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
+                st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
+                st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
+                totalrevenue = commercerev + rssrevenue
+                st.write(f"Est. Total Revenue/Day: ${totalrevenue:,.2f}")
+                
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
