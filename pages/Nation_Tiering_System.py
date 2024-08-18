@@ -9,7 +9,7 @@ st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 
 # Set the title of the app
-st.title("Nation Tiering System")
+st.markdown("# Nation Tiering System")
 
 def ma_inf(allianceids, days):
     # Define SQL query
