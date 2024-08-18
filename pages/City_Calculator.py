@@ -80,7 +80,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     if pollutionidx <= 0:
         pollutionidx = 0
     basepopulation = infra * 100
-    popdensity = float(basepopulation)/ float(land)
+    popdensity = int(basepopulation)/ int(land)
     if clinicalresearch:
         disease = (((((popdensity^2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 3.5)        
     else:
