@@ -10,5 +10,5 @@ peerreport = st.Page("pages/peerreport.py", title="Peer Report", icon=":material
 
 
 pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport])
-st.set_page_config(page_title="Chimera Corp", page_icon="/images/chimera.png")
+st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
 pg.run()
