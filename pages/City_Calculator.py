@@ -153,7 +153,7 @@ with st.form("citycalc"):
     left_column, center,right_column = st.columns(3)
     data = st.text_input('Paste City Build Template from Politics and War', '')
     with left_column:
-        cityage = st.number_input("Age",step=50)
+        cityage = st.number_input("Age",min_value=1,step=50)
     with center:
         land = st.number_input("Land",step=500,value=1500)
     with right_column:
