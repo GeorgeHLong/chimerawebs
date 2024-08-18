@@ -174,6 +174,7 @@ if submit:
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
                 totalrevenue = commercerev + rssrevenue
+                st.divider()
                 st.write(f"Est. Total Revenue/Day: ${totalrevenue:,.2f}")
                 
         except json.JSONDecodeError as e:
