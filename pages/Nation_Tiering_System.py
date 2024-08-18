@@ -10,7 +10,7 @@ conn = st.connection("postgresql", type="sql")
 
 # Set the title of the app
 st.markdown("# Avg. City Revenue by Alliance")
-
+st.write("Find how alliance's city revenue changed over time and compare between alliances")
 def ma_inf(allianceids, days):
     # Define SQL query
     query = f"""
