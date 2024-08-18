@@ -1,6 +1,8 @@
 import streamlit as st
 import json
 import numpy as np
+import plotly.graph_objects as go
+
 import math
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
@@ -128,10 +130,11 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
             ((aluminumproduced ) * aluminum_price) +
             ((steelproduced ) * steel_price)
         )
+        
     else:
         food_price = coal_price = oil_price = uranium_price = bauxite_price = lead_price = gasoline_price = munitions_price = aluminum_price = steel_price = None
     return (
-        rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
+            cfood,ccoal,coil,curanium,cbaux,clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, 
         pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, 
         foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced
     )
@@ -169,15 +172,37 @@ if submit:
             parsed_data = json.loads(data)
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
             with st.container():
-                rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
+                cfood, ccoal, coil, curanium, cbaux, clead,rssrevenue,food_price,coal_price,oil_price,uranium_price,bauxite_price,lead_price,gasoline_price,munitions_price,aluminum_price,steel_price,commercerev, disease, pollutionidx, bauxiteproduced, ironproduced, leadproduced, oilproduced, coalproduced, uraniumproduced, foodproduced, steelproduced, gasproduced, aluminumproduced, munitionsproduced = result
                 st.markdown("## Estimated Revenue")
+                
                 st.divider()               
                 st.write(f"Est. Commerce Revenue: ${commercerev:,.2f}")
                 st.write(f"Est Resource Revenue: ${rssrevenue:,.2f}")
                 totalrevenue = commercerev + rssrevenue
                 st.divider()
                 st.write(f"Est. Total Revenue/Day: ${totalrevenue:,.2f}")
-                
+                # Data for the pie chart
+                foodrev = ((foodproduced - cfood) * food_price) 
+                coalrev = ((coalproduced - ccoal) * coal_price) 
+                oilrev = ((oilproduced - coil) * oil_price) 
+                uraniumrev = ((uraniumproduced - curanium) * uranium_price) 
+                bauxiterev = ((bauxiteproduced - cbaux) * bauxite_price) 
+                leadrev = ((leadproduced - clead) * lead_price) 
+                gasrev = ((gasproduced) * gasoline_price) 
+                munitionsrev = ((munitionsproduced) * munitions_price) 
+                aluminumrev = ((aluminumproduced) * aluminum_price) 
+                steelrev = ((steelproduced) * steel_price)
+
+                # Data for the pie chart
+                labels = ['Food', 'Coal', 'Oil', 'Uranium', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Aluminum', 'Steel']
+                values = [foodrev, coalrev, oilrev, uraniumrev, bauxiterev, leadrev, gasrev, munitionsrev, aluminumrev, steelrev]
+
+                # Create a pie chart
+                fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3)])
+
+                # Streamlit app
+                st.title('Resource Revenue Distribution')
+                st.plotly_chart(fig)                
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
