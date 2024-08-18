@@ -8,6 +8,6 @@ avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue b
 alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering", icon=":material/apartment:")
 
 
-pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,alliancetiering])
+pg = st.navigation([create_page, delete_page,citycalc,avgcityrev])
 st.set_page_config(page_title="Chimera Corp", page_icon="/images/chimera.png")
 pg.run()
