@@ -96,6 +96,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     else:
         result = total
     commercerev = (((result/50)*0.725)+0.725)*basepopulation
+    commercerev= round(commercerev,2)
        
         
         
