@@ -87,7 +87,7 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
         disease = (((((popdensity**2)*0.01)-25)/100)+(basepopulation/100000)+(pollutionidx*0.05)- imp_hospital * 2.5)
     disease= round(disease,2)    
     if telesat and not itc:
-        st.alert("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
+        st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
         return None  # Exit the function if the condition is not met
        
         
