@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import numpy as np
+import math
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 
@@ -77,6 +78,22 @@ def run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,iro
     total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
     commerce_bonus = 2 if telesat and itc else 0
     commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
+    
+    #consumption
+    cbauxx = 4.08 if bauxiteworks else 3
+    cbaux = (imp_aluminumrefinery* cbauxx)*(1+0.125*(imp_aluminumrefinery-1))
+    ccoalx = 4.08 if ironworks else 3
+    ccoal = ((((ccoalx * imp_steelmill) * (1 + 0.125 * (imp_steelmill - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_coalpower > 0 else 0))
+    cironx = 4.08 if imp_steelmill else 3
+    ciron = (imp_steelmill* cironx)*(1+0.125*(imp_steelmill-1))
+    cleadx = 8.04 if armstockpile else 6
+    clead = (imp_munitionsfactory* cleadx)*(1+0.125*(imp_munitionsfactory-1))    
+    coilx = 6 if ironworks else 3
+    ccoal = ((((coilx * imp_gasrefinery) * (1 + 0.125 * (imp_gasrefinery - 1))))+ (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_oilpower > 0 else 0))
+    curanium = (1.2 * math.ceil(infra / 1000) * 1000 / 100 if imp_nuclearpower > 0 else 0)
+    cfood = (((basepopulation**2) / 125000000) + ((basepopulation * (1 + max(math.log(cityage)/15, 0)) - basepopulation) / 850))
+    
+    
     # Database query
     query = """
     SELECT Food, Coal, Oil, Uranium, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel
@@ -140,7 +157,8 @@ if submit:
         try:
             parsed_data = json.loads(data)
             result = run_script(parsed_data,infra,land,armstockpile,bauxiteworks,emergencygas,ironworks,uraniumenrich,clinicalresearch,greentech,governmentsupport,itc,massirrigation,recycling,policeprogram,telesat,openmarkets)
-            st.write(result)
+            with st.container():
+                st.write("test")
         except json.JSONDecodeError as e:
             st.error(f"JSON decode error: {e}")
     else:
