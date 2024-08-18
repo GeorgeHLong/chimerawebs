@@ -188,8 +188,12 @@ if submit:
                 left_column,right_column = st.columns(2)
                 with left_column:
                     st.write("Raw Resources:")
-                    st.write(f"Coal:{netcoal}")
+                    st.write(f"Coal: {netcoal}")
                     st.write(f"Oil: {netoil}")
+                    st.write(f"Uranium: {neturanium}")
+                    st.write(f"Lead: {netlead}")
+                    st.write(f"Iron: {netiron}")
+                    st.write(f"Bauxite: {netbauxite}")
                 with right_column:
                     st.write("Manufactured Resources:")
                     st.write(f"Gasoline: {gasproduced}")
