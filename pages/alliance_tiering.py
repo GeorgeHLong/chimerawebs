@@ -1,68 +1,64 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import psycopg2
-from psycopg2 import sql
 
 # Display the banner image
 st.image("images/banner.png")
 
-# Set the title of the app
-st.markdown("# Avg. City Revenue by Alliance")
-st.write("Find out how an alliance's city revenue changed over time and compare between alliances.")
+# Connect to the database
 
-def fetch_data(alliance_ids, days):
-    # Validate input
-    if not alliance_ids or not days:
-        st.error("Please provide both Alliance IDs and Days.")
-        return None
+def fetch_data(alliance_id):
+    # Establish a connection to the database
+    conn = st.connection("postgresql", type="sql")
 
-    # Connect to the PostgreSQL database
-    try:
-        conn = st.connection("postgresql", type="sql")
-        cursor = conn.cursor()
+    # Prepare the SQL query
+    query = f"""
+        SELECT
+            DATE(date) AS date,
+            SUM("1_10") AS "1-10",
+            SUM("11_16") AS "11-16",
+            SUM("17_20") AS "17-20",
+            SUM("21_25") AS "21-25",
+            SUM("26_30") AS "26-30",
+            SUM("31_35") AS "31-35",
+            SUM("36_40") AS "36-40",
+            SUM("41_45") AS "41-45",
+            SUM("46_50") AS "46-50",
+            SUM("50_plus") AS "50+"
+        FROM alliancechange
+        WHERE alliance_id = {alliance_id}
+        GROUP BY DATE(date)
+        ORDER BY DATE(date);
+    """
 
+    results = conn.query(query)
 
-        # Prepare the SQL query
-        query = sql.SQL("""
-        SELECT capture_date, alliance_id, (totalgdp / totalcities / 365.25) AS avg_daily_income
-        FROM alliance_city_distribution
-        WHERE alliance_id IN ({alliance_ids}) AND capture_date BETWEEN CURRENT_DATE - INTERVAL %s AND CURRENT_DATE
-        ORDER BY capture_date;
-        """).format(alliance_ids=sql.SQL(',').join(sql.Identifier(id) for id in alliance_ids.split(',')))
+    return results
 
-        cursor.execute(query, (f'{days} days',))
-        results = cursor.fetchall()
-
-        # Close the database connection
-        cursor.close()
-        conn.close()
-
-        return results
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-        return None
 
 def create_plots(df):
-    # Line chart for average daily income over time
-    fig = px.line(df, x='capture_date', y='avg_daily_income', color='alliance_id',
-                  title='Average Daily Income of Alliances Over Time',
-                  labels={'capture_date': 'Date', 'avg_daily_income': 'Average Daily Income'})
+    # Line chart for city counts over time
+    fig_line = px.line(df, x='date', y=df.columns[1:], title=f"City Counts Over Time for Alliance ID: {alliance_id}",
+                       labels={'date': 'Date', 'value': 'City Count'})
     
     # Display the line chart
-    st.plotly_chart(fig)
-
-# Create the form for user input
-with st.form("my_form"):
-    alliance_ids = st.text_input("Alliance IDs (separated by commas)").strip()
-    days = st.text_input("Days").strip()
-    submit = st.form_submit_button("Get MA Information")
-
-if submit:
-    data = fetch_data(alliance_ids, days)
+    st.plotly_chart(fig_line)
     
-    if data:
-        df = pd.DataFrame(data, columns=["capture_date", "alliance_id", "avg_daily_income"])
-        create_plots(df)
+    # Create table plot
+    fig_table = px.imshow(df, text_auto=True, title="City Counts Table")
+    
+    # Display the table
+    st.plotly_chart(fig_table)
+
+# User input
+alliance_id = st.text_input("Enter Alliance ID")
+if st.button("Get Data"):
+    if alliance_id:
+        data = fetch_data(alliance_id)
+        if data:
+            df = pd.DataFrame(data, columns=["date", "1-10", "11-16", "17-20", "21-25", "26-30", "31-35", "36-40", "41-45", "46-50", "50+"])
+            create_plots(df)
+        else:
+            st.write("No data found for the specified alliance.")
     else:
-        st.write("No data available for the specified criteria.")
+        st.write("Please enter an Alliance ID.")

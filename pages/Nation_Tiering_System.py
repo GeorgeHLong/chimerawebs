@@ -29,7 +29,7 @@ def ma_inf(allianceids, days):
 with st.form("my_form"):
     allianceids = st.text_input("Alliance IDs (separated by commas)")
     days = st.text_input("Days")
-    submit = st.form_submit_button("Get MA Information")
+    submit = st.form_submit_button("Submit")
 
 if submit:
     df = ma_inf(allianceids, days)
