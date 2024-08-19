@@ -9,8 +9,9 @@ st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 
 # Set the title of the app
-st.markdown("# Avg. City Revenue by Alliance")
-st.write("Find how alliance's city revenue changed over time and compare between alliances")
+st.markdown("# Avg. City Tiering by Alliance")
+st.write("Find how alliance's city tiering changed over time and compare between alliances")
+
 def ma_inf(allianceids):
     # Define SQL query
     query = f"""
@@ -45,3 +46,15 @@ with st.form("my_form"):
 if submit:
     df = ma_inf(allianceids)
     st.write(df)
+    
+    # Create a Plotly line chart for city tiering over time
+    fig = px.line(
+        df,
+        x="date",
+        y=df.columns[1:],  # Select all city tier columns
+        labels={"value": "Number of Cities", "date": "Date"},
+        title="City Tiering Over Time by Alliance"
+    )
+    
+    # Display the Plotly chart in Streamlit
+    st.plotly_chart(fig)
