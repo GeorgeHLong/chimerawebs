@@ -47,14 +47,16 @@ if submit:
     df = ma_inf(allianceids)
     st.write(df)
     
-    # Create a Plotly line chart for city tiering over time
-    fig = px.line(
-        df,
-        x="date",
-        y=df.columns[1:],  # Select all city tier columns
-        labels={"value": "Number of Cities", "date": "Date"},
-        title="City Tiering Over Time by Alliance"
-    )
-    
+    # 2. Transform the DataFrame for Plotly
+    df_melted = df.melt(id_vars=["Alliance Name"], 
+                        value_vars=["1-10", "11-16", "17-20", "21-25", "26-30", "31-35", "36-40", "41-45", "46-50", "50+"],
+                        var_name="City Range", value_name="Count")
+    # 3. Create the Plotly bar chart
+    fig = px.bar(df_melted, 
+                x="City Range", 
+                y="Count", 
+                color="Alliance Name", 
+                barmode="group",
+                title="City Distribution by Alliance")    
     # Display the Plotly chart in Streamlit
     st.plotly_chart(fig)
