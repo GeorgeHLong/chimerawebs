@@ -6,7 +6,6 @@ import pandas as pd
 st.image("images/banner.png")
 
 # Connect to the database
-conn = st.connection("postgresql", type="sql")
 
 # Set the title of the app
 st.markdown("# Avg. City Tiering by Alliance")
@@ -14,6 +13,8 @@ st.write("Find how alliance's city tiering changed over time and compare between
 
 def ma_inf(allianceids):
     # Define SQL query
+    conn = st.connection("postgresql", type="sql")
+    
     query = f"""
         SELECT
             DATE(date) AS date,
