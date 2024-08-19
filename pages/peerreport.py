@@ -11,9 +11,9 @@ st.image("images/banner.png")
 st.markdown("# Avg. City Tiering by Alliance")
 st.write("Find how alliance's city tiering changed over time and compare between alliances")
 
+conn = st.connection("postgresql", type="sql")
 def ma_inf(allianceids):
     # Define SQL query
-    conn = st.connection("postgresql", type="sql")
     
     query = f"""
         SELECT a.alliancename as "Alliance Name",a.alliance_id as "Alliance ID",
@@ -30,7 +30,7 @@ def ma_inf(allianceids):
         FROM tiny_nations tn
         join alliances a 
         on a.alliance_id = tn.alliance_id 
-        WHERE a.alliance_id IN {allianceids}
+        WHERE a.alliance_id IN ({allianceids})
         AND tax_id != 0
         AND applicant = false
         AND vacation_mode_turns = 0
