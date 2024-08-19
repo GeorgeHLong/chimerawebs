@@ -9,7 +9,7 @@ st.image("images/banner.png")
 
 # Set the title of the app
 st.markdown("# Avg. City Tiering by Alliance")
-st.write("Find how alliance's city tiering changed over time and compare between alliances")
+st.write("Compare Alliance Tiering")
 
 conn = st.connection("postgresql", type="sql")
 def ma_inf(allianceids):
@@ -49,7 +49,6 @@ with st.form("my_form"):
 
 if submit:
     df = ma_inf(allianceids)
-    st.write(df)
     
     # 2. Transform the DataFrame for Plotly
     df_melted = df.melt(id_vars=["Alliance Name"], 
@@ -64,3 +63,4 @@ if submit:
                 title="City Distribution by Alliance")    
     # Display the Plotly chart in Streamlit
     st.plotly_chart(fig)
+    st.write(df)
