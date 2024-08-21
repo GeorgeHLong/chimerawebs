@@ -139,7 +139,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     # Solve the problem
     problem.solve()
     st.write(f"Solver Status: {LpStatus[problem.status]}")
-    st.write(imp_coalmine)
+    st.write(pollutionidx)
     # Extract results
     results = {
         "CoalMine": imp_coalmine.varValue,
