@@ -29,9 +29,10 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     imp_mall = LpVariable("Mall", lowBound=0, upBound=5, cat=LpInteger)
     imp_stadium = LpVariable("Stadium", lowBound=0, upBound=5, cat=LpInteger)
 
-    # Perform calculations outside the LP problem
     def calculate_production(variable, base_production, scaling_factor):
-        return base_production * (1 + (scaling_factor / (variable.lowBound + variable.upBound - 1)) * (variable.varValue - 1))
+        variable_value = variable.varValue if variable.varValue is not None else 0
+        return base_production * (1 + (scaling_factor / 9) * (variable_value - 1))
+
 
     bauxiteproduced = calculate_production(imp_bauxitemine, 3, 0.5)
     coalproduced = calculate_production(imp_coalmine, 3, 0.5)
