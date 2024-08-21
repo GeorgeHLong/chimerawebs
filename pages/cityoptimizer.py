@@ -139,28 +139,28 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     # Solve the problem
     problem.solve()
     st.write(f"Solver Status: {LpStatus[problem.status]}")
-
+    st.write(imp_coalmine.varValue)
     # Extract results
     results = {
-        "CoalMine": imp_coalmine,
-        "OilWell": imp_oilwell,
-        "UraniumMine": imp_uramine,
-        "LeadMine": imp_leadmine,
-        "IronMine": imp_ironmine,
-        "BauxiteMine": imp_bauxitemine,
-        "Farm": imp_farm,
-        "GasRefinery": imp_gasrefinery,
-        "AluminumRefinery": imp_aluminumrefinery,
-        "MunitionsFactory": imp_munitionsfactory,
-        "SteelMill": imp_steelmill,
-        "PoliceStation": imp_policestation,
-        "Hospital": imp_hospital,
-        "RecyclingCenter": imp_recyclingcenter,
-        "Subway": imp_subway,
-        "Supermarket": imp_supermarket,
-        "Bank": imp_bank,
-        "Mall": imp_mall,
-        "Stadium": imp_stadium,
+        "CoalMine": imp_coalmine.varValue,
+        "OilWell": imp_oilwell.varValue,
+        "UraniumMine": imp_uramine.varValue,
+        "LeadMine": imp_leadmine.varValue,
+        "IronMine": imp_ironmine.varValue,
+        "BauxiteMine": imp_bauxitemine.varValue,
+        "Farm": imp_farm.varValue,
+        "GasRefinery": imp_gasrefinery.varValue,
+        "AluminumRefinery": imp_aluminumrefinery.varValue,
+        "MunitionsFactory": imp_munitionsfactory.varValue,
+        "SteelMill": imp_steelmill.varValue,
+        "PoliceStation": imp_policestation.varValue,
+        "Hospital": imp_hospital.varValue,
+        "RecyclingCenter": imp_recyclingcenter.varValue,
+        "Subway": imp_subway.varValue,
+        "Supermarket": imp_supermarket.varValue,
+        "Bank": imp_bank.varValue,
+        "Mall": imp_mall.varValue,
+        "Stadium": imp_stadium.varValue,
         "TotalRevenue": lpSum([rssrevenue, commercerev]).value()
     }
     st.write(f"Is the problem feasible? {problem.status == 1}")
