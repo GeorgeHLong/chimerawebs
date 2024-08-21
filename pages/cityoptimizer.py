@@ -65,15 +65,15 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
         get_var_value(imp_leadmine) * 12 +
         get_var_value(imp_ironmine) * 12 +
         get_var_value(imp_uramine) * 20 +
-        (get_var_value(imp_farm) * (1 if greentech.varValue else 2)) +
-        (get_var_value(imp_gasrefinery) * (24 if greentech.varValue else 32)) +
-        (get_var_value(imp_aluminumrefinery) * (30 if greentech.varValue else 40)) +
-        (get_var_value(imp_steelmill) * (30 if greentech.varValue else 40)) +
-        (get_var_value(imp_munitionsfactory) * (24 if greentech.varValue else 32)) +
+        (get_var_value(imp_farm) * (1 if greentech else 2)) +
+        (get_var_value(imp_gasrefinery) * (24 if greentech else 32)) +
+        (get_var_value(imp_aluminumrefinery) * (30 if greentech else 40)) +
+        (get_var_value(imp_steelmill) * (30 if greentech else 40)) +
+        (get_var_value(imp_munitionsfactory) * (24 if greentech else 32)) +
         get_var_value(imp_policestation) * 1 +
         get_var_value(imp_hospital) * 4 +
-        (get_var_value(imp_recyclingcenter) * (-75 if recycling.varValue else -70)) +
-        (get_var_value(imp_subway) * (-70 if greentech.varValue else -45)) +
+        (get_var_value(imp_recyclingcenter) * (-75 if recycling else -70)) +
+        (get_var_value(imp_subway) * (-70 if greentech else -45)) +
         get_var_value(imp_mall) * 2 +
         get_var_value(imp_stadium) * 5
     )
