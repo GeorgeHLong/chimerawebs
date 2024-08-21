@@ -135,7 +135,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     problem += (imp_coalmine + imp_oilwell + imp_uramine + imp_leadmine + imp_ironmine + imp_bauxitemine +
                 imp_farm + imp_gasrefinery + imp_aluminumrefinery + imp_munitionsfactory + imp_steelmill +
                 imp_policestation + imp_hospital + imp_recyclingcenter + imp_subway + imp_supermarket +
-                imp_bank + imp_mall + imp_stadium) <= 56  # example constraint
+                imp_bank + imp_mall + imp_stadium) <= 100  # example constraint
 
     # Solve the problem
     problem.solve()
