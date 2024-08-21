@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from pulp import LpMaximize, LpProblem, LpVariable, lpSum, LpInteger, LpStatus
+from pulp import LpMaximize, LpProblem, LpVariable, lpSum, LpInteger, LpStatus, pulp_cbc_path
 
 # Function to run optimization
 def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets):
@@ -135,8 +135,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     problem += (imp_coalmine + imp_oilwell + imp_uramine + imp_leadmine + imp_ironmine + imp_bauxitemine +
                 imp_farm + imp_gasrefinery + imp_aluminumrefinery + imp_munitionsfactory + imp_steelmill +
                 imp_policestation + imp_hospital + imp_recyclingcenter + imp_subway + imp_supermarket +
-                imp_bank + imp_mall + imp_stadium) <= 50  # example constraint
-    problem += pollutionidx <= 500  # example constraint on pollution
+                imp_bank + imp_mall + imp_stadium) <= 56  # example constraint
 
     # Solve the problem
     problem.solve()
