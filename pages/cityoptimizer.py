@@ -145,38 +145,36 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     return results
 
 # Streamlit app
-def main():
-    st.title("City Build Optimizer")
 
-    with st.form("city_build_form"):
-        infra = st.number_input("Infrastructure Level", min_value=0, step=1)
-        land = st.number_input("Land", min_value=0, step=1)
-        armstockpile = st.checkbox("Arms Stockpile")
-        bauxiteworks = st.checkbox("Bauxite Works")
-        emergencygas = st.checkbox("Emergency Gas Reserve")
-        ironworks = st.checkbox("Iron Works")
-        uraniumenrich = st.checkbox("Uranium Enrichment")
-        clinicalresearch = st.checkbox("Clinical Research Center")
-        greentech = st.checkbox("Green Technology")
-        governmentsupport = st.checkbox("Government Support Agency")
-        itc = st.checkbox("International Trade Center")
-        massirrigation = st.checkbox("Mass Irrigation Program")
-        recycling = st.checkbox("Recycling Initiative")
-        policeprogram = st.checkbox("Police Program Initiative")
-        telesat = st.checkbox("Telecommunications Satellite")
-        openmarkets = st.checkbox("Open Markets")
+st.markdown("## City Build Optimizer")
 
-        submitted = st.form_submit_button("Optimize")
+with st.form("city_build_form"):
+    infra = st.number_input("Infrastructure Level", min_value=0, step=1)
+    land = st.number_input("Land", min_value=0, step=1)
+    armstockpile = st.checkbox("Arms Stockpile")
+    bauxiteworks = st.checkbox("Bauxite Works")
+    emergencygas = st.checkbox("Emergency Gas Reserve")
+    ironworks = st.checkbox("Iron Works")
+    uraniumenrich = st.checkbox("Uranium Enrichment")
+    clinicalresearch = st.checkbox("Clinical Research Center")
+    greentech = st.checkbox("Green Technology")
+    governmentsupport = st.checkbox("Government Support Agency")
+    itc = st.checkbox("International Trade Center")
+    massirrigation = st.checkbox("Mass Irrigation Program")
+    recycling = st.checkbox("Recycling Initiative")
+    policeprogram = st.checkbox("Police Program Initiative")
+    telesat = st.checkbox("Telecommunications Satellite")
+    openmarkets = st.checkbox("Open Markets")
 
-    if submitted:
-        results = optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets)
+    submitted = st.form_submit_button("Optimize")
 
-        if results:
-            st.success("Optimization Complete!")
-            st.json(results)
+if submitted:
+    results = optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets)
 
-            fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
-            st.plotly_chart(fig)
+if results:
+    st.success("Optimization Complete!")
+    st.json(results)
 
-if __name__ == "__main__":
-    main()
+fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
+st.plotly_chart(fig)
+
