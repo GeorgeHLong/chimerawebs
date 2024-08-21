@@ -7,8 +7,8 @@ citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", ic
 avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue by Alliance", icon=":material/attach_money:")
 alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering", icon=":material/apartment:")
 peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
+cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer")
 
-
-pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport])
+pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,cityoptimizer])
 st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
 pg.run()
