@@ -79,15 +79,21 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     )
 
     pollutionidx = max(pollutionidx, 0)
+    def get_var_value(variable):
+        return variable.varValue if variable.varValue is not None else 0
 
     # Calculate Disease
     basepopulation = infra * 100
     popdensity = basepopulation / land
     diseasemultiplier = 3.5 if clinicalresearch else 2.5
     disease = round(
-        ((((popdensity**2) * 0.01) - 25) / 100) + (basepopulation / 100000) + (pollutionidx * 0.05) - 
-        imp_hospital.varValue * diseasemultiplier, 2
+        ((((popdensity**2) * 0.01) - 25) / 100) +
+        (basepopulation / 100000) +
+        (pollutionidx * 0.05) -
+        (get_var_value(imp_hospital) * diseasemultiplier),
+        2
     )
+
 
     # Calculate Commerce Revenue
     if telesat and not itc:
