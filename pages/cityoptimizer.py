@@ -1,12 +1,13 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from pulp import LpMaximize, LpProblem, LpVariable, lpSum, LpInteger
+from pulp import LpMaximize, LpProblem, LpVariable, lpSum, LpInteger, LpStatus
 
 # Function to run optimization
 def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets):
     # Create a linear programming problem
     problem = LpProblem("CityBuildOptimization", LpMaximize)
+    st.write(f"Is the problem feasible? {problem.status == 1}")
 
     # Decision Variables
     imp_coalmine = LpVariable("CoalMine", lowBound=0, upBound=10, cat=LpInteger)
@@ -139,6 +140,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
 
     # Solve the problem
     problem.solve()
+    st.write(f"Solver Status: {LpStatus[problem.status]}")
 
     # Extract results
     results = {
