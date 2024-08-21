@@ -7,7 +7,6 @@ from pulp import LpMaximize, LpProblem, LpVariable, lpSum, LpInteger, LpStatus, 
 def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets):
     # Create a linear programming problem
     problem = LpProblem("CityBuildOptimization", LpMaximize)
-    st.write(f"Is the problem feasible? {problem.status == 1}")
 
     # Decision Variables
     imp_coalmine = LpVariable("CoalMine", lowBound=0, upBound=10, cat=LpInteger)
@@ -164,6 +163,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
         "Stadium": imp_stadium.varValue,
         "TotalRevenue": lpSum([rssrevenue, commercerev]).value()
     }
+    st.write(f"Is the problem feasible? {problem.status == 1}")
 
     return results
 
