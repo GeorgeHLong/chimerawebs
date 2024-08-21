@@ -32,7 +32,10 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     def calculate_production(variable, base_production, scaling_factor):
         variable_value = variable.varValue if variable.varValue is not None else 0
         return base_production * (1 + (scaling_factor / 9) * (variable_value - 1))
-
+    def calculate_food(variable,land,massirrigation):
+        variable_value = variable.varValue if variable.varValue is not None else 0
+        landscale = land/(400 if massirrigation else 500) * 12
+        return variable_value * landscale
 
     bauxiteproduced = calculate_production(imp_bauxitemine, 3, 0.5)
     coalproduced = calculate_production(imp_coalmine, 3, 0.5)
@@ -40,7 +43,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     leadproduced = calculate_production(imp_leadmine, 3, 0.5)
     oilproduced = calculate_production(imp_oilwell, 3, 0.5)
     uraniumproduced = calculate_production(imp_uramine, 3, 0.5) * (2 if uraniumenrich else 1)
-    foodproduced = (imp_farm.varValue * (land / (400 if massirrigation else 500))) * 12
+    foodproduced = calculate_food(imp_farm,land,massirrigation)
     steelmultiplier = 12.24 if ironworks else 9
     steelproduced = calculate_production(imp_steelmill, steelmultiplier, 0.125)
     gasmultiplier = 12 if emergencygas else 9
