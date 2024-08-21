@@ -36,7 +36,9 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
         variable_value = variable.varValue if variable.varValue is not None else 0
         landscale = land/(400 if massirrigation else 500) * 12
         return variable_value * landscale
-
+    def calculate_refined_multiplier(variable,project,withproject,withoutproject):
+        variable_value = variable.varValue if variable.varValue is not None else 0
+        
     bauxiteproduced = calculate_production(imp_bauxitemine, 3, 0.5)
     coalproduced = calculate_production(imp_coalmine, 3, 0.5)
     ironproduced = calculate_production(imp_ironmine, 3, 0.5)
@@ -54,15 +56,28 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     munitionsproduced = calculate_production(imp_munitionsfactory, munitionsmultiplier, 0.125)
 
     # Calculate Pollution Index
+    def get_var_value(variable):
+        return variable.varValue if variable.varValue is not None else 0
     pollutionidx = (
-        imp_coalmine.varValue * 12 + imp_oilwell.varValue * 12 + imp_bauxitemine.varValue * 12 +
-        imp_leadmine.varValue * 12 + imp_ironmine.varValue * 12 + imp_uramine.varValue * 20 +
-        (imp_farm.varValue * (1 if greentech else 2)) + (imp_gasrefinery.varValue * (24 if greentech else 32)) +
-        (imp_aluminumrefinery.varValue * (30 if greentech else 40)) + (imp_steelmill.varValue * (30 if greentech else 40)) +
-        (imp_munitionsfactory.varValue * (24 if greentech else 32)) + imp_policestation.varValue * 1 +
-        imp_hospital.varValue * 4 + (imp_recyclingcenter.varValue * (-75 if recycling else -70)) +
-        (imp_subway.varValue * (-70 if greentech else -45)) + imp_mall.varValue * 2 + imp_stadium.varValue * 5
+        get_var_value(imp_coalmine) * 12 +
+        get_var_value(imp_oilwell) * 12 +
+        get_var_value(imp_bauxitemine) * 12 +
+        get_var_value(imp_leadmine) * 12 +
+        get_var_value(imp_ironmine) * 12 +
+        get_var_value(imp_uramine) * 20 +
+        (get_var_value(imp_farm) * (1 if greentech.varValue else 2)) +
+        (get_var_value(imp_gasrefinery) * (24 if greentech.varValue else 32)) +
+        (get_var_value(imp_aluminumrefinery) * (30 if greentech.varValue else 40)) +
+        (get_var_value(imp_steelmill) * (30 if greentech.varValue else 40)) +
+        (get_var_value(imp_munitionsfactory) * (24 if greentech.varValue else 32)) +
+        get_var_value(imp_policestation) * 1 +
+        get_var_value(imp_hospital) * 4 +
+        (get_var_value(imp_recyclingcenter) * (-75 if recycling.varValue else -70)) +
+        (get_var_value(imp_subway) * (-70 if greentech.varValue else -45)) +
+        get_var_value(imp_mall) * 2 +
+        get_var_value(imp_stadium) * 5
     )
+
     pollutionidx = max(pollutionidx, 0)
 
     # Calculate Disease
