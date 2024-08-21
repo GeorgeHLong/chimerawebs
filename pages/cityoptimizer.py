@@ -114,17 +114,17 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
 
     # Calculate Revenue
     rssrevenue = (
-        (foodproduced * 5) +
-        (coalproduced * 5) +
-        (oilproduced * 5) +
-        (ironproduced * 5) +
-        (uraniumproduced * 5) +
-        (bauxiteproduced * 5) +
-        (leadproduced * 5) +
-        (gasproduced * 5) +
-        (munitionsproduced * 5) +
-        (aluminumproduced * 5) +
-        (steelproduced * 5)
+        (foodproduced * 144) +
+        (coalproduced * 3634) +
+        (oilproduced * 3519) +
+        (ironproduced * 3917) +
+        (uraniumproduced * 3629) +
+        (bauxiteproduced * 4261) +
+        (leadproduced * 4553) +
+        (gasproduced * 3710) +
+        (munitionsproduced * 2236) +
+        (aluminumproduced * 3048) +
+        (steelproduced * 4759)
     )
 
     # Objective function
