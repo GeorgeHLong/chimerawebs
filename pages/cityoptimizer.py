@@ -113,6 +113,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     commercerev = commercerev * 1.015 if openmarkets and governmentsupport else commercerev * 1.01 if openmarkets else commercerev
 
     # Calculate Revenue
+    st.write(foodproduced,coalproduced,oilproduced,ironproduced,uraniumproduced,bauxiteproduced,leadproduced,gasproduced,munitionsproduced,aluminumproduced,steelproduced)
     rssrevenue = (
         (foodproduced * 144) +
         (coalproduced * 3634) +
