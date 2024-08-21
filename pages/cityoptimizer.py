@@ -134,7 +134,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     }
 
     return results
-st.title("City Build Optimizer")
+st.markdown("## City Build Optimizer")
 
 with st.form("city_build_form"):
     infra = st.number_input("Infrastructure Level", min_value=0, step=1)
