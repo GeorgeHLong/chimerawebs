@@ -175,6 +175,6 @@ if submitted:
         st.success("Optimization Complete!")
         st.json(results)
 
-fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
-st.plotly_chart(fig)
+        fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
+        st.plotly_chart(fig)
 
