@@ -9,6 +9,6 @@ alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering",
 peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
 cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
 
-pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,cityoptimizer])
+pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport])
 st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
 pg.run()
