@@ -171,9 +171,9 @@ with st.form("city_build_form"):
 if submitted:
     results = optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, ironworks, uraniumenrich, clinicalresearch, greentech, governmentsupport, itc, massirrigation, recycling, policeprogram, telesat, openmarkets)
 
-if results:
-    st.success("Optimization Complete!")
-    st.json(results)
+    if results:
+        st.success("Optimization Complete!")
+        st.json(results)
 
 fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
 st.plotly_chart(fig)
