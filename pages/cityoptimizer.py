@@ -99,7 +99,14 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     if telesat and not itc:
         st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
         return None
-    total_commerce = imp_supermarket.varValue * 3 + imp_bank.varValue * 5 + imp_mall.varValue * 9 + imp_stadium.varValue * 12 + imp_subway.varValue * 8
+    total_commerce = (
+        get_var_value(imp_supermarket) * 3 +
+        get_var_value(imp_bank) * 5 +
+        get_var_value(imp_mall) * 9 +
+        get_var_value(imp_stadium) * 12 +
+        get_var_value(imp_subway) * 8
+    )
+
     commerce_bonus = 2 if telesat and itc else 0
     
     commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
