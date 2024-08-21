@@ -13,22 +13,25 @@ def fetch_data(alliance_id):
 
     # Prepare the SQL query
     query = f"""
-        SELECT
-            DATE(date) AS date,
-            SUM("1_10") AS "1-10",
-            SUM("11_16") AS "11-16",
-            SUM("17_20") AS "17-20",
-            SUM("21_25") AS "21-25",
-            SUM("26_30") AS "26-30",
-            SUM("31_35") AS "31-35",
-            SUM("36_40") AS "36-40",
-            SUM("41_45") AS "41-45",
-            SUM("46_50") AS "46-50",
-            SUM("50_plus") AS "50+"
-        FROM alliancechange
-        WHERE alliance_id = {alliance_id}
-        GROUP BY DATE(date)
-        ORDER BY DATE(date);
+        SELECT a.alliancename as "Alliance Name", a.alliance_id as "Alliance ID",
+            COUNT(CASE WHEN num_cities BETWEEN 0 AND 10 THEN 1 END) AS "1-10",
+            COUNT(CASE WHEN num_cities BETWEEN 11 AND 16 THEN 1 END) AS "11-16",
+            COUNT(CASE WHEN num_cities BETWEEN 17 AND 20 THEN 1 END) AS "17-20",
+            COUNT(CASE WHEN num_cities BETWEEN 21 AND 25 THEN 1 END) AS "21-25",
+            COUNT(CASE WHEN num_cities BETWEEN 26 AND 30 THEN 1 END) AS "26-30",
+            COUNT(CASE WHEN num_cities BETWEEN 31 AND 35 THEN 1 END) AS "31-35",
+            COUNT(CASE WHEN num_cities BETWEEN 36 AND 40 THEN 1 END) AS "36-40",
+            COUNT(CASE WHEN num_cities BETWEEN 41 AND 45 THEN 1 END) AS "41-45",
+            COUNT(CASE WHEN num_cities BETWEEN 46 AND 50 THEN 1 END) AS "46-50",
+            COUNT(CASE WHEN num_cities > 50 THEN 1 END) AS "50+"
+        FROM tiny_nations tn
+        JOIN alliances a 
+        ON a.alliance_id = tn.alliance_id 
+        WHERE a.alliance_id IN (4567, 790)
+        AND tax_id != 0
+        AND applicant = false
+        AND vacation_mode_turns = 0
+        GROUP BY a.alliance_id
     """
 
     results = conn.query(query)
