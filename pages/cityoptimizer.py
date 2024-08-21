@@ -40,69 +40,60 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     greentech = LpVariable("GreenTech", cat=LpBinary)
     governmentsupport = LpVariable("GovernmentSupport", cat=LpBinary)
     itc = LpVariable("ITC", cat=LpBinary)
-    massirrigation = LpVariable("MassIrrigation", cat=LpBinary)
+    massirrigation = LpVariable("MassIrrigationProgram", cat=LpBinary)
     recycling = LpVariable("RecyclingProgram", cat=LpBinary)
     policeprogram = LpVariable("PoliceProgram", cat=LpBinary)
     telesat = LpVariable("TelecommunicationsSatellite", cat=LpBinary)
     openmarkets = LpVariable("OpenMarkets", cat=LpBinary)
 
-    # Calculations
-    bauxiteproduced = ((imp_bauxitemine * 3) * (1 + (0.5 / 9) * (imp_bauxitemine - 1)))
-    coalproduced = ((imp_coalmine * 3) * (1 + (0.5 / 9) * (imp_coalmine - 1)))
-    ironproduced = ((imp_ironmine * 3) * (1 + (0.5 / 9) * (imp_ironmine - 1)))
-    leadproduced = ((imp_leadmine * 3) * (1 + (0.5 / 9) * (imp_leadmine - 1)))
-    oilproduced = ((imp_oilwell * 3) * (1 + (0.5 / 9) * (imp_oilwell - 1)))
-    uraniumproduced = (imp_uramine * 3 * (1 + (0.5 / 4) * (imp_uramine - 1))) * (2 if uraniumenrich else 1)
-    foodproduced = (imp_farm * (land / (400 if massirrigation else 500))) * 12
-    steelmultiplier = 12.24 if ironworks else 9
-    steelproduced = (imp_steelmill * steelmultiplier) * (1 + 0.125 * (imp_steelmill - 1))
-    gasmultiplier = 12 if emergencygas else 9
-    gasproduced = (imp_gasrefinery * gasmultiplier) * (1 + 0.125 * (imp_gasrefinery - 1))
-    aluminummultiplier = 12.24 if bauxiteworks else 9
-    aluminumproduced = round((imp_aluminumrefinery * aluminummultiplier) * (1 + 0.125 * (imp_aluminumrefinery - 1)), 2)
-    munitionsmultiplier = 24.12 if armstockpile else 18
-    munitionsproduced = (imp_munitionsfactory * munitionsmultiplier) * (1 + 0.125 * (imp_munitionsfactory - 1))
+    # Helper variables for production calculations
+    bauxiteproduced = LpVariable("BauxiteProduced", lowBound=0)
+    coalproduced = LpVariable("CoalProduced", lowBound=0)
+    ironproduced = LpVariable("IronProduced", lowBound=0)
+    leadproduced = LpVariable("LeadProduced", lowBound=0)
+    oilproduced = LpVariable("OilProduced", lowBound=0)
+    uraniumproduced = LpVariable("UraniumProduced", lowBound=0)
+    foodproduced = LpVariable("FoodProduced", lowBound=0)
+    steelproduced = LpVariable("SteelProduced", lowBound=0)
+    gasproduced = LpVariable("GasProduced", lowBound=0)
+    aluminumproduced = LpVariable("AluminumProduced", lowBound=0)
+    munitionsproduced = LpVariable("MunitionsProduced", lowBound=0)
 
+    # Constraints for production calculations
+    problem += bauxiteproduced == ((imp_bauxitemine * 3) * (1 + (0.5 / 9) * (imp_bauxitemine - 1)))
+    problem += coalproduced == ((imp_coalmine * 3) * (1 + (0.5 / 9) * (imp_coalmine - 1)))
+    problem += ironproduced == ((imp_ironmine * 3) * (1 + (0.5 / 9) * (imp_ironmine - 1)))
+    problem += leadproduced == ((imp_leadmine * 3) * (1 + (0.5 / 9) * (imp_leadmine - 1)))
+    problem += oilproduced == ((imp_oilwell * 3) * (1 + (0.5 / 9) * (imp_oilwell - 1)))
+    problem += uraniumproduced == (imp_uramine * 3 * (1 + (0.5 / 4) * (imp_uramine - 1))) * (2 if uraniumenrich else 1)
+    problem += foodproduced == (imp_farm * (land / (400 if massirrigation else 500))) * 12
+
+    steelmultiplier = 12.24 if ironworks else 9
+    problem += steelproduced == (imp_steelmill * steelmultiplier) * (1 + 0.125 * (imp_steelmill - 1))
+
+    gasmultiplier = 12 if emergencygas else 9
+    problem += gasproduced == (imp_gasrefinery * gasmultiplier) * (1 + 0.125 * (imp_gasrefinery - 1))
+
+    aluminummultiplier = 12.24 if bauxiteworks else 9
+    problem += aluminumproduced == (imp_aluminumrefinery * aluminummultiplier) * (1 + 0.125 * (imp_aluminumrefinery - 1))
+
+    munitionsmultiplier = 24.12 if armstockpile else 18
+    problem += munitionsproduced == (imp_munitionsfactory * munitionsmultiplier) * (1 + 0.125 * (imp_munitionsfactory - 1))
+
+    # Pollution calculation and constraint
     pollutionidx = (
         imp_coalmine * 12 + imp_oilwell * 12 + imp_bauxitemine * 12 + imp_leadmine * 12 + imp_ironmine * 12 +
-        imp_uramine * 20 + (imp_farm * (1 if greentech else 2)) + 
-        (imp_gasrefinery * (24 if greentech else 32)) + (imp_aluminumrefinery * (30 if greentech else 40)) + 
-        (imp_steelmill * (30 if greentech else 40)) + (imp_munitionsfactory * (24 if greentech else 32)) + 
-        imp_policestation * 1 + imp_hospital * 4 + (imp_recyclingcenter * (-75 if recycling else -70)) + 
-        (imp_subway * (-70 if greentech else -45)) + imp_mall * 2 + imp_stadium * 5
+        imp_uramine * 20 + (imp_farm * (1 + (0.25 if massirrigation else 0.5))) +
+        imp_gasrefinery * 24 + imp_aluminumrefinery * 12 + imp_munitionsfactory * 12 + imp_steelmill * 24 +
+        imp_policestation * (-6) + imp_hospital * (-12) + imp_recyclingcenter * (-12) + imp_subway * (-12)
     )
-    pollutionidx = max(pollutionidx, 0)
+    # Disease calculation
+    disease = max(0, (0.01 * pollutionidx) + (0.005 * infra) - (0.001 * imp_hospital))
 
-    basepopulation = infra * 100
-    popdensity = basepopulation / land
-    diseasemultiplier = 3.5 if clinicalresearch else 2.5
-    disease = round(
-        ((((popdensity**2) * 0.01) - 25) / 100) + (basepopulation / 100000) + (pollutionidx * 0.05) - 
-        imp_hospital * diseasemultiplier, 2
-    )
-
-    if telesat and not itc:
-        st.error("You must have International Trade Center and Telecommunications Satellite to use Telecommunications Satellite")
-        return None
-    total_commerce = imp_supermarket * 3 + imp_bank * 5 + imp_mall * 9 + imp_stadium * 12 + imp_subway * 8
-    commerce_bonus = 2 if telesat and itc else 0
+    # Resource and Commerce Revenue Calculation
+    rssrevenue = (bauxiteproduced * 2400) + (coalproduced * 2400) + (ironproduced * 2400) + (leadproduced * 2400) + (oilproduced * 2400) + (uraniumproduced * 4800) + (foodproduced * 1600) + (steelproduced * 3000) + (gasproduced * 3000) + (aluminumproduced * 3000) + (munitionsproduced * 6000)
     
-    commercerev = round((((min(total_commerce + commerce_bonus, 125) / 50) * 0.725) + 0.725) * basepopulation, 2)
-    commercerev = commercerev * 1.015 if openmarkets and governmentsupport else commercerev * 1.01 if openmarkets else commercerev
-
-    rssrevenue = (
-        ((foodproduced) * 5) +
-        ((coalproduced) * 5) +
-        ((oilproduced) * 5) +
-        ((ironproduced) * 5) +
-        ((uraniumproduced) * 5) +
-        ((bauxiteproduced) * 5) +
-        ((leadproduced) * 5) +
-        ((gasproduced) * 5) +
-        ((munitionsproduced) * 5) +
-        ((aluminumproduced) * 5) +
-        ((steelproduced) * 5)
-    )
+    commercerev = (imp_supermarket * 20000) + (imp_bank * 40000) + (imp_mall * 40000) + (imp_stadium * 80000)
     
     revenue = round(rssrevenue + commercerev, 2)
     
@@ -110,8 +101,8 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     problem += revenue
 
     # Constraints
-    problem += (imp_coalmine + imp_oilwell + imp_uramine + imp_leadmine + imp_ironmine + imp_bauxitemine + imp_farm + imp_gasrefinery + imp_aluminumrefinery + imp_munitionsfactory + imp_steelmill + imp_policestation + imp_hospital + imp_recyclingcenter + imp_subway + imp_supermarket + imp_bank + imp_mall + imp_stadium) <= 50  # example constraint
-    problem += pollutionidx <= 500  # example constraint on pollution
+    problem += (imp_coalmine + imp_oilwell + imp_uramine + imp_leadmine + imp_ironmine + imp_bauxitemine + imp_farm + imp_gasrefinery + imp_aluminumrefinery + imp_munitionsfactory + imp_steelmill + imp_policestation + imp_hospital + imp_recyclingcenter + imp_subway + imp_supermarket + imp_bank + imp_mall + imp_stadium) <= 50  # Example constraint
+    problem += pollutionidx <= 500  # Example constraint on pollution
 
     # Solve the problem
     problem.solve()
@@ -143,10 +134,7 @@ def optimize_city_build(infra, land, armstockpile, bauxiteworks, emergencygas, i
     }
 
     return results
-
-# Streamlit app
-
-st.markdown("## City Build Optimizer")
+st.title("City Build Optimizer")
 
 with st.form("city_build_form"):
     infra = st.number_input("Infrastructure Level", min_value=0, step=1)
@@ -176,5 +164,4 @@ if submitted:
         st.json(results)
 
         fig = px.bar(pd.DataFrame(results.items(), columns=["Structure", "Value"]), x="Structure", y="Value")
-        st.plotly_chart(fig)
-
+        st.plotly_chart(fig)        
