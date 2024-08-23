@@ -34,7 +34,6 @@ hide_bar= """
 names = ["Peter Parker", "Rebecca Miller","bharath"]
 usernames = ["pparker", "rmiller","bharath"]
 
-# load hashed passwords
 file_path = Path(__file__).parent / "hashed_pw.pkl"
 with file_path.open("rb") as file:
     hashed_passwords = pickle.load(file)
