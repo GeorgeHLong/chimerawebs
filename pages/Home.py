@@ -27,8 +27,7 @@ if not value.empty:
 else:
     st.write("No data found for the given query.")
 
-authenticator = stauth.Authenticate(nationid, username, password,
-    "SIPL_dashboard", "abcdef")
+authenticator = stauth.Authenticate(nationid, username, password,"SIPL_dashboard", "abcdef")
 name, authentication_status, username = authenticator.login("Login", "main")
 
     
