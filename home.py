@@ -23,9 +23,15 @@ hide_bar= """
     </style>
 """
 
+# --- USER AUTHENTICATION ---
 names = ["Peter Parker", "Rebecca Miller","bharath"]
 usernames = ["pparker", "rmiller","bharath"]
-hashed_passwords = []
+
+# load hashed passwords
+file_path = Path(__file__).parent / "hashed_pw.pkl"
+with file_path.open("rb") as file:
+    hashed_passwords = pickle.load(file)
+
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
     "SIPL_dashboard", "abcdef")
 
@@ -38,7 +44,32 @@ if authentication_status == False:
 if authentication_status == None:
     st.warning("Please enter your username and password")
     st.markdown(hide_bar, unsafe_allow_html=True)
-    
+
+
+if authentication_status:
+    # # ---- SIDEBAR ----
+    st.sidebar.title(f"Welcome {name}")
+    # st.sidebar.header("select page here :")
+    st.write("# Welcome to Streamlit!..")
+
+    ###about ....
+    st.subheader("Introduction :")
+    st.text("1. \n2. \n3. \n4. \n5. \n")
+
+    st.sidebar.success("Select a page above.")
+
+    ###---- HIDE STREAMLIT STYLE ----
+    hide_st_style = """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
+    st.markdown(hide_st_style, unsafe_allow_html=True)
+
+
+    authenticator.logout("Logout", "sidebar")
 pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn])
 st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
 pg.run()
