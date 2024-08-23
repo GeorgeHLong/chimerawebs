@@ -21,11 +21,12 @@ def ma_inf(allianceids,nationid):
     value = conn.query(query2)
     
     value = value.iloc[0]
-    st.write(value * 1.25)
+    lowval = value * 1.25
+    highval = value * .75
     
     # Define SQL query
     query = f"""
-    select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 and tax_id != 0 order by num_cities 
+    select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 and tax_id != 0 and score between '{lowval}' and '{highval}' order by num_cities 
     """
     
     # Execute query and fetch results into DataFrame
