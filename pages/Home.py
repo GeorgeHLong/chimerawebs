@@ -16,7 +16,7 @@ conn = st.connection("postgresql", type="sql")
 nationid = "admin"
 password = "admin"
 query2 = f"""
-    select id,username, password from registeredusertable where username = '{nationid}' and password = '{password}'
+    select nation_id,username, password from registeredusertable where username = '{nationid}' and password = '{password}'
     """
 value = conn.query(query2)
 
