@@ -7,7 +7,7 @@ st.image("images/banner.png")
 # Connect to the database
 
 # Set the title of the app
-st.markdown("# Turns from Beige")
+st.markdown("# Beige Sniper")
 st.write("See how many turns people have left")
 
 conn = st.connection("postgresql", type="sql")
@@ -27,7 +27,7 @@ def ma_inf(allianceids, nationid):
     
     # Define SQL query
     query = f"""
-    select id, num_cities, score, beige_turns from tiny_nations tn 
+    select id, num_cities as "City Count", score as "Score", beige_turns as "Beige Turns" from tiny_nations tn 
     where alliance_id in ({allianceids}) 
     and beige_turns > 0 
     and tax_id != 0 
@@ -53,4 +53,4 @@ if submit:
     df = ma_inf(allianceids, nationid)
     
     # Display the DataFrame with hyperlinks
-    st.write(df[['Nation Link', 'num_cities', 'score', 'beige_turns']].to_markdown(index=False))
+    st.write(df[['Nation Link', 'City Count', 'Score', 'Beige Turns Left']].to_markdown(index=False))
