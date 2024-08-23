@@ -11,7 +11,13 @@ alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering",
 peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
 cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
 beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
+# Define your users' names, usernames, and plaintext passwords
+names = ["Peter Parker", "Rebecca Miller", "Bharath"]
+usernames = ["pparker", "rmiller", "bharath"]
+passwords = ["password1", "password2", "1234"]  # Replace with actual passwords
 
+# Generate hashed passwords
+hashed_passwords = stauth.Hasher(passwords).generate()
 hide_bar= """
     <style>
     [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
