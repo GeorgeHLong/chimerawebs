@@ -20,7 +20,7 @@ def ma_inf(allianceids,nationid):
     """
     value = conn.query(query2)
     
-    value = value.iloc[0]
+    value = value.iloc[0,'score']
     lowval = value * 1.25
     highval = value * .75
     
