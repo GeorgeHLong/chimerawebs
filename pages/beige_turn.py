@@ -1,5 +1,7 @@
 import streamlit as st
+import plotly.express as px
 import pandas as pd
+import tabulate
 
 # Display the banner image
 st.image("images/banner.png")
@@ -35,5 +37,4 @@ if submit:
     df = ma_inf(allianceids)
     
     # Display the DataFrame with hyperlinks
-    for index, row in df.iterrows():
-        st.write(f"**Nation ID:** {row['Nation Link']} | **Cities:** {row['num_cities']} | **Score:** {row['score']} | **Beige Turns:** {row['beige_turns']}")
+    st.write(df[['Nation Link', 'num_cities', 'score', 'beige_turns']].to_markdown(index=False))
