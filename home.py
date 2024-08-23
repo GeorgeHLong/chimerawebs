@@ -24,6 +24,7 @@ for username, password in zip(credentials["usernames"], hashed_passwords):
 # Authentication setup
 authenticator = stauth.Authenticate(credentials, "SIPL_dashboard", "abcdef")
 
+# Use 'main' or 'sidebar' as the location parameter
 name, authentication_status, username = authenticator.login("Login", "main")
 
 if authentication_status == False:
