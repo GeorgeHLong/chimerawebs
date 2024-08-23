@@ -2,6 +2,9 @@ import pickle
 from pathlib import Path
 import streamlit as st
 import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+import subprocess
+import sys
+
 
 # Define your users' names, usernames, and hashed passwords
 credentials = {
@@ -12,6 +15,7 @@ credentials = {
     }
 }
 
+subprocess.run([f"{sys.executable}", "script.py"])
 # Load the hashed passwords from the pickle file
 file_path = Path(__file__).parent / "hashed_pw.pkl"
 with file_path.open("rb") as file:
