@@ -1,23 +1,15 @@
-import streamlit as st
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 import pickle
 from pathlib import Path
-create_page = st.Page("pages/Home.py", title="Home", icon=":material/home:")
-delete_page = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/military_tech:")
-citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", icon=":material/apartment:")
 
-avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue by Alliance", icon=":material/attach_money:")
-alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering", icon=":material/equalizer:")
-peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
-cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
-beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
-# Define your users' names, usernames, and plaintext passwords
-names = ["Peter Parker", "Rebecca Miller", "Bharath"]
-usernames = ["pparker", "rmiller", "bharath"]
-passwords = ["password1", "password2", "1234"]  # Replace with actual passwords
+import pandas as pd  # pip install pandas openpyxl
+import plotly.express as px  # pip install plotly-express
+import streamlit as st  # pip install streamlit
+import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 
-# Generate hashed passwords
-hashed_passwords = stauth.Hasher(passwords).generate()
+
+# emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
+st.set_page_config(page_title="streamlit Dashboard", page_icon=":bar_chart:", layout="wide")
+
 hide_bar= """
     <style>
     [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
@@ -34,6 +26,7 @@ hide_bar= """
 names = ["Peter Parker", "Rebecca Miller","bharath"]
 usernames = ["pparker", "rmiller","bharath"]
 
+# load hashed passwords
 file_path = Path(__file__).parent / "hashed_pw.pkl"
 with file_path.open("rb") as file:
     hashed_passwords = pickle.load(file)
@@ -76,6 +69,3 @@ if authentication_status:
 
 
     authenticator.logout("Logout", "sidebar")
-pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn])
-st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
-pg.run()
