@@ -1,52 +1,16 @@
-import pickle
-from pathlib import Path
 import streamlit as st
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 
-# Define your users' names, usernames, and hashed passwords
-credentials = {
-    "usernames": {
-        "pparker": {"name": "Peter Parker", "password": "hashed_password1"},
-        "rmiller": {"name": "Rebecca Miller", "password": "hashed_password2"},
-        "bharath": {"name": "Bharath", "password": "hashed_password3"}
-    }
-}
+create_page = st.Page("pages/Home.py", title="Home", icon=":material/home:")
+delete_page = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/military_tech:")
+citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", icon=":material/apartment:")
 
-# Load the hashed passwords from the pickle file
-file_path = Path(__file__).parent / "hashed_pw.pkl"
-with file_path.open("rb") as file:
-    hashed_passwords = pickle.load(file)
+avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue by Alliance", icon=":material/attach_money:")
+alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering", icon=":material/equalizer:")
+peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
+cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
+beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
 
-# Assign the correct hashed passwords to the credentials dictionary
-for username, password in zip(credentials["usernames"], hashed_passwords):
-    credentials["usernames"][username]["password"] = password
 
-# Authentication setup
-authenticator = stauth.Authenticate(credentials, "SIPL_dashboard", "abcdef")
-
-# Use 'main' or 'sidebar' as the location parameter
-name, authentication_status, username = authenticator.login("Login", "main")
-
-if authentication_status == False:
-    st.error("Username/password is incorrect")
-
-if authentication_status == None:
-    st.warning("Please enter your username and password")
-
-if authentication_status:
-    st.sidebar.title(f"Welcome {name}")
-    st.write("# Welcome to Streamlit!")
-    st.subheader("Introduction:")
-    st.text("1. \n2. \n3. \n4. \n5. \n")
-    st.sidebar.success("Select a page above.")
-    
-    hide_st_style = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        </style>
-    """
-    st.markdown(hide_st_style, unsafe_allow_html=True)
-
-    authenticator.logout("Logout", "sidebar")
+pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn])
+st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
+pg.run()
