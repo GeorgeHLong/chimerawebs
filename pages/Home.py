@@ -29,7 +29,7 @@ authenticator = stauth.Authenticate(
     "abcdef",
     cookie_expiry_days=30
 )
-name, authentication_status, username = authenticator.login("Login", "main")
+name, authentication_status, username = authenticator.login("Login", "unrendered")
 
 if authentication_status:
     st.image("images/banner.png")
