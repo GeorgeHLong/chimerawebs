@@ -23,7 +23,8 @@ if not value.empty:
     nationid = value.loc[0, 'nation_id']
     username = value.loc[0, 'username']
     password = value.loc[0, 'password']
-    nationid = int(nationid)
+    nationid = list(nationid)
+    
     st.write(type(username),type(nationid),type(password))
 else:
     st.write("No data found for the given query.")
