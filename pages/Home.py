@@ -20,11 +20,12 @@ query2 = f"""
     """
 value = conn.query(query2)
 
-# Access the score value correctly
-nationid = value.iloc[0][0]
-username = value.iloc[0][1]
-password = value.iloc[0][2]
-st.write(nationid, username, password)
+if not value.empty:
+    nationid = value.iloc[0][0]
+    username = value.iloc[0][1]
+    password = value.iloc[0][2]
+else:
+    st.write("No data found for the given query.")
 
 authenticator = stauth.Authenticate(nationid, username, password,
     "SIPL_dashboard", "abcdef")
