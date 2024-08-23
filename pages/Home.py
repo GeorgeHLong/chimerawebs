@@ -8,7 +8,6 @@ import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 
 
 # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
-st.set_page_config(page_title="streamlit Dashboard", page_icon=":bar_chart:", layout="wide")
 
 hide_bar= """
     <style>
