@@ -1,56 +1,29 @@
-import pickle
-from pathlib import Path
 import streamlit as st
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-import subprocess
-import sys
+
+import json
+import pandas as pd 
+import numpy as np
+import time
 
 
-# Define your users' names, usernames, and hashed passwords
-credentials = {
-    "usernames": {
-        "pparker": {"name": "Peter Parker", "password": "hashed_password1"},
-        "rmiller": {"name": "Rebecca Miller", "password": "hashed_password2"},
-        "bharath": {"name": "Bharath", "password": "hashed_password3"}
-    }
-}
+st.image("images/banner.png")
+conn = st.connection("postgresql", type="sql")
+# Run a query
 
-subprocess.run([f"{sys.executable}", "script.py"])
-# Load the hashed passwords from the pickle file
-file_path = Path(__file__).parent / "hashed_pw.pkl"
-with file_path.open("rb") as file:
-    hashed_passwords = pickle.load(file)
+st.write("Welcome to Chimera Corp, your trusted partner in data analysis and strategic insights for the game Politics and War. At Chimera Corp, we specialize in transforming complex in-game data into actionable intelligence, empowering alliances and nations to make informed decisions. Whether you're looking to optimize your nation's performance, outmaneuver your rivals, or gain a competitive edge, our cutting-edge analytics and tailored solutions will help you conquer the political landscape. Join us and unlock the full potential of your nation with Chimera Corp—where data meets domination.")
 
-# Assign the correct hashed passwords to the credentials dictionary
-for username, password in zip(credentials["usernames"], hashed_passwords):
-    credentials["usernames"][username]["password"] = password
+st.markdown("## Cutting-Edge Data Analysis")
+st.image("images/homepage1.jpeg",)
+st.write("Unlock the power of data with AI-driven algorithms for game trends and player behavior insights")
 
-# Authentication setup
-authenticator = stauth.Authenticate(credentials, "SIPL_dashboard", "abcdef")
+st.markdown("## Empowering Orbis with Quality Effectively")
+st.image("images/homepage2.jpeg",)
+st.write("Chimera Corp is dedicated to revolutionizing the gaming industry through cutting-edge technology. With our state-of-the-art Discord Bots, Alliance Consultancy Services, and Data Analysis tools, we provide gamers with the tools they need to excel for whatever they need. Join us and unlock a new level of gaming expertise.")
 
-# Use 'main' or 'sidebar' as the location parameter
-name, authentication_status, username = authenticator.login("Login", "main")
 
-if authentication_status == False:
-    st.error("Username/password is incorrect")
+st.markdown("## AI-Driven Technology")
+st.image("images/ai.jpeg",)
+st.write("Enhance your gameplay with AI-powered bots that streamline communication and coordination")
 
-if authentication_status == None:
-    st.warning("Please enter your username and password")
 
-if authentication_status:
-    st.sidebar.title(f"Welcome {name}")
-    st.write("# Welcome to Streamlit!")
-    st.subheader("Introduction:")
-    st.text("1. \n2. \n3. \n4. \n5. \n")
-    st.sidebar.success("Select a page above.")
-    
-    hide_st_style = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        </style>
-    """
-    st.markdown(hide_st_style, unsafe_allow_html=True)
 
-    authenticator.logout("Logout", "sidebar")
