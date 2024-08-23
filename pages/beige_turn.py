@@ -17,7 +17,7 @@ conn = st.connection("postgresql", type="sql")
 def ma_inf(allianceids):
     # Define SQL query
     query = f"""
-    select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 order by num_cities 
+    select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 order by num_cities where tax_id != 0
     """
     
     # Execute query and fetch results into DataFrame
