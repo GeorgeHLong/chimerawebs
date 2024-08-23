@@ -23,7 +23,8 @@ if not value.empty:
     nationid = value.loc[0, 'nation_id']
     username = value.loc[0, 'username']
     password = value.loc[0, 'password']
-    info = list(nationid, username, password)
+    nationid = int(nationid)
+    info = zip(nationid, username, password)
     
     st.write(info)
 else:
