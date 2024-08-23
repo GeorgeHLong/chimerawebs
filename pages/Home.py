@@ -4,12 +4,31 @@ import json
 import pandas as pd 
 import numpy as np
 import time
+from pathlib import Path
 
+import plotly.express as px  # pip install plotly-express
+import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 # Run a query
 
+nationid = "admin"
+password = "admin"
+query2 = f"""
+    select id,username, password from registeredusertable where username = '{nationid}' and password = '{password}'
+    """
+value = conn.query(query2)
+
+# Access the score value correctly
+nationid = value.iloc[0][0]
+username = value.iloc[0][1]
+password = value.iloc[0][2]
+
+authenticator = stauth.authenticate(nationid,username, password,"Chimera_login","chimera")
+name, authentication_status, username = authenticator.login("Login", "main")
+
+    
 st.write("Welcome to Chimera Corp, your trusted partner in data analysis and strategic insights for the game Politics and War. At Chimera Corp, we specialize in transforming complex in-game data into actionable intelligence, empowering alliances and nations to make informed decisions. Whether you're looking to optimize your nation's performance, outmaneuver your rivals, or gain a competitive edge, our cutting-edge analytics and tailored solutions will help you conquer the political landscape. Join us and unlock the full potential of your nation with Chimera Corp—where data meets domination.")
 
 st.markdown("## Cutting-Edge Data Analysis")
