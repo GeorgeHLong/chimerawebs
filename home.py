@@ -8,7 +8,7 @@ avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue b
 alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering", icon=":material/equalizer:")
 peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
 cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
-beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/monitoring:")
+beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
 
 
 pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn])
