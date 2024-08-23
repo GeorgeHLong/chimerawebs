@@ -45,8 +45,8 @@ def ma_inf(allianceids, nationid):
 
 # Create the form for user input
 with st.form("my_form"):
-    allianceids = st.text_input("Alliance IDs")
-    nationid = st.text_input("Nation ID")
+    allianceids = st.text_input("Enemy Alliance IDs")
+    nationid = st.text_input("Your Nation ID")
     submit = st.form_submit_button("Submit")
 
 if submit:
