@@ -53,4 +53,4 @@ if submit:
     df = ma_inf(allianceids, nationid)
     
     # Display the DataFrame with hyperlinks
-    st.write(df[['Nation Link', 'City Count', 'Score', 'Beige Turns']].to_markdown(index=False))
+    st.write(df[['Nation Link', 'num_cities', 'score', 'beige_turns']].to_markdown(index=False))
