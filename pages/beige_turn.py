@@ -20,7 +20,7 @@ def ma_inf(allianceids,nationid):
     """
     value = conn.query(query2)
     
-    value = value['score']
+    value = value.iloc[0]
     st.write(value)
     # Define SQL query
     query = f"""
