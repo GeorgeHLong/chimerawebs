@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-
+import pickle
 create_page = st.Page("pages/Home.py", title="Home", icon=":material/home:")
 delete_page = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/military_tech:")
 citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", icon=":material/apartment:")
@@ -28,7 +28,7 @@ names = ["Peter Parker", "Rebecca Miller","bharath"]
 usernames = ["pparker", "rmiller","bharath"]
 
 # load hashed passwords
-file_path = Path(__file__).parent / "hashed_pw.pkl"
+file_path = "hashed_pw.pkl"
 with file_path.open("rb") as file:
     hashed_passwords = pickle.load(file)
 
