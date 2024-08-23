@@ -1,29 +1,71 @@
-import streamlit as st
+import pickle
+from pathlib import Path
 
-import json
-import pandas as pd 
-import numpy as np
-import time
-
-
-st.image("images/banner.png")
-conn = st.connection("postgresql", type="sql")
-# Run a query
-
-st.write("Welcome to Chimera Corp, your trusted partner in data analysis and strategic insights for the game Politics and War. At Chimera Corp, we specialize in transforming complex in-game data into actionable intelligence, empowering alliances and nations to make informed decisions. Whether you're looking to optimize your nation's performance, outmaneuver your rivals, or gain a competitive edge, our cutting-edge analytics and tailored solutions will help you conquer the political landscape. Join us and unlock the full potential of your nation with Chimera Corp—where data meets domination.")
-
-st.markdown("## Cutting-Edge Data Analysis")
-st.image("images/homepage1.jpeg",)
-st.write("Unlock the power of data with AI-driven algorithms for game trends and player behavior insights")
-
-st.markdown("## Empowering Orbis with Quality Effectively")
-st.image("images/homepage2.jpeg",)
-st.write("Chimera Corp is dedicated to revolutionizing the gaming industry through cutting-edge technology. With our state-of-the-art Discord Bots, Alliance Consultancy Services, and Data Analysis tools, we provide gamers with the tools they need to excel for whatever they need. Join us and unlock a new level of gaming expertise.")
+import pandas as pd  # pip install pandas openpyxl
+import plotly.express as px  # pip install plotly-express
+import streamlit as st  # pip install streamlit
+import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 
 
-st.markdown("## AI-Driven Technology")
-st.image("images/ai.jpeg",)
-st.write("Enhance your gameplay with AI-powered bots that streamline communication and coordination")
+# emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
+st.set_page_config(page_title="streamlit Dashboard", page_icon=":bar_chart:", layout="wide")
+
+hide_bar= """
+    <style>
+    [data-testid="stSidebar"][aria-expanded="true"] > div:first-child {
+        visibility:hidden;
+        width: 0px;
+    }
+    [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
+        visibility:hidden;
+    }
+    </style>
+"""
+
+# --- USER AUTHENTICATION ---
+names = ["Peter Parker", "Rebecca Miller","bharath"]
+usernames = ["pparker", "rmiller","bharath"]
+
+# load hashed passwords
+file_path = Path(__file__).parent / "hashed_pw.pkl"
+with file_path.open("rb") as file:
+    hashed_passwords = pickle.load(file)
+
+authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
+    "SIPL_dashboard", "abcdef")
+
+name, authentication_status, username = authenticator.login("Login", "main")
+
+if authentication_status == False:
+    st.error("Username/password is incorrect")
+    st.markdown(hide_bar, unsafe_allow_html=True)
+
+if authentication_status == None:
+    st.warning("Please enter your username and password")
+    st.markdown(hide_bar, unsafe_allow_html=True)
 
 
+if authentication_status:
+    # # ---- SIDEBAR ----
+    st.sidebar.title(f"Welcome {name}")
+    # st.sidebar.header("select page here :")
+    st.write("# Welcome to Streamlit!..")
 
+    ###about ....
+    st.subheader("Introduction :")
+    st.text("1. \n2. \n3. \n4. \n5. \n")
+
+    st.sidebar.success("Select a page above.")
+
+    ###---- HIDE STREAMLIT STYLE ----
+    hide_st_style = """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
+    st.markdown(hide_st_style, unsafe_allow_html=True)
+
+
+    authenticator.logout("Logout", "sidebar")
