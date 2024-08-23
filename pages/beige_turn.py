@@ -19,7 +19,6 @@ def ma_inf(allianceids,nationid):
     select score from tiny_nations tn where id = '{nationid}'
     """
     value = conn.query(query2)
-    value = value[0]
     st.write(value)
     # Define SQL query
     query = f"""
