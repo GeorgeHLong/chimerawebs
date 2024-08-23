@@ -26,7 +26,8 @@ username = value.iloc[0][1]
 password = value.iloc[0][2]
 st.write(nationid, username, password)
 
-authenticator = stauth.authenticate(nationid,username, password,"Chimera_login","chimera")
+authenticator = stauth.Authenticate(nationid, username, password,
+    "SIPL_dashboard", "abcdef")
 name, authentication_status, username = authenticator.login("Login", "main")
 
     
