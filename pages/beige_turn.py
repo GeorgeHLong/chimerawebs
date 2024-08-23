@@ -19,7 +19,9 @@ def ma_inf(allianceids,nationid):
     select score from tiny_nations tn where id = '{nationid}'
     """
     value = conn.query(query2)
-    st.write(value['score'])
+    
+    value = value['score']
+    st.write(value)
     # Define SQL query
     query = f"""
     select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 and tax_id != 0 order by num_cities 
