@@ -1,7 +1,5 @@
 import streamlit as st
-import plotly.express as px
 import pandas as pd
-import tabulate
 
 # Display the banner image
 st.image("images/banner.png")
@@ -14,19 +12,27 @@ st.write("See how many turns people have left")
 
 conn = st.connection("postgresql", type="sql")
 
-def ma_inf(allianceids,nationid):
+def ma_inf(allianceids, nationid):
     query2 = f"""
     select score from tiny_nations tn where id = '{nationid}'
     """
     value = conn.query(query2)
     
-    value = value.iloc[0,'score']
-    lowval = value * 1.25
-    highval = value * .75
+    # Access the score value correctly
+    value = value.iloc[0]['score']
+    
+    # Calculate lowval and highval correctly
+    lowval = value * 0.75
+    highval = value * 1.25
     
     # Define SQL query
     query = f"""
-    select id, num_cities, score, beige_turns from tiny_nations tn where alliance_id in ({allianceids}) and beige_turns > 0 and tax_id != 0 and score between '{lowval}' and '{highval}' order by num_cities 
+    select id, num_cities, score, beige_turns from tiny_nations tn 
+    where alliance_id in ({allianceids}) 
+    and beige_turns > 0 
+    and tax_id != 0 
+    and score between {lowval} and {highval} 
+    order by num_cities 
     """
     
     # Execute query and fetch results into DataFrame
@@ -44,7 +50,7 @@ with st.form("my_form"):
     submit = st.form_submit_button("Submit")
 
 if submit:
-    df = ma_inf(allianceids,nationid)
+    df = ma_inf(allianceids, nationid)
     
     # Display the DataFrame with hyperlinks
     st.write(df[['Nation Link', 'num_cities', 'score', 'beige_turns']].to_markdown(index=False))
