@@ -24,6 +24,7 @@ value = conn.query(query2)
 nationid = value.iloc[0][0]
 username = value.iloc[0][1]
 password = value.iloc[0][2]
+st.write(nationid, username, password)
 
 authenticator = stauth.authenticate(nationid,username, password,"Chimera_login","chimera")
 name, authentication_status, username = authenticator.login("Login", "main")
