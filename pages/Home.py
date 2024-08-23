@@ -19,8 +19,10 @@ query2 = f"""
     select nation_id,username, password from registeredusertable where username = '{nationid}' and password = '{password}'
     """
 value = conn.query(query2)
-st.write(value.columns)
-
+if not value.empty:
+    nationid = value.loc[0, 'nation_id']
+    username = value.loc[0, 'username']
+    password = value.loc[0, 'password']
 if not value.empty:
     nationid = value.iloc[0][0]
     username = value.iloc[0][1]
