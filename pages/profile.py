@@ -17,7 +17,7 @@ order by trade_timestamp desc limit 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column, center = st.columns(2)
+left_column, center,right_column = st.columns(3)
 
 # Chimera Holdings
 with left_column:
@@ -52,6 +52,7 @@ with center:
     
     st.markdown("## Your Military Info")
     st.write(df2.transpose())
+with right_column:
     st.markdown("## Average Military Info")
     st.write(df3.transpose())
 
