@@ -18,7 +18,7 @@ LIMIT 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column, right_column = st.columns(2)
+left_column = st.columns(1)
 
 # Chimera Holdings
 with left_column:
@@ -32,31 +32,30 @@ with left_column:
     st.write(df.transpose())
 
 # Military Info
-with right_column:
-    query3 = """
-    SELECT ROUND(AVG(soldiers), 0) AS soldiers, ROUND(AVG(tanks), 0) AS tanks, 
-           ROUND(AVG(aircraft), 0) AS aircraft, ROUND(AVG(ships), 0) AS ships, 
-           ROUND(AVG(missiles), 0) AS missiles, ROUND(AVG(nukes), 0) AS nukes, 
-           ROUND(AVG(spies), 0) AS spies 
-    FROM tiny_nations 
-    WHERE score BETWEEN 8000 AND 9000
-    """
-    df3 = conn.query(query3).transpose()
+query3 = """
+SELECT ROUND(AVG(soldiers), 0) AS soldiers, ROUND(AVG(tanks), 0) AS tanks, 
+        ROUND(AVG(aircraft), 0) AS aircraft, ROUND(AVG(ships), 0) AS ships, 
+        ROUND(AVG(missiles), 0) AS missiles, ROUND(AVG(nukes), 0) AS nukes, 
+        ROUND(AVG(spies), 0) AS spies 
+FROM tiny_nations 
+WHERE score BETWEEN 8000 AND 9000
+"""
+df3 = conn.query(query3).transpose()
 
-    query2 = f"""
-    SELECT soldiers, tanks, aircraft, ships, missiles, nukes, spies 
-    FROM tiny_nations 
-    WHERE id = {nationid}
-    """
-    df2 = conn.query(query2).transpose()
-    
-    # Combine your data with the average for comparison
-    merged = pd.concat([df2, df3], axis=1)
-    merged.columns = ["Your Forces", "Average Forces"]
+query2 = f"""
+SELECT soldiers, tanks, aircraft, ships, missiles, nukes, spies 
+FROM tiny_nations 
+WHERE id = {nationid}
+"""
+df2 = conn.query(query2).transpose()
 
-    st.markdown("## Your Military Info")
-    st.write(merged)
+# Combine your data with the average for comparison
+merged = pd.concat([df2, df3], axis=1)
+merged.columns = ["Your Forces", "Average Forces"]
 
-    # Plotting side by side comparison
-    fig = px.bar(merged, barmode='group', title="Your Military Forces vs Average Forces")
-    st.plotly_chart(fig)
+st.markdown("## Your Military Info")
+st.write(merged)
+
+# Plotting side by side comparison
+fig = px.bar(merged, barmode='group', title="Your Military Forces vs Average Forces")
+st.plotly_chart(fig)
