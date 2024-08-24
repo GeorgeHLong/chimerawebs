@@ -60,6 +60,6 @@ with right_column:
                            'Avg Soldiers', 'Avg Tanks', 'Avg Aircraft', 'Avg Ships', 'Avg Missiles', 'Avg Nukes', 'Avg Spies']
 
     combined_df = combined_df.melt(var_name='Category', value_name='Count')
-    fig = px.bar(combined_df, x='Category', y='Count', color='variable', barmode='group')
+    fig = px.bar(combined_df, x='Category', y='Count', barmode='group')
     
     st.plotly_chart(fig)
