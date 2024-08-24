@@ -17,7 +17,7 @@ order by trade_timestamp desc limit 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column, center,right_column = st.columns(3)
+left_column, center,right_column = st.columns(2)
 
 # Chimera Holdings
 with left_column:
@@ -49,12 +49,11 @@ with center:
     where id = '{nationid}'
     """
     df2 = conn.query(query2)
-    
+    df2 = df2.transpose()
+    df3 = df3.transpose()
+    merged = pd.concat([df2,df3])
     st.markdown("## Your Military Info")
-    st.write(df2.transpose())
-with right_column:
-    st.markdown("## Average Military Info")
-    st.write(df3.transpose())
+    st.write(merged)
 
-my_chart = st.line_chart(df2)
-my_chart.add_rows(df3)
+
+
