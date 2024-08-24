@@ -38,7 +38,7 @@ def login():
 
 def logout():
     st.image("images/banner.png")
-    st.markdown("# Log out of Chimera Web")
+    st.markdown("## Log out of Chimera Web")
     if st.button("Log out"):
         st.session_state.logged_in = False
         st.rerun()
