@@ -15,7 +15,7 @@ def login():
         password = st.text_input("Password")
         submit = st.form_submit_button("Log in")
     if submit:
-            query2 = f"""select nation_id, username, password from registeredusertable r where username = '{username}' and password = '{password}'"""  
+            query2 = f"""select nation_id, username, password,tn.nation_name from registeredusertable r join tiny_nations tn on tn.id = r.nation_id where username = '{username}' and password = '{password}'"""  
             results = conn.query(query2)
             # Check if the query returned any results
             if not results.empty:
@@ -23,6 +23,7 @@ def login():
                 dbnation_id = results.at[0, 'nation_id']
                 dbusername = results.at[0, 'username']
                 dbpassword = results.at[0, 'password']
+                dbuserdisplay = results.at[0, 'user_display']
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
@@ -30,6 +31,7 @@ def login():
                     st.session_state.logged_in = True
                     st.session_state.role = dbnation_id
                     st.write(st.session_state.role)
+                    st.session_state.nationname = dbuserdisplay
                     st.rerun()
             else:
                 st.warning("Wrong username/password")
