@@ -49,7 +49,7 @@ df2 = conn.query(query2).transpose()
 merged = pd.concat([df2, df3], axis=1)
 merged.columns = ["Your Forces", "Average Forces"]
 
-st.table(merged.iloc[0:])
+st.line_chart(merged)
 
 
 # Plotting side by side comparison
