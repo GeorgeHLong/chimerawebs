@@ -5,7 +5,7 @@ import pandas as pd
 # Display the banner image
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
-nationid =  st.session_state.role
+st.write(st.session_state.role)
 query = f"""
 select * from tiny_nations tn where tn.id = '{nationid}'
 """

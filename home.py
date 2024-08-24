@@ -29,6 +29,7 @@ def login():
                 if dbusername == username and dbpassword == password:
                     st.session_state.logged_in = True
                     st.session_state.role = dbnation_id
+                    st.write(st.session_state.role)
                     st.rerun()
             else:
                 st.warning("Wrong username/password")
