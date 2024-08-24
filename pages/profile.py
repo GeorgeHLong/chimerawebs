@@ -13,4 +13,5 @@ select money,food,coal,oil,uranium,lead,iron,bauxite,gasoline,munitions,steel,al
 
 # Execute query and fetch results into DataFrame
 df = conn.query(query)
-st.write(df)
+st.markdown("## Bank Account Holdings")
+st.write(df.transpose())
