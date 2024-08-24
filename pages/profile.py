@@ -55,11 +55,21 @@ with center:
 
 # Combine DataFrames and Create Bar Chart
 with right_column:
-    combined_df = pd.concat([df2, df3], axis=1)
-    combined_df.columns = ['Your Soldiers', 'Your Tanks', 'Your Aircraft', 'Your Ships', 'Your Missiles', 'Your Nukes', 'Your Spies',
-                           'Avg Soldiers', 'Avg Tanks', 'Avg Aircraft', 'Avg Ships', 'Avg Missiles', 'Avg Nukes', 'Avg Spies']
+    # Rename columns to distinguish between "Your" and "Average"
+    df2.columns = ['Your Soldiers', 'Your Tanks', 'Your Aircraft', 'Your Ships', 'Your Missiles', 'Your Nukes', 'Your Spies']
+    df3.columns = ['Avg Soldiers', 'Avg Tanks', 'Avg Aircraft', 'Avg Ships', 'Avg Missiles', 'Avg Nukes', 'Avg Spies']
 
-    combined_df = combined_df.melt(var_name='Category', value_name='Count')
-    fig = px.bar(combined_df, x='Category', y='Count', barmode='group')
+    # Combine the DataFrames
+    combined_df = pd.concat([df2.transpose(), df3.transpose()], axis=1)
+    combined_df.reset_index(inplace=True)
+    combined_df.columns = ['Category', 'Your Value', 'Average Value']
+
+    # Melt the DataFrame for Plotly
+    combined_df = combined_df.melt(id_vars='Category', value_vars=['Your Value', 'Average Value'], 
+                                   var_name='Type', value_name='Count')
+
+    # Create the bar chart
+    fig = px.bar(combined_df, x='Category', y='Count', color='Type', barmode='group', 
+                 labels={'Count': 'Military Units', 'Category': 'Military Type'})
     
     st.plotly_chart(fig)
