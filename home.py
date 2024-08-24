@@ -19,8 +19,8 @@ def login():
             results = conn.query(query2)
             dbnation_id,dbusername,dbpassword = results
             st.write(dbnation_id,dbusername,username,dbpassword,password)
-            st.session_state.logged_in = True
-            st.rerun()
+            #st.session_state.logged_in = True
+            #st.rerun()
 
 
 
