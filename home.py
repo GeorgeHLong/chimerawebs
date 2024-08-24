@@ -15,6 +15,9 @@ def login():
     if len(nationid) > 0 and len(allianceids) > 0 and submit: 
         st.session_state.logged_in = True
         st.rerun()
+    else:
+        st.warning("Incorrect username or password")
+
 def logout():
     if st.button("Log out"):
         st.session_state.logged_in = False
