@@ -6,6 +6,8 @@ conn = st.connection("postgresql", type="sql")
 def login():
     # Create the form for user input
         # Display the banner image
+    st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
+
     st.image("images/banner.png")
     with st.form("my_form"):
         username = st.text_input("Username")
