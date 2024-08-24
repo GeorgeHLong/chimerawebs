@@ -7,8 +7,8 @@ def login():
         # Display the banner image
     st.image("images/banner.png")
     with st.form("my_form"):
-        allianceids = st.text_input("Enemy Alliance IDs (separated by commas)")
-        nationid = st.text_input("Your Nation ID")
+        allianceids = st.text_input("Username")
+        nationid = st.text_input("Password")
         submit = st.form_submit_button("Submit")   
     if submit: 
         st.session_state.logged_in = True
