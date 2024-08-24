@@ -56,7 +56,7 @@ alliancetiering = st.Page("pages/alliance_tiering.py", title="Alliance Tiering",
 peerreport = st.Page("pages/peerreport.py", title="Alliance Tiering", icon=":material/summarize:")
 cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":material/monitoring:")
 beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
-profile = st.page("pages/profile.py", title="Profile", icon=":material/summarize:")
+profile = st.Page("pages/profile.py", title="Profile", icon=":material/summarize:")
 
 if st.session_state.logged_in:
     pg = st.navigation([profile,delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
