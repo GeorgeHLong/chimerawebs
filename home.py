@@ -26,10 +26,12 @@ def login():
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
+                if dbusername == username and dbpassword == password:
+                    st.session_state.logged_in = True
+                    st.rerun()
             else:
                 st.write("No matching records found.")
-            #st.session_state.logged_in = True
-            #st.rerun()
+
 
 
 
