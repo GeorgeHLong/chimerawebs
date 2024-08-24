@@ -8,8 +8,9 @@ def login():
         st.rerun()
 
 def logout():
-    st.session_state.logged_in = False
-    st.rerun()
+    if st.button("Log out"):
+        st.session_state.logged_in = False
+        st.rerun()
 
 login_page = st.Page(login, title="Log in", icon=":material/login:")
 logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
