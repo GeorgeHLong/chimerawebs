@@ -17,8 +17,17 @@ def login():
     if submit:
             query2 = f"""select nation_id, username, password from registeredusertable r where username = '{username}' and password = '{password}'"""  
             results = conn.query(query2)
-            dbnation_id,dbusername,dbpassword = results
-            st.write(dbnation_id,dbusername,username,dbpassword,password)
+            # Check if the query returned any results
+            if not results.empty:
+                # Extract values from the first row of the DataFrame
+                dbnation_id = results.at[0, 'nation_id']
+                dbusername = results.at[0, 'username']
+                dbpassword = results.at[0, 'password']
+                
+                # Display the values using Streamlit
+                st.write(dbnation_id, dbusername, username, dbpassword, password)
+            else:
+                st.write("No matching records found.")
             #st.session_state.logged_in = True
             #st.rerun()
 
