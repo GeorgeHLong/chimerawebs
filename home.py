@@ -9,7 +9,7 @@ def login():
         if st.button("Log in"):
             st.session_state.logged_in = True
             st.rerun()
-        submit = st.form_submit_button("Submit")
+    submit = st.form_submit_button("Submit")
 
 def logout():
     if st.button("Log out"):
