@@ -19,7 +19,7 @@ with left_column:
     st.write(df.transpose())
 with right_column:
     query2 = f"""
-    select soldiers,tanks,aircraft,ships,missile,nukes,spies from tiny_nations where id = '{nationid}'
+    select soldiers,tanks,aircraft,ships,missiles,nukes,spies from tiny_nations where id = '{nationid}'
     """
     df2 = conn.query(query2)
     st.markdown("## Military Info")    
