@@ -45,5 +45,4 @@ if st.session_state.logged_in:
 else:
     pg = st.navigation([login_page])
     
-st.set_page_config(page_title="Chimera Corp", page_icon="./images/chimera.png")
 pg.run()
