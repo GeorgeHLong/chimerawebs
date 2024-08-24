@@ -39,7 +39,7 @@ with center:
     st.write(df2.transpose())
 with right_column:
     combined_df = pd.concat([df2, df3], axis=1)
-    fig = px.bar(combined_df, x='Category', y=['Value1', 'Value2'], barmode='group')
+    fig = px.bar(combined_df, x=['soldiers', 'tanks', 'aircraft', 'ships', 'missiles', 'nukes', 'spies'], y=['Value1', 'Value2'], barmode='group')
     st.bar_chart(combined_df,x="Military Info", y="Amount", stack=False)
 
     
