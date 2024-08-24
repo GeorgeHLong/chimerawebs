@@ -8,7 +8,7 @@ conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
 
 query = f"""
-select capture_date,gdp from nationlog where nation_id = '{nationid}' order by capture_date desc
+select money,food,coal,oil,uranium,lead,iron,bauxite,gasoline,munitions,steel,aluminum from bankaccounts where nation_id = '{nationid}'
 """
 
 # Execute query and fetch results into DataFrame
