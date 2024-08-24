@@ -9,10 +9,11 @@ nationid = int(st.session_state.role)
 st.markdown("## Trade Market Information")
 
 # Fetch the latest trade prices
-query0 = f"""
-select Food, Coal, Oil, Uranium, iron, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel 
-from tradeprices t 
-order by trade_timestamp desc limit 1
+query0 = """
+SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel 
+FROM tradeprices 
+ORDER BY trade_timestamp DESC 
+LIMIT 1
 """
 df0 = conn.query(query0)
 st.write(df0)
@@ -22,9 +23,9 @@ left_column, right_column = st.columns(2)
 # Chimera Holdings
 with left_column:
     query = f"""
-    select money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
-    from bankaccounts 
-    where nation_id = '{nationid}'
+    SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
+    FROM bankaccounts 
+    WHERE nation_id = {nationid}
     """
     df = conn.query(query)
     st.markdown("## Chimera Holdings")
@@ -32,28 +33,30 @@ with left_column:
 
 # Military Info
 with right_column:
-    query3 = f"""
-    select round(avg(soldiers), 0) as "soldiers", round(avg(tanks), 0) as "tanks", 
-           round(avg(aircraft), 0) as "aircraft", round(avg(ships), 0) as "ships", 
-           round(avg(missiles), 0) as "missiles", round(avg(nukes), 0) as "nukes", 
-           round(avg(spies), 0) as "spies" 
-    from tiny_nations tn 
-    where score between 8000 and 9000
+    query3 = """
+    SELECT ROUND(AVG(soldiers), 0) AS soldiers, ROUND(AVG(tanks), 0) AS tanks, 
+           ROUND(AVG(aircraft), 0) AS aircraft, ROUND(AVG(ships), 0) AS ships, 
+           ROUND(AVG(missiles), 0) AS missiles, ROUND(AVG(nukes), 0) AS nukes, 
+           ROUND(AVG(spies), 0) AS spies 
+    FROM tiny_nations 
+    WHERE score BETWEEN 8000 AND 9000
     """
-    df3 = conn.query(query3)
-
+    df3 = conn.query(query3).transpose()
 
     query2 = f"""
-    select soldiers, tanks, aircraft, ships, missiles, nukes, spies 
-    from tiny_nations 
-    where id = '{nationid}'
+    SELECT soldiers, tanks, aircraft, ships, missiles, nukes, spies 
+    FROM tiny_nations 
+    WHERE id = {nationid}
     """
-    df2 = conn.query(query2)
-    df2 = df2.transpose()
-    df3 = df3.transpose()
-    merged = pd.concat([df2,df3],axis=0)
+    df2 = conn.query(query2).transpose()
+    
+    # Combine your data with the average for comparison
+    merged = pd.concat([df2, df3], axis=1)
+    merged.columns = ["Your Forces", "Average Forces"]
+
     st.markdown("## Your Military Info")
     st.write(merged)
 
-
-
+    # Plotting side by side comparison
+    fig = px.bar(merged, barmode='group', title="Your Military Forces vs Average Forces")
+    st.plotly_chart(fig)
