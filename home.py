@@ -57,7 +57,7 @@ cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":
 beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
 
 if st.session_state.logged_in:
-    pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
+    pg = st.navigation([delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
 else:
     pg = st.navigation([create_page,login_page])
     
