@@ -4,6 +4,7 @@ import pandas as pd
 
 # Display the banner image
 st.image("images/banner.png")
+
 conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
 st.markdown("## Trade Market Information")
