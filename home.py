@@ -15,7 +15,7 @@ def login():
         password = st.text_input("Password")
         submit = st.form_submit_button("Log in")
     if submit:
-            query2 = f"""select nation_id, username, "password" from registeredusertable r where username = '{username}' and password = '{password}'"""  
+            query2 = f"""select nation_id, username, password from registeredusertable r where username = '{username}' and password = '{password}'"""  
             dbnation_id,dbusername,dbpassword = conn.query(query2)
             st.write(dbusername,username,dbpassword,password)
             if password == dbpassword and dbusername == username:
