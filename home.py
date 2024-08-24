@@ -11,12 +11,12 @@ def login():
         nationid = st.text_input("Password")
         submit = st.form_submit_button("Log in")   
     if nationid == None or allianceids == None:
-        return st.warning("Incorrect username or password")
+        st.warning("Incorrect username or password")
     if len(nationid) > 0 and len(allianceids) > 0 and submit: 
         st.session_state.logged_in = True
         st.rerun()
     else:
-        st.warning("Incorrect username or password")
+        st.warning("Login cannot be empty")
 
 def logout():
     if st.button("Log out"):
