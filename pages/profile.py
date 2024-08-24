@@ -33,10 +33,10 @@ with left_column:
 # Military Info
 with right_column:
     query3 = f"""
-    select round(avg(soldiers), 0) as "avg_soldiers", round(avg(tanks), 0) as "avg_tanks", 
-           round(avg(aircraft), 0) as "avg_aircraft", round(avg(ships), 0) as "avg_ships", 
-           round(avg(missiles), 0) as "avg_missiles", round(avg(nukes), 0) as "avg_nukes", 
-           round(avg(spies), 0) as "avg_spies" 
+    select round(avg(soldiers), 0) as "soldiers", round(avg(tanks), 0) as "tanks", 
+           round(avg(aircraft), 0) as "aircraft", round(avg(ships), 0) as "ships", 
+           round(avg(missiles), 0) as "missiles", round(avg(nukes), 0) as "nukes", 
+           round(avg(spies), 0) as "spies" 
     from tiny_nations tn 
     where score between 8000 and 9000
     """
