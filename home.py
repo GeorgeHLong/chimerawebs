@@ -3,6 +3,8 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 def login():
+    st.header("Log in")
+
     if st.button("Log in"):
         st.session_state.logged_in = True
         st.rerun()
