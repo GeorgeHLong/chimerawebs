@@ -16,14 +16,12 @@ def login():
         submit = st.form_submit_button("Log in")
     if submit:
             query2 = f"""select nation_id, username, "password" from registeredusertable r where username = '{username}' and password = '{password}'"""  
-            value = conn.query(query2)
-            st.write(value)
+            dbnation_id,dbusername,dbpassword = conn.query(query2)
+            st.write(dbpassword)
             try: 
-                if value[0][1] != None and value[0][2] != None:      
                         st.session_state.logged_in = True
                         st.rerun()
-                else:
-                    st.warning("Incorrect username or password.")
+
             except:
                 st.warning("Incorrect username or password")
 
