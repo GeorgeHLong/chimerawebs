@@ -6,6 +6,7 @@ import pandas as pd
 st.image("images/banner.png")
 conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
+st.markdown("## Trade Market Information")
 
 query0 = f"""
 select Food,Coal,Oil,Uranium,iron,Bauxite,Lead,Gasoline,Munitions,Aluminum,Steel from tradeprices t order by trade_timestamp desc limit 1
