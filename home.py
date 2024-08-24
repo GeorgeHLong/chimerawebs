@@ -18,12 +18,15 @@ def login():
             query2 = f"""select nation_id, username, "password" from registeredusertable r where username = '{username}' and password = '{password}'"""  
             value = conn.query(query2)
             st.write(value[0])
-            if value[0][0] != None and value[0][1] != None:      
-                    st.session_state.logged_in = True
-                    st.rerun()
-            else:
+            try: 
+                if value[0][0] != None and value[0][1] != None:      
+                        st.session_state.logged_in = True
+                        st.rerun()
+                else:
+                    st.warning("Incorrect username or password")
+            except:
                 st.warning("Incorrect username or password")
-                
+
 
 def logout():
     if st.button("Log out"):
