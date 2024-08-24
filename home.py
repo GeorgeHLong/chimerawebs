@@ -23,12 +23,14 @@ def login():
                 dbnation_id = results.at[0, 'nation_id']
                 dbusername = results.at[0, 'username']
                 dbpassword = results.at[0, 'password']
+                dbuserdisplay = results.at[0, 'nation_name']
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
                 if dbusername == username and dbpassword == password:
                     st.session_state.logged_in = True
                     st.session_state.role = dbnation_id
+                    st.session_state.nationname = dbuserdisplay
 
                     st.rerun()
             else:
