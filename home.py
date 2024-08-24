@@ -23,7 +23,6 @@ def login():
                 dbnation_id = results.at[0, 'nation_id']
                 dbusername = results.at[0, 'username']
                 dbpassword = results.at[0, 'password']
-                dbuserdisplay = results.at[0, 'user_display']
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
