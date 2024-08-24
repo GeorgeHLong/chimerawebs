@@ -8,7 +8,7 @@ conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
 
 
-left_column, center,right_column = st.columns(3)
+left_column, right_column = st.columns(2)
 with left_column:
 # Execute query and fetch results into DataFrame
     query = f"""
@@ -17,5 +17,11 @@ with left_column:
     df = conn.query(query)
     st.markdown("## Bank Account Holdings")
     st.write(df.transpose())
-with center:
+with right_column:
+    query2 = f"""
+    select soldiers,tanks,aircraft,ships,missile,nukes,spies from bankaccounts where nation_id = '{nationid}'
+    """
+    df2 = conn.query(query2)
+    st.markdown("## Military Info")    
+    st.write(df2.transpose())    
     
