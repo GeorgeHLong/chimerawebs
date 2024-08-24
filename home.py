@@ -30,7 +30,7 @@ def login():
                     st.session_state.logged_in = True
                     st.rerun()
             else:
-                st.warning("Wrong username/password")
+                st.alert("Wrong username/password")
 
 
 
