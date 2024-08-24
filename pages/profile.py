@@ -17,7 +17,7 @@ order by trade_timestamp desc limit 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column, center, right_column = st.columns(3)
+left_column, center = st.columns(2)
 
 # Chimera Holdings
 with left_column:
@@ -54,25 +54,24 @@ with center:
     st.write(df2.transpose())
 
 # Combine DataFrames and Create Bar Chart
-with right_column:
-    # Rename columns to distinguish between "Your" and "Average"
-    df2.columns = ['Your Soldiers', 'Your Tanks', 'Your Aircraft', 'Your Ships', 'Your Missiles', 'Your Nukes', 'Your Spies']
-    df3.columns = ['Avg Soldiers', 'Avg Tanks', 'Avg Aircraft', 'Avg Ships', 'Avg Missiles', 'Avg Nukes', 'Avg Spies']
+# Rename columns to distinguish between "Your" and "Average"
+df2.columns = ['Your Soldiers', 'Your Tanks', 'Your Aircraft', 'Your Ships', 'Your Missiles', 'Your Nukes', 'Your Spies']
+df3.columns = ['Avg Soldiers', 'Avg Tanks', 'Avg Aircraft', 'Avg Ships', 'Avg Missiles', 'Avg Nukes', 'Avg Spies']
 
-    # Combine the DataFrames side by side
-    combined_df = pd.concat([df2.transpose(), df3.transpose()], axis=1)
-    combined_df.columns = ['Your Value', 'Average Value']
-    combined_df['Category'] = combined_df.index
+# Combine the DataFrames side by side
+combined_df = pd.concat([df2.transpose(), df3.transpose()], axis=1)
+combined_df.columns = ['Your Value', 'Average Value']
+combined_df['Category'] = combined_df.index
 
-    # Reset index for plotting
-    combined_df = combined_df.reset_index(drop=True)
+# Reset index for plotting
+combined_df = combined_df.reset_index(drop=True)
 
-    # Melt the DataFrame for Plotly
-    combined_df = combined_df.melt(id_vars='Category', value_vars=['Your Value', 'Average Value'], 
-                                   var_name='Type', value_name='Count')
+# Melt the DataFrame for Plotly
+combined_df = combined_df.melt(id_vars='Category', value_vars=['Your Value', 'Average Value'], 
+                                var_name='Type', value_name='Count')
 
-    # Create the bar chart
-    fig = px.bar(combined_df, x='Category', y='Count', color='Type', barmode='group', 
-                 labels={'Count': 'Military Units', 'Category': 'Military Type'})
+# Create the bar chart
+fig = px.bar(combined_df, x='Category', y='Count', color='Type', barmode='group', 
+                labels={'Count': 'Military Units', 'Category': 'Military Type'})
 
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
