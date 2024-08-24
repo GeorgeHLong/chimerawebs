@@ -59,6 +59,6 @@ beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/
 if st.session_state.logged_in:
     pg = st.navigation([create_page, delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
 else:
-    pg = st.navigation([login_page])
+    pg = st.navigation([create_page,login_page])
     
 pg.run()
