@@ -49,6 +49,8 @@ df2 = conn.query(query2).transpose()
 merged = pd.concat([df2, df3], axis=1)
 merged.columns = ["Your Forces", "Average Forces"]
 
+st.table(merged.iloc[0:])
+
 
 # Plotting side by side comparison
 fig = px.bar(merged, barmode='group', title="Your Military Forces vs Average Forces")
