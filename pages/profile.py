@@ -51,7 +51,7 @@ with right_column:
     df2 = conn.query(query2)
     df2 = df2.transpose()
     df3 = df3.transpose()
-    merged = pd.concat([df2,df3],join="inner")
+    merged = pd.concat([df2,df3],join="inner",ignore_index=True)
     st.markdown("## Your Military Info")
     st.write(merged)
 
