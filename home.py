@@ -3,14 +3,14 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 def login():
+    # Create the form for user input
     with st.form("my_form"):
-        st.header("Log in")
-
-        if st.button("Log in"):
-            st.session_state.logged_in = True
-            st.rerun()
-    submit = st.form_submit_button("Submit")
-
+        allianceids = st.text_input("Enemy Alliance IDs (separated by commas)")
+        nationid = st.text_input("Your Nation ID")
+        submit = st.form_submit_button("Submit")   
+    if submit: 
+        st.session_state.logged_in = True
+        st.rerun()
 def logout():
     if st.button("Log out"):
         st.session_state.logged_in = False
