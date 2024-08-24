@@ -18,18 +18,14 @@ LIMIT 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column = st.columns(1)
-
-# Chimera Holdings
-with left_column:
-    query = f"""
-    SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
-    FROM bankaccounts 
-    WHERE nation_id = {nationid}
-    """
-    df = conn.query(query)
-    st.markdown("## Chimera Holdings")
-    st.write(df.transpose())
+query = f"""
+SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
+FROM bankaccounts 
+WHERE nation_id = {nationid}
+"""
+df = conn.query(query)
+st.markdown("## Chimera Holdings")
+st.write(df.transpose())
 
 # Military Info
 query3 = """
