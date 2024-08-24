@@ -15,7 +15,7 @@ with left_column:
     select money,food,coal,oil,uranium,lead,iron,bauxite,gasoline,munitions,steel,aluminum from bankaccounts where nation_id = '{nationid}'
     """
     df = conn.query(query)
-    st.markdown("## Bank Account Holdings")
+    st.markdown("## Chimera Holdings")
     st.write(df.transpose())
 with right_column:
     query2 = f"""
