@@ -24,6 +24,13 @@ with left_column:
     st.markdown("## Chimera Holdings")
     st.write(df.transpose())
 with right_column:
+    query3 = f"""
+    select round(avg(soldiers),0) as "soldiers", round(avg(tanks),0) as "tanks", round(avg(aircraft),0) as "aircraft", round(avg(ships),0) as "ships", round(avg(missiles),0) as "missiles", round(avg(nukes),0) as "nukes", round(avg(spies),0) as "spies" from tiny_nations tn where score between 8000 and 9000
+    """
+    df3 = conn.query(query3)
+    st.markdown("## Military Info")
+    st.write(df3.transpose())    
+
     query2 = f"""
     select soldiers,tanks,aircraft,ships,missiles,nukes,spies from tiny_nations where id = '{nationid}'
     """
