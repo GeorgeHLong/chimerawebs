@@ -10,6 +10,8 @@ def login():
         allianceids = st.text_input("Username")
         nationid = st.text_input("Password")
         submit = st.form_submit_button("Log in")   
+    if nationid == None or allianceids == None:
+        return st.warning("Incorrect username or password")
     if submit: 
         st.session_state.logged_in = True
         st.rerun()
