@@ -54,4 +54,4 @@ st.line_chart(merged)
 
 # Plotting side by side comparison
 fig = px.bar(merged, barmode='group', title="Your Military Forces vs Average Forces")
-st.bar_chart(df)
+st.bar_chart(merged)
