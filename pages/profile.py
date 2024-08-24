@@ -17,7 +17,7 @@ order by trade_timestamp desc limit 1
 df0 = conn.query(query0)
 st.write(df0)
 
-left_column, center,right_column = st.columns(2)
+left_column, right_column = st.columns(2)
 
 # Chimera Holdings
 with left_column:
@@ -31,7 +31,7 @@ with left_column:
     st.write(df.transpose())
 
 # Military Info
-with center:
+with right_column:
     query3 = f"""
     select round(avg(soldiers), 0) as "avg_soldiers", round(avg(tanks), 0) as "avg_tanks", 
            round(avg(aircraft), 0) as "avg_aircraft", round(avg(ships), 0) as "avg_ships", 
