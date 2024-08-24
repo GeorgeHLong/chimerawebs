@@ -41,8 +41,7 @@ with center:
     where score between 8000 and 9000
     """
     df3 = conn.query(query3)
-    st.markdown("## Average Military Info")
-    st.write(df3.transpose())
+
 
     query2 = f"""
     select soldiers, tanks, aircraft, ships, missiles, nukes, spies 
@@ -50,8 +49,11 @@ with center:
     where id = '{nationid}'
     """
     df2 = conn.query(query2)
+    
     st.markdown("## Your Military Info")
     st.write(df2.transpose())
+    st.markdown("## Average Military Info")
+    st.write(df3.transpose())
 
 my_chart = st.line_chart(df2)
 my_chart.add_rows(df3)
