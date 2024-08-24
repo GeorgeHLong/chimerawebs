@@ -4,6 +4,8 @@ if "logged_in" not in st.session_state:
 
 def login():
     # Create the form for user input
+        # Display the banner image
+    st.image("images/banner.png")
     with st.form("my_form"):
         allianceids = st.text_input("Enemy Alliance IDs (separated by commas)")
         nationid = st.text_input("Your Nation ID")
