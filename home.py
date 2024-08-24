@@ -17,13 +17,12 @@ def login():
     if submit:
             query2 = f"""select nation_id, username, "password" from registeredusertable r where username = '{username}' and password = '{password}'"""  
             dbnation_id,dbusername,dbpassword = conn.query(query2)
-            st.write(dbpassword)
-            try: 
+            if password == dbpassword and dbusername == username:
                         st.session_state.logged_in = True
                         st.rerun()
-
-            except:
+            else:
                 st.warning("Incorrect username or password")
+
 
 
 def logout():
