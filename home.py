@@ -23,7 +23,7 @@ def login():
                         st.session_state.logged_in = True
                         st.rerun()
                 else:
-                    st.warning("Incorrect username or password")
+                    st.warning("Incorrect username or password.")
             except:
                 st.warning("Incorrect username or password")
 
