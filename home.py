@@ -15,11 +15,11 @@ def login():
     if submit:
             query2 = f"""select nation_id, username, "password" from registeredusertable r where username = {username} and password = {password}'"""  
             if query2 != None:      
-                if len(username) > 0 and len(password) > 0 and submit: 
                     st.session_state.logged_in = True
                     st.rerun()
-                else:
-                    st.warning("Login cannot be empty")
+            else:
+                st.warning("Incorrect username or password")
+                
 
 def logout():
     if st.button("Log out"):
