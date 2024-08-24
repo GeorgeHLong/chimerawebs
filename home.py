@@ -31,7 +31,7 @@ def login():
                     st.session_state.logged_in = True
                     st.session_state.role = dbnation_id
                     st.write(st.session_state.role)
-                    st.session_state.nationname = dbuserdisplay
+
                     st.rerun()
             else:
                 st.warning("Wrong username/password")
