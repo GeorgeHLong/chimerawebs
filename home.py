@@ -4,7 +4,6 @@ if "logged_in" not in st.session_state:
 conn = st.connection("postgresql", type="sql")
 
 def login():
-
     # Create the form for user input
         # Display the banner image
     st.image("images/banner.png")
