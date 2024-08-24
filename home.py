@@ -1,22 +1,25 @@
 import streamlit as st
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+conn = st.connection("postgresql", type="sql")
 
 def login():
+
     # Create the form for user input
         # Display the banner image
     st.image("images/banner.png")
     with st.form("my_form"):
-        allianceids = st.text_input("Username")
-        nationid = st.text_input("Password")
-        submit = st.form_submit_button("Log in")   
-    if nationid == None or allianceids == None:
-        st.warning("Incorrect username or password")
-    if len(nationid) > 0 and len(allianceids) > 0 and submit: 
-        st.session_state.logged_in = True
-        st.rerun()
-    else:
-        st.warning("Login cannot be empty")
+        username = st.text_input("Username")
+        password = st.text_input("Password")
+        submit = st.form_submit_button("Log in")
+    if submit:
+            query2 = f"""select nation_id, username, "password" from registeredusertable r where username = {username} and password = {password}'"""  
+            if query2 != None:      
+                if len(username) > 0 and len(password) > 0 and submit: 
+                    st.session_state.logged_in = True
+                    st.rerun()
+                else:
+                    st.warning("Login cannot be empty")
 
 def logout():
     if st.button("Log out"):
