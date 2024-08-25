@@ -7,6 +7,9 @@ st.image("images/banner.png")
 
 conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
+nationname = st.session_state.nationname
+st.markdown(f"# {nationname}'s Porfolio")
+
 st.markdown("## Trade Market Information")
 
 # Fetch the latest trade prices
