@@ -32,12 +32,12 @@ with left_column:
         df = conn.query(query)
         st.markdown("## Chimera Holdings")
         st.write(df.transpose())
-query = f"""
+query00 = f"""
 SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
 FROM bankaccounts 
 WHERE nation_id = {nationid}
 """
-results = conn.query(query0)
+results = conn.query(query00)
 st.write(df0)
 money = results.at[0, 'money']
 st.metric(label="Money",value=money)
