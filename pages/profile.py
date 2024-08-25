@@ -27,8 +27,10 @@ SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions
 FROM bankaccounts 
 WHERE nation_id = {nationid}
 """
-df = conn.query(query)
-st.markdown("## Chimera Holdings")
-st.write(df.transpose())
+left_column, right_column = st.columns(2)
+with left_column:
+        df = conn.query(query)
+        st.markdown("## Chimera Holdings")
+        st.write(df.transpose())
 
 
