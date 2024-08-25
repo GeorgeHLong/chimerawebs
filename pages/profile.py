@@ -28,7 +28,7 @@ FROM bankaccounts
 WHERE nation_id = {nationid}
 """
 left_column, right_column = st.columns(2)
-with right_column:
+with left_column:
         df = conn.query(query)
         st.markdown("## Chimera Holdings")
         st.write(df.transpose())
