@@ -40,4 +40,4 @@ WHERE nation_id = {nationid}
 results = conn.query(query00)
 st.write(df0)
 money = results.at[0, 'money']
-st.metric(label="Money",value=money)
+st.metric(label="Money",value=f"${money:,.2f}")
