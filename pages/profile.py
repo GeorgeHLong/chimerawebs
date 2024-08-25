@@ -14,7 +14,7 @@ st.markdown("## Trade Market Information")
 
 # Fetch the latest trade prices
 query0 = """
-SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Aluminum, Steel 
+SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
 FROM tradeprices 
 ORDER BY trade_timestamp DESC 
 LIMIT 1
@@ -32,5 +32,12 @@ with left_column:
         df = conn.query(query)
         st.markdown("## Chimera Holdings")
         st.write(df.transpose())
-
-
+query = f"""
+SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
+FROM bankaccounts 
+WHERE nation_id = {nationid}
+"""
+results = conn.query(query0)
+st.write(df0)
+money = results.at[0, 'money']
+st.metric(label="Money",value=money)
