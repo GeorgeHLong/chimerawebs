@@ -39,6 +39,10 @@ WHERE nation_id = {nationid}
 """
 results = conn.query(query00)
 
+if st.button("Reload"):
+        results = conn.query(query00)  
+
+
 # Assuming results is converted to a DataFrame
 st.write(results)
 
