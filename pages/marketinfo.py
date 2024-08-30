@@ -145,7 +145,7 @@ df_7d = get_trade_data(time_7d_ago)
 # Create a plot for the past 24 hours
 st.markdown("### Price Trends in the Last 24 Hours")
 if not df_24h.empty:
-    fig_24h = px.line(df_24h, x='trade_timestamp', y=df_24h.columns[1:], title='Prices Over the Last 24 Hours')
+    fig_24h = px.line(df_24h, x='trade_timestamp', y=df_24h.columns[1:])
     st.plotly_chart(fig_24h)
 else:
     st.write("No data available for the last 24 hours.")
@@ -153,7 +153,7 @@ else:
 # Create a plot for the past 7 days
 st.markdown("### Price Trends in the Last 7 Days")
 if not df_7d.empty:
-    fig_7d = px.line(df_7d, x='trade_timestamp', y=df_7d.columns[1:], title='Prices Over the Last 7 Days')
+    fig_7d = px.line(df_7d, x='trade_timestamp', y=df_7d.columns[1:])
     st.plotly_chart(fig_7d)
 else:
     st.write("No data available for the last 7 days.")
