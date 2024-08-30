@@ -144,7 +144,7 @@ selected_time_unit = st.selectbox("Select time unit:", time_units)
 if selected_time_unit == 'hour':
     duration = st.slider("Select duration (hours):", min_value=1, max_value=72, value=24)
 else:
-    duration = st.slider("Select duration (days):", min_value=1, max_value=90, value=30)
+    duration = st.slider("Select duration (days):", min_value=1, max_value=60, value=30)
 
 def get_ohlc_data(time_unit, duration, resource):
     # Calculate the timeframe based on the selected duration and time unit
