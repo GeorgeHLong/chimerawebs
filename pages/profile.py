@@ -130,24 +130,31 @@ cols[3].metric(label="Munitions", value=f"{munitions:,.2f}")
 cols[4].metric(label="Steel", value=f"{steel:,.2f}")
 cols[5].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
+st.markdown("## Trade Market Dashboard")
+
 # Define the list of resources and time units
 resources = ['Food', 'Coal', 'Oil', 'Uranium', 'Iron', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Steel', 'Aluminum']
 time_units = ['hour', 'day']
 
-# Dropdown menu to select a resource
-selected_resource = st.selectbox("Select a resource:", resources)
+# Create a form for user input
+with st.form(key='trade_market_form'):
+    # Dropdown menu to select a resource
+    selected_resource = st.selectbox("Select a resource:", resources)
 
-# Dropdown menu to select the time unit
-selected_time_unit = st.selectbox("Select time unit:", time_units)
+    # Dropdown menu to select the time unit
+    selected_time_unit = st.selectbox("Select time unit:", time_units)
 
-# Slider to select the duration of time (e.g., number of hours or days)
-if selected_time_unit == 'hour':
-    duration = st.slider("Select duration (hours):", min_value=1, max_value=72, value=24)
-else:
-    duration = st.slider("Select duration (days):", min_value=1, max_value=30, value=14)
+    # Slider to select the duration of time (e.g., number of hours or days)
+    if selected_time_unit == 'hour':
+        duration = st.slider("Select duration (hours):", min_value=1, max_value=48, value=24)
+    else:
+        duration = st.slider("Select duration (days):", min_value=1, max_value=14, value=7)
 
+    # Submit button
+    submit_button = st.form_submit_button(label='Submit')
+
+# Function to fetch OHLC data based on the selected parameters
 def get_ohlc_data(time_unit, duration, resource):
-    # Calculate the timeframe based on the selected duration and time unit
     timeframe = datetime.now() - timedelta(**{time_unit + 's': duration})
     
     query = f"""
@@ -187,19 +194,20 @@ def get_ohlc_data(time_unit, duration, resource):
     df = conn.query(query)
     return df
 
-# Fetch OHLC data based on the selected time unit and duration
-df = get_ohlc_data(selected_time_unit, duration, selected_resource)
+# If the form is submitted, fetch and display the data
+if submit_button:
+    df = get_ohlc_data(selected_time_unit, duration, selected_resource)
 
-# Create a candlestick chart
-st.markdown(f"### Candlestick Chart: Last {duration} {selected_time_unit}(s) - {selected_resource}")
-if not df.empty:
-    fig = go.Figure(data=[go.Candlestick(x=df['period'],
-                                         open=df['open'],
-                                         high=df['high'],
-                                         low=df['low'],
-                                         close=df['close'])])
-    fig.update_layout(title=f'{selected_resource} Prices Over the Last {duration} {selected_time_unit}(s)', 
-                      xaxis_title='Time', yaxis_title='Price')
-    st.plotly_chart(fig)
-else:
-    st.write(f"No data available for the last {duration} {selected_time_unit}(s).")
+    # Create a candlestick chart
+    st.markdown(f"### Candlestick Chart: Last {duration} {selected_time_unit}(s) - {selected_resource}")
+    if not df.empty:
+        fig = go.Figure(data=[go.Candlestick(x=df['period'],
+                                             open=df['open'],
+                                             high=df['high'],
+                                             low=df['low'],
+                                             close=df['close'])])
+        fig.update_layout(title=f'{selected_resource} Prices Over the Last {duration} {selected_time_unit}(s)', 
+                          xaxis_title='Time', yaxis_title='Price')
+        st.plotly_chart(fig)
+    else:
+        st.write(f"No data available for the last {duration} {selected_time_unit}(s).")
