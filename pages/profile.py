@@ -140,26 +140,42 @@ selected_resource = st.selectbox("Select a resource:", resources)
 
 def get_ohlc_data(timeframe, group_by, resource):
     query = f"""
-    WITH ohlc_data AS (
+    WITH base_data AS (
         SELECT 
             DATE_TRUNC('{group_by}', trade_timestamp) as period,
             {resource} as price,
             trade_timestamp
         FROM tradeprices
         WHERE trade_timestamp >= '{timeframe}'
+    ),
+    ohlc_open_close AS (
+        SELECT 
+            period,
+            FIRST_VALUE(price) OVER (PARTITION BY period ORDER BY trade_timestamp ASC) as open,
+            LAST_VALUE(price) OVER (PARTITION BY period ORDER BY trade_timestamp DESC) as close
+        FROM base_data
+    ),
+    ohlc_data AS (
+        SELECT 
+            period,
+            MIN(price) as low, 
+            MAX(price) as high
+        FROM base_data
+        GROUP BY period
     )
     SELECT 
-        period,
-        MIN(price) as low, 
-        MAX(price) as high, 
-        FIRST_VALUE(price) OVER (PARTITION BY period ORDER BY trade_timestamp ASC) as open,
-        LAST_VALUE(price) OVER (PARTITION BY period ORDER BY trade_timestamp DESC) as close
+        ohlc_data.period,
+        ohlc_data.low,
+        ohlc_data.high,
+        ohlc_open_close.open,
+        ohlc_open_close.close
     FROM ohlc_data
-    GROUP BY period
-    ORDER BY period ASC
+    JOIN ohlc_open_close ON ohlc_data.period = ohlc_open_close.period
+    ORDER BY ohlc_data.period ASC
     """
     df = conn.query(query)
     return df
+
 
 # Get the current time and calculate timeframes
 now = datetime.now()
