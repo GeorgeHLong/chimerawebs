@@ -89,23 +89,23 @@ steel = results.at[0, 'steel']
 aluminum = results.at[0, 'aluminum']
 
 # Display metrics side by side
-cols = st.columns(6)
+cols = st.columns(2)
 
 cols[0].metric(label="Money", value=f"${money:,.2f}")
 cols[1].metric(label="Food", value=f"{food:,.2f}")
-cols[2].metric(label="Coal", value=f"{coal:,.2f}")
-cols[3].metric(label="Oil", value=f"{oil:,.2f}")
-cols[4].metric(label="Uranium", value=f"{uranium:,.2f}")
-cols[5].metric(label="Lead", value=f"{lead:,.2f}")
+cols[0].metric(label="Coal", value=f"{coal:,.2f}")
+cols[1].metric(label="Oil", value=f"{oil:,.2f}")
+cols[0].metric(label="Uranium", value=f"{uranium:,.2f}")
+cols[1].metric(label="Lead", value=f"{lead:,.2f}")
 
 cols = st.columns(2)
 
 cols[0].metric(label="Iron", value=f"{iron:,.2f}")
 cols[1].metric(label="Bauxite", value=f"{bauxite:,.2f}")
-cols[2].metric(label="Gasoline", value=f"{gasoline:,.2f}")
-cols[3].metric(label="Munitions", value=f"{munitions:,.2f}")
-cols[4].metric(label="Steel", value=f"{steel:,.2f}")
-cols[5].metric(label="Aluminum", value=f"{aluminum:,.2f}")
+cols[0].metric(label="Gasoline", value=f"{gasoline:,.2f}")
+cols[1].metric(label="Munitions", value=f"{munitions:,.2f}")
+cols[0].metric(label="Steel", value=f"{steel:,.2f}")
+cols[1].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
 st.markdown("## Trade Market Dashboard")
 
