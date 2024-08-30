@@ -13,6 +13,8 @@ nationname = st.session_state.nationname
 
 st.markdown("## Trade Market Information")
 
+st.markdown("### Current Sell Market Price Information")
+
 def get_trade_market():
     # Fetch the latest trade prices
     query0 = """
@@ -23,8 +25,21 @@ def get_trade_market():
     """
     df0 = conn.query(query0)     
     return df0  
+       
+# Create a placeholder for the table
+placeholder = st.empty()
 
-st.markdown("## Trade Market Dashboard")
+# Display the market information by default
+df0 = get_trade_market()
+table = placeholder.write(df0)
+
+# Add an update button to refresh the data
+if st.button("Update Market Information"):
+    df0 = get_trade_market()  # Fetch the updated data
+    placeholder.write(df0)  # Update the displayed data in the same placeholder
+    
+    
+st.markdown("### Trade Market Candlestick Graph")
 
 # Define the list of resources and time units
 resources = ['Food', 'Coal', 'Oil', 'Uranium', 'Iron', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Steel', 'Aluminum']
@@ -105,18 +120,7 @@ if submit_button:
         st.plotly_chart(fig)
     else:
         st.write(f"No data available for the last {duration} {selected_time_unit}(s).")
-        
-# Create a placeholder for the table
-placeholder = st.empty()
-
-# Display the market information by default
-df0 = get_trade_market()
-table = placeholder.write(df0)
-
-# Add an update button to refresh the data
-if st.button("Update Market Information"):
-    df0 = get_trade_market()  # Fetch the updated data
-    placeholder.write(df0)  # Update the displayed data in the same placeholder
+ 
     
     
 def get_trade_data(timeframe):
