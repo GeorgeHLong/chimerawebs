@@ -146,9 +146,9 @@ with st.form(key='trade_market_form'):
 
     # Slider to select the duration of time (e.g., number of hours or days)
     if selected_time_unit == 'hour':
-        duration = st.slider("Select duration (hours):", min_value=1, max_value=48, value=24)
+        duration = st.slider("Select duration (hours):", min_value=1, max_value=72, value=24)
     else:
-        duration = st.slider("Select duration (days):", min_value=1, max_value=14, value=7)
+        duration = st.slider("Select duration (days):", min_value=1, max_value=30, value=7)
 
     # Submit button
     submit_button = st.form_submit_button(label='Submit')
