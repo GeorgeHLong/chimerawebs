@@ -14,7 +14,7 @@ st.markdown("## Trade Market Information")
 
 
 
-if st.button("Reload"):
+if st.button("View Updated Trade Market Information"):
         # Fetch the latest trade prices
         query0 = """
         SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
