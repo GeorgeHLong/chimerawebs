@@ -23,14 +23,17 @@ def get_trade_market():
     df0 = conn.query(query0)     
     return df0  
 
+# Create a placeholder for the table
+placeholder = st.empty()
+
 # Display the market information by default
 df0 = get_trade_market()
-st.write(df0)
+table = placeholder.write(df0)
 
 # Add an update button to refresh the data
 if st.button("Update Market Information"):
     df0 = get_trade_market()  # Fetch the updated data
-    st.write(df0)  # Update the displayed data
+    placeholder.write(df0)  # Update the displayed data in the same placeholder
 
         
 query = f"""
