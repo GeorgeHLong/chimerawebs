@@ -130,8 +130,6 @@ cols[3].metric(label="Munitions", value=f"{munitions:,.2f}")
 cols[4].metric(label="Steel", value=f"{steel:,.2f}")
 cols[5].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
-st.markdown("## Trade Market Dashboard")
-
 # Define the list of resources and time units
 resources = ['Food', 'Coal', 'Oil', 'Uranium', 'Iron', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Steel', 'Aluminum']
 time_units = ['hour', 'day']
@@ -142,14 +140,15 @@ selected_resource = st.selectbox("Select a resource:", resources)
 # Dropdown menu to select the time unit
 selected_time_unit = st.selectbox("Select time unit:", time_units)
 
-# Slider to select the duration of time (e.g., number of hours/days)
+# Slider to select the duration of time (e.g., number of hours or days)
 if selected_time_unit == 'hour':
-    duration = st.slider("Select duration (hours):", min_value=1, max_value=48)
+    duration = st.slider("Select duration (hours):", min_value=1, max_value=48, value=24)
 else:
-    duration = st.slider("Select duration (days):", min_value=1, max_value=21)
+    duration = st.slider("Select duration (days):", min_value=1, max_value=14, value=7)
 
 def get_ohlc_data(time_unit, duration, resource):
-    timeframe = datetime.now() - timedelta(**{time_unit+'s': duration})
+    # Calculate the timeframe based on the selected duration and time unit
+    timeframe = datetime.now() - timedelta(**{time_unit + 's': duration})
     
     query = f"""
     WITH base_data AS (
