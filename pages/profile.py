@@ -40,7 +40,7 @@ WHERE nation_id = {nationid}
 results = conn.query(query00)
 
 if st.button("Reload"):
-        results = conn.query(df0)  
+        results = conn.query(query0)  
         st.write("Updated")
 
 
