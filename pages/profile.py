@@ -15,31 +15,14 @@ st.markdown(f"# {nationname}'s Porfolio")
 
 
         
-query = f"""
-SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
-FROM bankaccounts 
-WHERE nation_id = {nationid}
-"""
-left_column, right_column = st.columns(2)
-with left_column:
-        df = conn.query(query)
-        st.markdown("## Chimera Holdings")
-        st.write(df.transpose())
+
+st.markdown("## Chimera Holdings")
 query00 = f"""
 SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
 FROM bankaccounts 
 WHERE nation_id = {nationid}
 """
 results = conn.query(query00)
-
-
-
-
-# Assuming results is converted to a DataFrame
-st.write(results)
-
-
-
 
 # Get all resource values
 money = results.at[0, 'money']
