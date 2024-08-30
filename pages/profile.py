@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+from datetime import datetime, timedelta
 
 # Display the banner image
 st.image("images/banner.png")
@@ -58,6 +59,48 @@ results = conn.query(query00)
 
 # Assuming results is converted to a DataFrame
 st.write(results)
+
+def get_trade_data(timeframe):
+    query = f"""
+    SELECT trade_timestamp, Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
+    FROM tradeprices 
+    WHERE trade_timestamp >= '{timeframe}'
+    ORDER BY trade_timestamp DESC
+    """
+    df = conn.query(query)     
+    return df
+
+# Get the current time and calculate timeframes
+now = datetime.now()
+time_24h_ago = now - timedelta(hours=24)
+time_7d_ago = now - timedelta(days=7)
+
+# Fetch data for the past 24 hours and past 7 days
+df_24h = get_trade_data(time_24h_ago)
+df_7d = get_trade_data(time_7d_ago)
+
+# Create a plot for the past 24 hours
+st.markdown("### Price Trends in the Last 24 Hours")
+if not df_24h.empty:
+    fig_24h = px.line(df_24h, x='trade_timestamp', y=df_24h.columns[1:], title='Prices Over the Last 24 Hours')
+    st.plotly_chart(fig_24h)
+else:
+    st.write("No data available for the last 24 hours.")
+
+# Create a plot for the past 7 days
+st.markdown("### Price Trends in the Last 7 Days")
+if not df_7d.empty:
+    fig_7d = px.line(df_7d, x='trade_timestamp', y=df_7d.columns[1:], title='Prices Over the Last 7 Days')
+    st.plotly_chart(fig_7d)
+else:
+    st.write("No data available for the last 7 days.")
+
+# Display raw data tables for 24 hours and 7 days
+st.markdown("### Raw Data: Last 24 Hours")
+st.write(df_24h)
+
+st.markdown("### Raw Data: Last 7 Days")
+st.write(df_7d)
 
 # Get all resource values
 money = results.at[0, 'money']
