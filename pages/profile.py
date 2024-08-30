@@ -12,17 +12,16 @@ st.markdown(f"# {nationname}'s Porfolio")
 
 st.markdown("## Trade Market Information")
 
-# Fetch the latest trade prices
-query0 = """
-SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
-FROM tradeprices 
-ORDER BY trade_timestamp DESC 
-LIMIT 1
-"""
-df0 = conn.query(query0)
-st.write(df0)
+
 
 if st.button("Reload"):
+        # Fetch the latest trade prices
+        query0 = """
+        SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
+        FROM tradeprices 
+        ORDER BY trade_timestamp DESC 
+        LIMIT 1
+        """
         df0 = conn.query(query0)
         st.write(df0)
         
