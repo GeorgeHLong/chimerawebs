@@ -41,6 +41,7 @@ results = conn.query(query00)
 
 if st.button("Reload"):
         results = conn.query(query00)  
+        st.write(results)
 
 
 # Assuming results is converted to a DataFrame
