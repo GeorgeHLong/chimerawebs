@@ -37,10 +37,10 @@ SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions
 FROM bankaccounts 
 WHERE nation_id = {nationid}
 """
-results = conn.query(df0)
+results = conn.query(query00)
 
 if st.button("Reload"):
-        results = conn.query(query00)  
+        results = conn.query(df0)  
         st.write(results)
 
 
