@@ -12,30 +12,7 @@ nationid = int(st.session_state.role)
 nationname = st.session_state.nationname
 st.markdown(f"# {nationname}'s Porfolio")
 
-st.markdown("## Trade Market Information")
 
-def get_trade_market():
-    # Fetch the latest trade prices
-    query0 = """
-    SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
-    FROM tradeprices 
-    ORDER BY trade_timestamp DESC 
-    LIMIT 1
-    """
-    df0 = conn.query(query0)     
-    return df0  
-
-# Create a placeholder for the table
-placeholder = st.empty()
-
-# Display the market information by default
-df0 = get_trade_market()
-table = placeholder.write(df0)
-
-# Add an update button to refresh the data
-if st.button("Update Market Information"):
-    df0 = get_trade_market()  # Fetch the updated data
-    placeholder.write(df0)  # Update the displayed data in the same placeholder
 
         
 query = f"""
@@ -121,7 +98,7 @@ cols[3].metric(label="Oil", value=f"{oil:,.2f}")
 cols[4].metric(label="Uranium", value=f"{uranium:,.2f}")
 cols[5].metric(label="Lead", value=f"{lead:,.2f}")
 
-cols = st.columns(6)
+cols = st.columns(2)
 
 cols[0].metric(label="Iron", value=f"{iron:,.2f}")
 cols[1].metric(label="Bauxite", value=f"{bauxite:,.2f}")
