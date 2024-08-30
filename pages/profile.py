@@ -13,21 +13,25 @@ st.markdown(f"# {nationname}'s Porfolio")
 st.markdown("## Trade Market Information")
 
 def get_trade_market():
-        # Fetch the latest trade prices
-        query0 = """
-        SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
-        FROM tradeprices 
-        ORDER BY trade_timestamp DESC 
-        LIMIT 1
-        """
-        df0 = conn.query(query0)     
-        return df0  
-df0= get_trade_market()
+    # Fetch the latest trade prices
+    query0 = """
+    SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
+    FROM tradeprices 
+    ORDER BY trade_timestamp DESC 
+    LIMIT 1
+    """
+    df0 = conn.query(query0)     
+    return df0  
+
+# Display the market information by default
+df0 = get_trade_market()
 st.write(df0)
-if st.button("View Updated Trade Market Information"):
-        # Fetch the latest trade prices
-        df0= get_trade_market()
-        st.write(df0)
+
+# Add an update button to refresh the data
+if st.button("Update Market Information"):
+    df0 = get_trade_market()  # Fetch the updated data
+    st.write(df0)  # Update the displayed data
+
         
 query = f"""
 SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
