@@ -199,7 +199,7 @@ if submit_button:
     df = get_ohlc_data(selected_time_unit, duration, selected_resource)
 
     # Create a candlestick chart
-    st.markdown(f"### Candlestick Chart: Last {duration} {selected_time_unit}(s) - {selected_resource}")
+    st.markdown(f"### Last {duration} {selected_time_unit}(s) - {selected_resource}")
     if not df.empty:
         fig = go.Figure(data=[go.Candlestick(x=df['period'],
                                              open=df['open'],
