@@ -22,6 +22,10 @@ LIMIT 1
 df0 = conn.query(query0)
 st.write(df0)
 
+if st.button("Reload"):
+        df0 = conn.query(query0)
+        st.write(df0)
+        
 query = f"""
 SELECT money, food, coal, oil, uranium, lead, iron, bauxite, gasoline, munitions, steel, aluminum 
 FROM bankaccounts 
@@ -39,9 +43,7 @@ WHERE nation_id = {nationid}
 """
 results = conn.query(query00)
 
-if st.button("Reload"):
-        results = conn.query(query0)  
-        st.write("Updated")
+
 
 
 # Assuming results is converted to a DataFrame
