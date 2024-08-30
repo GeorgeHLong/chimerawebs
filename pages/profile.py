@@ -132,17 +132,29 @@ cols[5].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
 st.markdown("## Trade Market Dashboard")
 
-# Define the list of resources
+# Define the list of resources and time units
 resources = ['Food', 'Coal', 'Oil', 'Uranium', 'Iron', 'Bauxite', 'Lead', 'Gasoline', 'Munitions', 'Steel', 'Aluminum']
+time_units = ['hour', 'day']
 
 # Dropdown menu to select a resource
 selected_resource = st.selectbox("Select a resource:", resources)
 
-def get_ohlc_data(timeframe, group_by, resource):
+# Dropdown menu to select the time unit
+selected_time_unit = st.selectbox("Select time unit:", time_units)
+
+# Slider to select the duration of time (e.g., number of hours/days)
+if selected_time_unit == 'hour':
+    duration = st.slider("Select duration (hours):", min_value=1, max_value=48, value=24)
+else:
+    duration = st.slider("Select duration (days):", min_value=1, max_value=14, value=7)
+
+def get_ohlc_data(time_unit, duration, resource):
+    timeframe = datetime.now() - timedelta(**{time_unit+'s': duration})
+    
     query = f"""
     WITH base_data AS (
         SELECT 
-            DATE_TRUNC('{group_by}', trade_timestamp) as period,
+            DATE_TRUNC('{time_unit}', trade_timestamp) as period,
             {resource} as price,
             trade_timestamp
         FROM tradeprices
@@ -176,38 +188,19 @@ def get_ohlc_data(timeframe, group_by, resource):
     df = conn.query(query)
     return df
 
+# Fetch OHLC data based on the selected time unit and duration
+df = get_ohlc_data(selected_time_unit, duration, selected_resource)
 
-# Get the current time and calculate timeframes
-now = datetime.now()
-time_24h_ago = now - timedelta(hours=24)
-time_7d_ago = now - timedelta(days=7)
-
-# Fetch OHLC data for the past 24 hours (hourly) and past 7 days (daily)
-df_24h = get_ohlc_data(time_24h_ago, 'hour', selected_resource)
-df_7d = get_ohlc_data(time_7d_ago, 'day', selected_resource)
-
-# Create a candlestick chart for the past 24 hours
-st.markdown(f"### Candlestick Chart: Last 24 Hours (Hourly) - {selected_resource}")
-if not df_24h.empty:
-    fig_24h = go.Figure(data=[go.Candlestick(x=df_24h['period'],
-                                             open=df_24h['open'],
-                                             high=df_24h['high'],
-                                             low=df_24h['low'],
-                                             close=df_24h['close'])])
-    fig_24h.update_layout(title=f'{selected_resource} Prices Over the Last 24 Hours', xaxis_title='Time', yaxis_title='Price')
-    st.plotly_chart(fig_24h)
+# Create a candlestick chart
+st.markdown(f"### Candlestick Chart: Last {duration} {selected_time_unit}(s) - {selected_resource}")
+if not df.empty:
+    fig = go.Figure(data=[go.Candlestick(x=df['period'],
+                                         open=df['open'],
+                                         high=df['high'],
+                                         low=df['low'],
+                                         close=df['close'])])
+    fig.update_layout(title=f'{selected_resource} Prices Over the Last {duration} {selected_time_unit}(s)', 
+                      xaxis_title='Time', yaxis_title='Price')
+    st.plotly_chart(fig)
 else:
-    st.write("No data available for the last 24 hours.")
-
-# Create a candlestick chart for the past 7 days
-st.markdown(f"### Candlestick Chart: Last 7 Days (Daily) - {selected_resource}")
-if not df_7d.empty:
-    fig_7d = go.Figure(data=[go.Candlestick(x=df_7d['period'],
-                                             open=df_7d['open'],
-                                             high=df_7d['high'],
-                                             low=df_7d['low'],
-                                             close=df_7d['close'])])
-    fig_7d.update_layout(title=f'{selected_resource} Prices Over the Last 7 Days', xaxis_title='Date', yaxis_title='Price')
-    st.plotly_chart(fig_7d)
-else:
-    st.write("No data available for the last 7 days.")
+    st.write(f"No data available for the last {duration} {selected_time_unit}(s).")
