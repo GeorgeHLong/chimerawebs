@@ -12,9 +12,7 @@ st.markdown(f"# {nationname}'s Porfolio")
 
 st.markdown("## Trade Market Information")
 
-
-
-if st.button("View Updated Trade Market Information"):
+def get_trade_market():
         # Fetch the latest trade prices
         query0 = """
         SELECT Food, Coal, Oil, Uranium, Iron, Bauxite, Lead, Gasoline, Munitions, Steel, Aluminum
@@ -22,7 +20,12 @@ if st.button("View Updated Trade Market Information"):
         ORDER BY trade_timestamp DESC 
         LIMIT 1
         """
-        df0 = conn.query(query0)
+        df0 = conn.query(query0)     
+        return df0   
+
+if st.button("View Updated Trade Market Information"):
+        # Fetch the latest trade prices
+        df0= get_trade_market()
         st.write(df0)
         
 query = f"""
