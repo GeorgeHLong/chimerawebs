@@ -57,7 +57,7 @@ cols[1].metric(label="Munitions", value=f"{munitions:,.2f}")
 cols[0].metric(label="Steel", value=f"{steel:,.2f}")
 cols[1].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
-st.markdown("## Your MMR Average")
+st.markdown("## Military Composition")
 query02 = f"""
 SELECT avg(barracks) as avg_barracks, avg(factory) as avg_factory, avg(hangar) as avg_hangar, avg(drydock) as avg_drydock
 FROM cities 
@@ -73,7 +73,7 @@ avg_drydock = results.at[0, 'avg_drydock']
 
 # Display metrics side by side
 cols = st.columns(2)
-cols[0].markdown("## Your MMR Average")
+cols[0].markdown("## Your Avg.")
 cols[0].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
 cols[0].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
 cols[0].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
