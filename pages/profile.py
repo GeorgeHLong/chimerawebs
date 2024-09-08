@@ -89,7 +89,7 @@ SELECT tn.alliance_id,
 FROM cities
 JOIN tiny_nations tn ON tn.id = cities.nation_id
 JOIN alliances a ON a.alliance_id = tn.alliance_id
-WHERE tn.alliance_id = (SELECT tn2.alliance_id FROM tiny_nations tn2 WHERE tn2.id = {nationid})
+WHERE tn.alliance_id = (SELECT tn2.alliance_id FROM tiny_nations tn2 WHERE tn2.id = {nationid} and tn2.tax_id != 0)
 GROUP BY tn.alliance_id; 
 """
 results = conn.query(query03)
@@ -101,7 +101,7 @@ avg_hangar = results.at[0, 'avg_hangar']
 avg_drydock = results.at[0, 'avg_drydock']
 
 # Display metrics side by side
-cols[1].markdown("## Alliance MMR Average")
+cols[1].markdown("## Alliance Avg.")
 
 cols[1].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
 cols[1].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
