@@ -57,3 +57,24 @@ cols[1].metric(label="Munitions", value=f"{munitions:,.2f}")
 cols[0].metric(label="Steel", value=f"{steel:,.2f}")
 cols[1].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
+st.markdown("## Your MMR Average")
+query02 = f"""
+SELECT avg(barracks) as avg_barracks, avg(factory) as avg_factory, avg(hangar) as avg_hangar, avg(drydock) as avg_drydock
+FROM cities 
+WHERE nation_id = {nationid}
+"""
+results = conn.query(query02)
+
+# Extract the average values for the city infrastructure
+avg_barracks = results.at[0, 'avg_barracks']
+avg_factory = results.at[0, 'avg_factory']
+avg_hangar = results.at[0, 'avg_hangar']
+avg_drydock = results.at[0, 'avg_drydock']
+
+# Display metrics side by side
+cols = st.columns(2)
+
+cols[0].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
+cols[1].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
+cols[0].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
+cols[1].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
