@@ -101,7 +101,6 @@ avg_hangar = results.at[0, 'avg_hangar']
 avg_drydock = results.at[0, 'avg_drydock']
 
 # Display metrics side by side
-cols = st.columns(2)
 cols[1].markdown("## Alliance MMR Average")
 
 cols[1].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
