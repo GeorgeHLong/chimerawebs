@@ -89,7 +89,7 @@ SELECT tn.alliance_id,
 FROM cities
 JOIN tiny_nations tn ON tn.id = cities.nation_id
 JOIN alliances a ON a.alliance_id = tn.alliance_id
-WHERE tn.alliance_id = (SELECT tn2.alliance_id FROM tiny_nations tn2 WHERE tn2.id = {nationid} and tn2.tax_id != 0)
+WHERE tn.alliance_id = (SELECT tn2.alliance_id FROM tiny_nations tn2 WHERE tn2.id = {nationid} and tn.tax_id != 0)
 GROUP BY tn.alliance_id; 
 """
 results = conn.query(query03)
