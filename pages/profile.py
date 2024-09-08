@@ -57,6 +57,9 @@ cols[1].metric(label="Munitions", value=f"{munitions:,.2f}")
 cols[0].metric(label="Steel", value=f"{steel:,.2f}")
 cols[1].metric(label="Aluminum", value=f"{aluminum:,.2f}")
 
+
+st.empty()
+st.markdown("<br><br>", unsafe_allow_html=True)  # Adds two line breaks
 st.markdown("## Military Composition")
 query02 = f"""
 SELECT avg(barracks) as avg_barracks, avg(factory) as avg_factory, avg(hangar) as avg_hangar, avg(drydock) as avg_drydock
