@@ -74,11 +74,6 @@ avg_factory1 = results.at[0, 'avg_factory']
 avg_hangar1 = results.at[0, 'avg_hangar']
 avg_drydock1 = results.at[0, 'avg_drydock']
 
-# Display metrics side by side
-cols = st.columns(2)
-
-
-
 query03 = f"""
 SELECT tn.alliance_id, 
        AVG(cities.barracks) AS avg_barracks, 
@@ -140,6 +135,9 @@ fig.update_layout(
 
 # Display the chart in Streamlit
 st.plotly_chart(fig)
+
+# Display metrics side by side
+cols = st.columns(2)
 # Display metrics side by side
 cols[1].markdown("## Alliance Avg.")
 
