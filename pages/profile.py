@@ -110,3 +110,43 @@ cols[1].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
 cols[1].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
 cols[1].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
 cols[1].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
+
+# Your average city infrastructure
+your_avg = [avg_barracks, avg_factory, avg_hangar, avg_drydock]
+
+# Alliance average city infrastructure
+alliance_avg = [results.at[0, 'avg_barracks'], results.at[0, 'avg_factory'], results.at[0, 'avg_hangar'], results.at[0, 'avg_drydock']]
+
+# Labels for the infrastructure
+labels = ['Barracks', 'Factory', 'Hangar', 'Drydock']
+
+# Create the figure using Plotly
+fig = go.Figure()
+
+# Add bars for your averages
+fig.add_trace(go.Bar(
+    x=labels,
+    y=your_avg,
+    name='Your Avg',
+    marker_color='blue'
+))
+
+# Add bars for the alliance averages
+fig.add_trace(go.Bar(
+    x=labels,
+    y=alliance_avg,
+    name='Alliance Avg',
+    marker_color='green'
+))
+
+# Set the layout for the chart
+fig.update_layout(
+    title='City Infrastructure Comparison',
+    xaxis_title='Infrastructure Type',
+    yaxis_title='Average Value',
+    barmode='group',  # To place bars side by side
+    plot_bgcolor='rgba(0,0,0,0)',
+)
+
+# Display the chart in Streamlit
+st.plotly_chart(fig)
