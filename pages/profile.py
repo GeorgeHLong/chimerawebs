@@ -69,18 +69,18 @@ WHERE nation_id = {nationid}
 results = conn.query(query02)
 
 # Extract the average values for the city infrastructure
-avg_barracks = results.at[0, 'avg_barracks']
-avg_factory = results.at[0, 'avg_factory']
-avg_hangar = results.at[0, 'avg_hangar']
-avg_drydock = results.at[0, 'avg_drydock']
+avg_barracks1 = results.at[0, 'avg_barracks']
+avg_factory1 = results.at[0, 'avg_factory']
+avg_hangar1 = results.at[0, 'avg_hangar']
+avg_drydock1 = results.at[0, 'avg_drydock']
 
 # Display metrics side by side
 cols = st.columns(2)
 cols[0].markdown("## Your Avg.")
-cols[0].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
-cols[0].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
-cols[0].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
-cols[0].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
+cols[0].metric(label="Average Barracks", value=f"{avg_barracks1:,.2f}")
+cols[0].metric(label="Average Factory", value=f"{avg_factory1:,.2f}")
+cols[0].metric(label="Average Hangar", value=f"{avg_hangar1:,.2f}")
+cols[0].metric(label="Average Drydock", value=f"{avg_drydock1:,.2f}")
 
 
 query03 = f"""
@@ -112,7 +112,7 @@ cols[1].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
 cols[1].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
 
 # Your average city infrastructure
-your_avg = [avg_barracks, avg_factory, avg_hangar, avg_drydock]
+your_avg = [avg_barracks1, avg_factory1, avg_hangar1, avg_drydock1]
 
 # Alliance average city infrastructure
 alliance_avg = [results.at[0, 'avg_barracks'], results.at[0, 'avg_factory'], results.at[0, 'avg_hangar'], results.at[0, 'avg_drydock']]
