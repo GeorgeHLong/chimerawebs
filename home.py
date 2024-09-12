@@ -53,7 +53,7 @@ login_page = st.Page(login, title="Log in", icon=":material/login:")
 logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
 
 create_page = st.Page("pages/Home.py", title="Home", icon=":material/home:")
-delete_page = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/military_tech:")
+militarybuild = st.Page("pages/Alliance_Military_Data.py", title="Alliance Military Data", icon=":material/military_tech:")
 citycalc = st.Page("pages/City_Calculator.py", title="City Build Calculator", icon=":material/apartment:")
 
 avgcityrev= st.Page("pages/Nation_Tiering_System.py", title="Avg. City Revenue by Alliance", icon=":material/attach_money:")
@@ -65,7 +65,7 @@ profile = st.Page("pages/profile.py", title="Profile", icon=":material/summarize
 marketinfo = st.Page("pages/marketinfo.py", title ="Market Info",icon=":material/trending_up:")
 
 if st.session_state.logged_in:
-    pg = st.navigation([profile,marketinfo,delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
+    pg = st.navigation([create_page,profile,marketinfo,citycalc,peerreport,militarybuild,avgcityrev,beigeturn,logout_page])
 else:
     pg = st.navigation([login_page,create_page,marketinfo,citycalc,peerreport])
     
