@@ -141,8 +141,8 @@ fig.add_trace(go.Bar(
 
 # Set the layout for the chart
 fig.update_layout(
-    title='City Infrastructure Comparison',
-    xaxis_title='Infrastructure Type',
+    title='MMR Comparison',
+    xaxis_title='Military Building',
     yaxis_title='Average Value',
     barmode='group',  # To place bars side by side
     plot_bgcolor='rgba(0,0,0,0)',
