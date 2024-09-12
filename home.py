@@ -10,10 +10,12 @@ def login():
         # Display the banner image
 
     st.image("images/banner.png")
+    st.markdown("## Welcome to Member Access")
     with st.form("my_form"):
         username = st.text_input("Username")
         password = st.text_input("Password")
         submit = st.form_submit_button("Log in")
+    st.write("If you have not created your account, please create your account in Chimera using the /chimera gettingstarted webregister command.")
     if submit:
             query2 = f"""select nation_id, username, password,tn.nation_name from registeredusertable r join tiny_nations tn on tn.id = r.nation_id where username = '{username}' and password = '{password}'"""  
             results = conn.query(query2)
