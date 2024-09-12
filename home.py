@@ -65,6 +65,6 @@ marketinfo = st.Page("pages/marketinfo.py", title ="Market Info",icon=":material
 if st.session_state.logged_in:
     pg = st.navigation([profile,marketinfo,delete_page,citycalc,avgcityrev,peerreport,beigeturn,logout_page])
 else:
-    pg = st.navigation([create_page,marketinfo,alliancetiering,login_page])
+    pg = st.navigation([login_page,create_page,marketinfo,alliancetiering])
     
 pg.run()
