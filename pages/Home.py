@@ -15,7 +15,7 @@ conn = st.connection("postgresql", type="sql")
 
 st.write("Welcome to Chimera Corp, your trusted partner in data analysis and strategic insights for the game Politics and War. At Chimera Corp, we specialize in transforming complex in-game data into actionable intelligence, empowering alliances and nations to make informed decisions. Whether you're looking to optimize your nation's performance, outmaneuver your rivals, or gain a competitive edge, our cutting-edge analytics and tailored solutions will help you conquer the political landscape. Join us and unlock the full potential of your nation with Chimera Corp—where data meets domination.")
 
-st.markdown("## ![Sign Up Today!](https://discord.gg/4rskMsbMtY)")
+st.markdown("## [Sign Up Today!](https://discord.gg/4rskMsbMtY)")
 st.markdown("## Cutting-Edge Data Analysis")
 st.image("images/homepage1.jpeg")
 st.write("Unlock the power of data with AI-driven algorithms for game trends and player behavior insights")
