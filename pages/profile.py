@@ -69,19 +69,10 @@ WHERE nation_id = {nationid}
 results = conn.query(query02)
 
 # Extract the average values for the city infrastructure
-avg_barracks = results.at[0, 'avg_barracks']
-avg_factory = results.at[0, 'avg_factory']
-avg_hangar = results.at[0, 'avg_hangar']
-avg_drydock = results.at[0, 'avg_drydock']
-
-# Display metrics side by side
-cols = st.columns(2)
-cols[0].markdown("## Your Avg.")
-cols[0].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
-cols[0].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
-cols[0].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
-cols[0].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
-
+avg_barracks1 = results.at[0, 'avg_barracks']
+avg_factory1 = results.at[0, 'avg_factory']
+avg_hangar1 = results.at[0, 'avg_hangar']
+avg_drydock1 = results.at[0, 'avg_drydock']
 
 query03 = f"""
 SELECT tn.alliance_id, 
@@ -103,6 +94,50 @@ avg_factory = results.at[0, 'avg_factory']
 avg_hangar = results.at[0, 'avg_hangar']
 avg_drydock = results.at[0, 'avg_drydock']
 
+
+
+# Your average city infrastructure
+your_avg = [avg_barracks1, avg_factory1, avg_hangar1, avg_drydock1]
+
+# Alliance average city infrastructure
+alliance_avg = [results.at[0, 'avg_barracks'], results.at[0, 'avg_factory'], results.at[0, 'avg_hangar'], results.at[0, 'avg_drydock']]
+
+# Labels for the infrastructure
+labels = ['Barracks', 'Factory', 'Hangar', 'Drydock']
+
+# Create the figure using Plotly
+fig = go.Figure()
+
+# Add bars for your averages
+fig.add_trace(go.Bar(
+    x=labels,
+    y=your_avg,
+    name='Your Avg',
+    marker_color='blue'
+))
+
+# Add bars for the alliance averages
+fig.add_trace(go.Bar(
+    x=labels,
+    y=alliance_avg,
+    name='Alliance Avg',
+    marker_color='green'
+))
+
+# Set the layout for the chart
+fig.update_layout(
+    title='MMR Comparison',
+    xaxis_title='Military Building',
+    yaxis_title='Average Value',
+    barmode='group',  # To place bars side by side
+    plot_bgcolor='rgba(0,0,0,0)',
+)
+
+# Display the chart in Streamlit
+st.plotly_chart(fig)
+
+# Display metrics side by side
+cols = st.columns(2)
 # Display metrics side by side
 cols[1].markdown("## Alliance Avg.")
 
@@ -110,3 +145,8 @@ cols[1].metric(label="Average Barracks", value=f"{avg_barracks:,.2f}")
 cols[1].metric(label="Average Factory", value=f"{avg_factory:,.2f}")
 cols[1].metric(label="Average Hangar", value=f"{avg_hangar:,.2f}")
 cols[1].metric(label="Average Drydock", value=f"{avg_drydock:,.2f}")
+cols[0].markdown("## Your Avg.")
+cols[0].metric(label="Average Barracks", value=f"{avg_barracks1:,.2f}")
+cols[0].metric(label="Average Factory", value=f"{avg_factory1:,.2f}")
+cols[0].metric(label="Average Hangar", value=f"{avg_hangar1:,.2f}")
+cols[0].metric(label="Average Drydock", value=f"{avg_drydock1:,.2f}")
