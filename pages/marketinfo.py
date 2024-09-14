@@ -116,6 +116,11 @@ if submit_button:
                                              close=df['close'])])
         fig.update_layout(title=f'{selected_resource} Prices Over the Last {duration} {selected_time_unit}(s)', 
                           xaxis_title='Time', yaxis_title='Price')
+        fig.update_layout(
+            title=f'{selected_resource} Prices Over the Last {duration} {selected_time_unit}(s)', 
+            xaxis_title='Date/Time',  # Change this to 'Date/Time'
+            yaxis_title='Price'
+        )        
         st.plotly_chart(fig)
     else:
         st.write(f"No data available for the last {duration} {selected_time_unit}(s).")
@@ -144,15 +149,19 @@ df_7d = get_trade_data(time_7d_ago)
 # Create a plot for the past 24 hours
 st.markdown("### Price Trends in the Last 24 Hours")
 if not df_24h.empty:
-    fig_24h = px.line(df_24h, x='trade_timestamp', y=df_24h.columns[1:])
+    fig_24h = px.line(df_24h, x='trade_timestamp', y=df_24h.columns[1:], 
+                    labels={'trade_timestamp': 'Date/Time', 'value': 'Price'})  # Change X-axis title
     st.plotly_chart(fig_24h)
+
 else:
     st.write("No data available for the last 24 hours.")
 
 # Create a plot for the past 7 days
 st.markdown("### Price Trends in the Last 7 Days")
 if not df_7d.empty:
-    fig_7d = px.line(df_7d, x='trade_timestamp', y=df_7d.columns[1:])
+# For the past 7 days plot
+    fig_7d = px.line(df_7d, x='trade_timestamp', y=df_7d.columns[1:], 
+                    labels={'trade_timestamp': 'Date/Time', 'value': 'Price'})  # Change X-axis title
     st.plotly_chart(fig_7d)
 else:
     st.write("No data available for the last 7 days.")
