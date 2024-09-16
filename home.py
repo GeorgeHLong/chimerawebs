@@ -63,9 +63,10 @@ cityoptimizer = st.Page("pages/cityoptimizer.py", title="City Optimizer",icon=":
 beigeturn = st.Page("pages/beige_turn.py", title="Beige Sniper",icon=":material/crisis_alert:")
 profile = st.Page("pages/profile.py", title="Profile", icon=":material/summarize:")
 marketinfo = st.Page("pages/marketinfo.py", title ="Market Info",icon=":material/trending_up:")
+marketlegacy = st.Page("pages/marketinfolegacy.py", title= "Market Price Legacy",icon=":material/trending_up:")
 
 if st.session_state.logged_in:
-    pg = st.navigation([create_page,profile,marketinfo,citycalc,peerreport,militarybuild,avgcityrev,beigeturn,logout_page])
+    pg = st.navigation([create_page,profile,marketinfo,citycalc,peerreport,militarybuild,avgcityrev,beigeturn,marketlegacy,logout_page])
 else:
     pg = st.navigation([login_page,create_page,marketinfo,citycalc,peerreport])
     
