@@ -68,6 +68,6 @@ marketlegacy = st.Page("pages/marketinfolegacy.py", title= "Market Price Legacy"
 if st.session_state.logged_in:
     pg = st.navigation([create_page,profile,marketinfo,citycalc,peerreport,militarybuild,avgcityrev,beigeturn,marketlegacy,logout_page])
 else:
-    pg = st.navigation([login_page,create_page,marketinfo,citycalc,peerreport])
+    pg = st.navigation([login_page,create_page,marketinfo,citycalc,peerreport,marketlegacy])
     
 pg.run()
