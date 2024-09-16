@@ -4,7 +4,7 @@ import pandas as pd
 
 # Display the banner image
 st.image("images/banner.png")
-
+conn = st.connection("postgresql", type="sql")
 # Connect to the database
 
 def fetch_data(alliance_id):
