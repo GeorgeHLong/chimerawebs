@@ -50,7 +50,7 @@ with st.form(key='trade_market_form'):
     selected_time_unit = st.selectbox("Select time unit:", time_units)
 
     # Slider to select the duration of time (days)
-    duration = st.slider("Select duration (days):", min_value=1, max_value=30, value=7)
+    duration = st.slider("Select duration (days):", min_value=1, max_value=3000, value=7)
 
     # Submit button
     submit_button = st.form_submit_button(label='Submit')
