@@ -12,15 +12,15 @@ role = st.session_state.allianceposition
 username = st.session_state.username
 role = role.title()
 
+st.image("images/banner.png")
 # Right-aligned header layout
 st.markdown(f"""
-<p style='text-align: right;'>
+<p style='text-align: left;'>
     User: {username}<br>
     Alliance: {alliancename}<br>
     Role: {role}
 </p>
 """, unsafe_allow_html=True)# Display the banner image
-st.image("images/banner.png")
 
 
 st.markdown(f"# {nationname}'s Porfolio")
