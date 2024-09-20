@@ -10,7 +10,7 @@ nationname = st.session_state.nationname
 alliancename = st.session_state.alliancename
 role = st.session_state.allianceposition
 username = st.session_state.username
-
+role = role.title()
 
 st.markdown(f"<p style='text-align: right;'>User: {username}</p>", unsafe_allow_html=True)
 st.markdown(f"<p style='text-align: right;'>Alliance: {alliancename}</p>", unsafe_allow_html=True)
