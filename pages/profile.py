@@ -12,7 +12,7 @@ role = st.session_state.allianceposition
 username = st.session_state.username
 role = role.title()
 
-profile_image_url = "https://stock.adobe.com/search?k=avatar"
+profile_image_url = "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
 st.markdown(f"""
     <div style="display: flex; align-items: center; justify-content: flex-end; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background-color: #0000;">
         <div style="margin-right: 10px;">
