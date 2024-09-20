@@ -21,7 +21,7 @@ st.markdown(f"""
         <div style="text-align: left;">
             <p style="margin: 0; font-weight: bold;">{username}</p>
             <p style="margin: 0;">Alliance: {alliancename}</p>
-            <p style="margin: 0;">Role: {role}</p>
+            <p style="margin: 0;">Role: {role}</p><br/>
         </div>
     </div>
 """, unsafe_allow_html=True)# Display the banner image
