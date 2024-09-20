@@ -17,8 +17,10 @@ st.image("images/banner.png")
 st.markdown(f"""
 <p style='text-align: left;'>
     User: {username}<br>
+    Nation: {nationname}<br>
     Alliance: {alliancename}<br>
-    Role: {role}
+    Role: {role}<br>
+    
 </p>
 """, unsafe_allow_html=True)# Display the banner image
 
