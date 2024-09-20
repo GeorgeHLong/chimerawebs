@@ -12,7 +12,7 @@ role = st.session_state.allianceposition
 username = st.session_state.username
 role = role.title()
 
-st.markdown(f"<p style='text-align: right;'>User: {username}\nAlliance: {alliancename}\nRole: {role}</p>", unsafe_allow_html=True)
+st.html(f"<p style='text-align: right;'>User: {username}\nAlliance: {alliancename}\nRole: {role}</p>", unsafe_allow_html=True)
 # Display the banner image
 st.image("images/banner.png")
 
