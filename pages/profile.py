@@ -4,12 +4,21 @@ import pandas as pd
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
 
-# Display the banner image
-st.image("images/banner.png")
-
 conn = st.connection("postgresql", type="sql")
 nationid = int(st.session_state.role)
 nationname = st.session_state.nationname
+alliancename = st.session_state.alliancename
+role = st.session_state.allianceposition
+username = st.session_state.username
+
+
+st.markdown(f"<h1 style='text-align: center;'>Welcome, {username}!</h1>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='text-align: center;'>Alliance: {alliancename}</h2>", unsafe_allow_html=True)
+st.markdown(f"<h3 style='text-align: center;'>Role: {role}</h3>", unsafe_allow_html=True)
+# Display the banner image
+st.image("images/banner.png")
+
+
 st.markdown(f"# {nationname}'s Porfolio")
 
 

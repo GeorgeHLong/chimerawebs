@@ -24,7 +24,8 @@ def login():
                             tn.nation_name, 
                             tn.withdrawbank, 
                             tn.alliance_id,
-                            a.alliancename 
+                            a.alliancename,
+                            tn.alliance_position
                         from registeredusertable r 
                         join tiny_nations tn 
                             on tn.id = r.nation_id
@@ -41,6 +42,7 @@ def login():
                 dbuserdisplay = results.at[0, 'nation_name']
                 dbwithdrawbank = results.at[0,'withdrawbank']
                 dballiancename = results.at[0, 'alliancename']
+                dballianceposition = results.at[0, 'alliance_position']
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
@@ -50,6 +52,8 @@ def login():
                     st.session_state.nationname = dbuserdisplay
                     st.session_state.withdrawbank = dbwithdrawbank
                     st.session_state.alliancename = dballiancename
+                    st.session_state.allianceposition = dballianceposition
+                    st.session_state.username = dbusername
 
                     st.rerun()
             else:
