@@ -14,7 +14,7 @@ role = role.title()
 
 profile_image_url = "https://stock.adobe.com/search?k=avatar"
 st.markdown(f"""
-    <div style="display: flex; align-items: center; justify-content: flex-end; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+    <div style="display: flex; align-items: center; justify-content: flex-end; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background-color: #0000;">
         <div style="margin-right: 10px;">
             <img src="{profile_image_url}" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%;">
         </div>
