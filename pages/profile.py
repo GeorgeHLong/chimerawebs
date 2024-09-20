@@ -18,7 +18,7 @@ st.markdown(f"""
         <div style="margin-right: 10px;">
             <img src="{profile_image_url}" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%;">
         </div>
-        <div style="text-align: right;">
+        <div style="text-align: left;">
             <p style="margin: 0; font-weight: bold;">{username}</p>
             <p style="margin: 0;">Alliance: {alliancename}</p>
             <p style="margin: 0;">Role: {role}</p>
