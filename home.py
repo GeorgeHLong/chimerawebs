@@ -17,7 +17,20 @@ def login():
         submit = st.form_submit_button("Log in")
     st.write("If you have not created your account, please create your account in Chimera using the /chimera gettingstarted webregister command.")
     if submit:
-            query2 = f"""select nation_id, username, password,tn.nation_name from registeredusertable r join tiny_nations tn on tn.id = r.nation_id where username = '{username}' and password = '{password}'"""  
+            query2 = f"""select 
+                            nation_id, 
+                            username, 
+                            password,
+                            tn.nation_name, 
+                            tn.withdrawbank, 
+                            tn.alliance_id,
+                            a.alliancename 
+                        from registeredusertable r 
+                        join tiny_nations tn 
+                            on tn.id = r.nation_id
+                        join alliances a 
+                            on a.alliance_id  = tn.alliance_id 
+                        where username = '{username}' and password = '{password}'"""  
             results = conn.query(query2)
             # Check if the query returned any results
             if not results.empty:
@@ -26,6 +39,8 @@ def login():
                 dbusername = results.at[0, 'username']
                 dbpassword = results.at[0, 'password']
                 dbuserdisplay = results.at[0, 'nation_name']
+                dbwithdrawbank = results.at[0,'withdrawbank']
+                dballiancename = results.at[0, 'alliancename']
                 
                 # Display the values using Streamlit
                 st.write(dbnation_id, dbusername, username, dbpassword, password)
@@ -33,6 +48,8 @@ def login():
                     st.session_state.logged_in = True
                     st.session_state.role = dbnation_id
                     st.session_state.nationname = dbuserdisplay
+                    st.session_state.withdrawbank = dbwithdrawbank
+                    st.session_state.alliancename = dballiancename
 
                     st.rerun()
             else:
