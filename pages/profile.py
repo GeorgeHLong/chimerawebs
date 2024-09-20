@@ -11,7 +11,6 @@ alliancename = st.session_state.alliancename
 role = st.session_state.allianceposition
 username = st.session_state.username
 role = role.title()
-st.image("images/banner.png")
 
 profile_image_url = "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
 st.markdown(f"""
@@ -26,6 +25,7 @@ st.markdown(f"""
         </div>
     </div>
 """, unsafe_allow_html=True)# Display the banner image
+st.image("images/banner.png")
 
 
 st.markdown(f"# {nationname}'s Porfolio")
