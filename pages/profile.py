@@ -12,16 +12,18 @@ role = st.session_state.allianceposition
 username = st.session_state.username
 role = role.title()
 
-st.image("images/banner.png")
-# Right-aligned header layout
+profile_image_url = "https://stock.adobe.com/search?k=avatar"
 st.markdown(f"""
-<p style='text-align: left;'>
-    User: {username}<br>
-    Nation: {nationname}<br>
-    Alliance: {alliancename}<br>
-    Role: {role}<br>
-    
-</p>
+    <div style="display: flex; align-items: center; justify-content: flex-end; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+        <div style="margin-right: 10px;">
+            <img src="{profile_image_url}" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
+        <div style="text-align: right;">
+            <p style="margin: 0; font-weight: bold;">{username}</p>
+            <p style="margin: 0;">Alliance: {alliancename}</p>
+            <p style="margin: 0;">Role: {role}</p>
+        </div>
+    </div>
 """, unsafe_allow_html=True)# Display the banner image
 
 
